@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台营销管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <include file='Public:header' />
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="__ROOT__/public/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <!--nav-->
+    <include file='Public:nav' />
+
+    <div class="container">
+        <div class="page-header"><h4>新订阅管理</h4></div>
+
+        <!--<p class="view"><b>功能：</b>管理&nbsp;|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加</p>-->
+        <div class="row">
+            <div class="span12">
+                <div class="pull-left">
+                    <a href="{:U('/'.$module_name)}" class="btn btn-primary">刷 新</a>&nbsp;&nbsp;
+                    <a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>
+                </div>
+            </div>
+
+            <div class="span12" style="margin-top:10px;">
+                <div id='pop'></div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>标题</th>
+                            <th>回复类型</th>
+                            <th>创建时间</th>
+                            <th>状态</th>
+                            <th>排序</th>
+                            <th>上级关联</th>
+                            <th>响应数</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="10"><div class="row pagination page"><div class="span12">{$page}</div></div></td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    <foreach name='list' item='vo'>
+                        <tr id='tr_{$vo.id}'>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.title}</td>
+                            <td>{:get_reply_text($vo['msg_type'])}</td>
+                            <td>{:get_date_full($vo['create_time'])}</td>
+                            <td>{:get_status_img($vo['status'])}</td>
+                            <td>{$vo.sort}</td>
+                            <td>{:get_main_str($vo['main'])}</td>
+                            <td>{$vo.num}</td>
+                            <td>{$vo.remark}</td>
+                            <td><a href='#'>查看</a>&nbsp;&nbsp;<a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<a href="###" onclick="delete_tr({$vo.id});">删除</a></td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <include file='Public:footer' />
+    
+    <script type="text/javascript">
+        function delete_tr($id){
+            var data={'id':$id};
+            $.ajax({
+            type: "POST",
+            url: app_url + "/{$module_name}/delete",
+            data: data,
+            timeout:5000,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                if(data.data==1){
+                    $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>删除成功！</div>')
+                    .fadeIn("slow")
+                    .fadeOut(5000);
+                    $('#tr_'+$id).hide();
+                }else{
+                    $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
+                    .fadeIn("slow")
+                    .fadeOut(5000);
+                }
+            },
+            error: function() {
+                error();
+            },
+            beforeSend:function(){
+                $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
+                    .fadeIn("slow");
+            }
+        });
+        }
+        
+        function error(){
+            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
+                    .fadeIn("slow")
+                    .fadeOut(5000);
+        }
+    </script>
+    
+    
+</body>
+</html>
