@@ -9,7 +9,7 @@ return array(
     /* 数据库设置 */
     'DB_TYPE' => 'mysql', // 数据库类型
     //'DB_HOST' => '10.70.99.34', // 服务器地址
-    'DB_HOST' => '127.0.0.1', // 服务器地址
+    'DB_HOST' => '192.168.0.88', // 服务器地址
     'DB_NAME' => 'weixin_api',
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => 'lanfengye',
