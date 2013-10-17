@@ -10,10 +10,15 @@ class CommonAction extends Action {
     //控制器初始化
     function _initialize() {
         //判断是否已经正确登录
-        if (!session('?admin')) {
+//        if (!session('?admin')) {
+//            redirect(U('/index'));
+//            exit;
+//        }
+        if(!check_login()){
             redirect(U('/index'));
             exit;
         }
+        
 
         $this->module_name = parse_name(MODULE_NAME);
         $this->action_name = parse_name(ACTION_NAME);
