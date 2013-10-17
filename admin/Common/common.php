@@ -3,6 +3,69 @@
 require '../Common/common.php';
 
 /**
+ * 判断是否正确登录了系统
+ * @return boolean
+ */
+function check_login() {
+    $decode_str = des_decode(cookie('weixin_admin'), C('admin_secret_key') . $_SERVER['HTTP_USER_AGENT']);
+    if ($decode_str !== false) {
+        $user_data = json_decode($decode_str, true);
+        if (!empty($user_data['admin']) && !empty($user_data['user_id'])) {
+            session('admin', $user_data['admin']);
+            session('user_id', $user_data['user_id']);
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+/** * 用DES算法加密/解密字符串 * *
+  @param string $string 待加密的字符串
+  @param string $key 密匙，和管理后台需保持一致
+  @return string 返回经过加密/解密的字符串
+ */
+// 加密，注意，加密前需要把数组转换为json格式的字符串 
+function des_encode($string, $key) {
+    $key = md5($key);
+    $size = mcrypt_get_block_size('des', 'ecb');
+    $string = mb_convert_encoding($string, 'GBK', 'UTF-8');
+    $pad = $size - (strlen($string) % $size);
+    $string = $string . str_repeat(chr($pad), $pad);
+    $td = mcrypt_module_open('des', '', 'ecb', '');
+    $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+    @mcrypt_generic_init($td, $key, $iv);
+    $data = mcrypt_generic($td, $string);
+    mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    $data = base64_encode($data);
+    return $data;
+}
+
+// 解密，解密后返回的是json格式的字符串
+function des_decode($string, $key) {
+    $key = md5($key);
+    $string = base64_decode($string);
+    $td = mcrypt_module_open('des', '', 'ecb', '');
+    $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+    $ks = mcrypt_enc_get_key_size($td);
+    @mcrypt_generic_init($td, $key, $iv);
+    $decrypted = mdecrypt_generic($td, $string);
+    mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    $pad = ord($decrypted{strlen($decrypted) - 1});
+    if ($pad > strlen($decrypted)) {
+        return false;
+    }
+    if (strspn($decrypted, chr($pad), strlen($decrypted) - $pad) != $pad) {
+        return false;
+    }
+    $result = substr($decrypted, 0, -1 * $pad);
+    $result = mb_convert_encoding($result, 'UTF-8', 'GBK');
+    return $result;
+}
+
+/**
  * 获取抽奖活动打开人数 参与人数
  * @param integer $choujiang_id 抽奖活动ID
  */
@@ -18,14 +81,14 @@ function get_choujiang_user_num($choujiang_id = 0) {
  * @param integer $seckill_id 秒杀活动ID
  * @return integer 已秒杀数量
  */
-function get_seckill_num($seckill_id){
+function get_seckill_num($seckill_id) {
     return M('SeckillRecord')->where("seckill_id={$seckill_id}")->count();
 }
 
 /**
  * 获取秒杀活动页面浏览次数
  */
-function get_seckill_pv($seckill_id){
+function get_seckill_pv($seckill_id) {
     return M('SeckillAccess')->where("seckill_id={$seckill_id}")->count();
 }
 
@@ -34,16 +97,16 @@ function get_seckill_pv($seckill_id){
  * @param type $seckill_id 秒杀活动ID
  * @return string 状态文字
  */
-function get_seckill_status($seckill_id){
-    $M=M('SeckillGoods');
-    $info=$M->where("id={$seckill_id}")->find();
-    if($info['stop_time']<time()){
+function get_seckill_status($seckill_id) {
+    $M = M('SeckillGoods');
+    $info = $M->where("id={$seckill_id}")->find();
+    if ($info['stop_time'] < time()) {
         return '已结束';
     }
-    if($info['begin_time']>time()){
+    if ($info['begin_time'] > time()) {
         return '未开始';
     }
-    if($info['begin_time']<=time() && $info['stop_time']>time()){
+    if ($info['begin_time'] <= time() && $info['stop_time'] > time()) {
         return '<font color="red">进行中</font>';
     }
 }
@@ -57,18 +120,18 @@ function get_seckill_status($seckill_id){
 function subscribe_count($date = '', $type = 'subscribe') {
     $date = empty($date) ? get_date() : $date;
     if ($type == 'subscribe') {
-        if (S('subscribe_count_'.$date)) {
-            $count = S('subscribe_count_'.$date);
+        if (S('subscribe_count_' . $date)) {
+            $count = S('subscribe_count_' . $date);
         } else {
             $count = M('Weixin_user')->where("create_date='{$date}'")->count('id');
-            S('subscribe_count_'.$date, $count, 300);
+            S('subscribe_count_' . $date, $count, 300);
         }
     } else {
-        if (S('unsubscribe_count_'.$date)) {
-            $count = S('unsubscribe_count_'.$date);
+        if (S('unsubscribe_count_' . $date)) {
+            $count = S('unsubscribe_count_' . $date);
         } else {
             $count = M('Unsubscrib')->where("create_date='{$date}'")->count('id');
-            S('unsubscribe_count_'.$date, $count, 300);
+            S('unsubscribe_count_' . $date, $count, 300);
         }
     }
     return $count;
