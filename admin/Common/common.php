@@ -7,8 +7,8 @@ require '../Common/common.php';
  * @return boolean
  */
 function check_login() {
-    $decode_str = des_decode(cookie('weixin_admin'), C('admin_secret_key') . $_SERVER['HTTP_USER_AGENT']);
-    if ($decode_str !== false) {
+    $decode_str = aes_decode(cookie('weixin_admin'), md5(C('admin_secret_key').$_SERVER['HTTP_USER_AGENT']));
+    if (!empty($decode_str)) {
         $user_data = json_decode($decode_str, true);
         if (!empty($user_data['admin']) && !empty($user_data['user_id'])) {
             session('admin', $user_data['admin']);
@@ -20,49 +20,27 @@ function check_login() {
     }
 }
 
-/** * 用DES算法加密/解密字符串 * *
-  @param string $string 待加密的字符串
-  @param string $key 密匙，和管理后台需保持一致
-  @return string 返回经过加密/解密的字符串
- */
-// 加密，注意，加密前需要把数组转换为json格式的字符串 
-function des_encode($string, $key) {
-    $key = md5($key);
-    $size = mcrypt_get_block_size('des', 'ecb');
-    $string = mb_convert_encoding($string, 'GBK', 'UTF-8');
-    $pad = $size - (strlen($string) % $size);
-    $string = $string . str_repeat(chr($pad), $pad);
-    $td = mcrypt_module_open('des', '', 'ecb', '');
-    $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-    @mcrypt_generic_init($td, $key, $iv);
-    $data = mcrypt_generic($td, $string);
+function aes_encode($data,$key) {
+    $td = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CBC, '');
+    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+    mcrypt_generic_init($td, $key, $iv);
+    $encrypted = mcrypt_generic($td, $data);
     mcrypt_generic_deinit($td);
     mcrypt_module_close($td);
-    $data = base64_encode($data);
-    return $data;
+    $return=base64_encode($iv.$encrypted);
+    return $return;
 }
 
-// 解密，解密后返回的是json格式的字符串
-function des_decode($string, $key) {
-    $key = md5($key);
-    $string = base64_decode($string);
-    $td = mcrypt_module_open('des', '', 'ecb', '');
-    $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-    $ks = mcrypt_enc_get_key_size($td);
-    @mcrypt_generic_init($td, $key, $iv);
-    $decrypted = mdecrypt_generic($td, $string);
+function aes_decode($data,$key) {
+    $data=  base64_decode($data);
+    $td = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CBC, '');
+    $iv = mb_substr($data, 0, 32, 'latin1');
+    mcrypt_generic_init($td, $key, $iv);
+    $data = mb_substr($data, 32, mb_strlen($data, 'latin1'), 'latin1');
+    $data = mdecrypt_generic($td, $data);
     mcrypt_generic_deinit($td);
     mcrypt_module_close($td);
-    $pad = ord($decrypted{strlen($decrypted) - 1});
-    if ($pad > strlen($decrypted)) {
-        return false;
-    }
-    if (strspn($decrypted, chr($pad), strlen($decrypted) - $pad) != $pad) {
-        return false;
-    }
-    $result = substr($decrypted, 0, -1 * $pad);
-    $result = mb_convert_encoding($result, 'UTF-8', 'GBK');
-    return $result;
+    return trim($data);
 }
 
 /**
