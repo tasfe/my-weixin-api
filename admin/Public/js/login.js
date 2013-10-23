@@ -23,7 +23,7 @@ $(function() {
             type: "POST",
             url: app_url + "/index/login",
             data: data,
-            timeout:5000,
+            timeout: 5000,
             dataType: 'json',
             cache: false,
             success: function(data) {
@@ -62,5 +62,11 @@ $(function() {
             }
         }
 
+    });
+
+    $('body').keydown(function(event) {
+        if (event.keyCode == 13) {
+            $('#login').click();
+        }
     });
 });
