@@ -51,6 +51,16 @@
                             <li><a href="{:U('seckill_duihuan/duihuan')}">秒杀兑换</a></li>
                         </ul>
                     </li>
+                    
+                    <li class="dropdown<php>if($module_name=='member_card') echo ' active';</php>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">会员管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <php>if(session('admin')==1){</php>
+                            <li><a href="{:U('member_card/index')}">会员名单</a></li>
+                            <php>}</php>
+                            <li><a href="{:U('member_card/identity')}">会员验证</a></li>
+                        </ul>
+                    </li>
 
                     <!--                            <li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">网站开发 <b class="caret"></b></a>
