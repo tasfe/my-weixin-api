@@ -4,20 +4,60 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
         <meta name="format-detection" content="telephone=no" />
-        <title>微信会员卡</title>
+        <title>会员卡领取成功</title>
         <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
         <link href="__PUBLIC__/css/font-face.css" rel="stylesheet" type="text/css">
     </head>
 
     <body class="member_bg">
-        <div class="member_top">
-            <div class="member_banner"></div>
+        <div class="memberber_top"></div>
+        <div  class="member_img">
+            <div class="member_toot"><img src="__PUBLIC__/images/tmp/member_img.png">
+                <div class="member_text">
+                    <div class="menber_title">会员卡号：</div>
+                    <div class="menber_gigital">{$card_info.card_no}</div>
+                </div>
+            </div>
+
         </div>
-        <div class="member_info">
-            <p>会员卡号:{$card_info.card_no}</p>
-        </div>
+
         <div class="signup_inp_box">
-            <div class="member_btn"><a href="#">领取会员卡</a></div>
+            <div class="member_marked"><span class="glyphicon glyphicon-phone member_ico"></span><span class="menber_xianzi">使用时向服务员出示此卡</span></div>
+            <div class="member_ruis">
+                <if condition='$count eq 1'>
+                    <div class="member_ruis_rui">
+                        <a href="{:U('member_card/view',array('id'=>$sales_info[0]['id']))}">
+                            <div class="member_bgimg"></div>
+                            <div class="member__ruis_img"></div>
+                            <div class="member_ruis_top">{$sales_info[0]['title']}</div>
+                        </a>
+                    </div>
+                    <else/>
+                    <div>
+                        <volist name='sales_info' id='vo'>
+                            <div class="member_ruis_semi">
+                                <a href="{:U('member_card/view',array('id'=>$vo['id']))}">
+                                    <div class="member_bgimg"></div>
+                                    <div class="member__ruis_img"></div>
+                                    <div class="member_ruis_top">{$vo.title}</div>
+                                </a>  
+                            </div>
+                        </volist>
+                    </div>
+                </if>
+                <div>
+                    <volist name='base_info' id='item'>
+                        <div class="member_ruis_semi">
+                            <a href="{:U('member_card/view',array('id'=>$item['id']))}">
+                                <div class="member_bgimg"></div>
+                                <div class="member__ruis_img"><span class="glyphicon glyphicon-star"></div>
+                                <div class="member_ruis_top">{$item.title}</div> 
+                            </a>  
+                        </div>
+                    </volist>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
