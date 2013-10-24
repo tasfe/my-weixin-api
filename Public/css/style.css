@@ -301,8 +301,8 @@ a:hover{text-decoration:none;color:#000;}
 .hyhaina_title h2{font-size:1em;padding:0;margin:0;}
 .hyhaina_info{padding:1em;}
 .hyhaina_info img{width:100%;border-radius:10px;}
-.hyhaina_dy{left:10px;width:12px;height:36px;background:url(../images/member_weiel.png) 0px 10px no-repeat; position:absolute;}
-.hyhaina_dy a{width:12px;height:36px; display:block;}
+.hyhaina_dy{left:10px;width:60px;height:36px;background:url(../images/member_weiel.png) 0px 10px no-repeat; position:absolute;}
+.hyhaina_dy a{width:60px;height:36px; display:block;}
 
 
 
