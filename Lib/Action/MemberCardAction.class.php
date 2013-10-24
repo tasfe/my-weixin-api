@@ -40,7 +40,7 @@ class MemberCardAction extends CommonAction {
         $info = $model->where("id={$id} AND status=1")->find();
         if(empty($info)){
             $info['title'] = "错误!";
-            $info['content'] = "获取优惠活动信息失败！";
+            $info['contents'] = "获取优惠活动信息失败！";
         }
         $this->assign('info',$info);
         $this->display();
