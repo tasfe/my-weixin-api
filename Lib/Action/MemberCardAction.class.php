@@ -41,6 +41,8 @@ class MemberCardAction extends CommonAction {
         if(empty($info)){
             $info['title'] = "错误!";
             $info['contents'] = "获取优惠活动信息失败！";
+        }else{
+            $model->where("id={$id} AND status=1")->setInc('num');
         }
         $this->assign('info',$info);
         $this->display();
