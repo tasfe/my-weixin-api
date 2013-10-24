@@ -1,0 +1,57 @@
+html,body{padding:0;margin:0;width:100%;height:100%;font-family: 'Helvetica Neue',sans-serif;}
+ul,li{list-style:none;padding:0;margin:0;}
+.cf:before,.cf:after{content:"";display:table;} 
+.cf:after{clear:both;}
+.cf{*zoom:1;}
+a{color:#000;text-decoration:none;}
+a:hover{text-decoration:none;color:#000;}
+.ggk_bg{background:url(../images/ggk_bg.jpg) repeat fixed;}
+.ggk_box{padding:1em 0.5em;}
+.ggk_main{background:url(../images/ggk_main_bg.png) no-repeat left top;background-size:100%;padding:4em 1em 2em 1em;}
+.ggk_title{padding:0;}
+.ggk_title img{float:left;width:50%;}
+.ggk_title a{float:right;display:block;background:url(../images/link_btn.jpg) no-repeat;background-size:100%;width:100px;height:25px;margin-right:0.5em;}
+.ggk_main_box{padding:3em 0 0 0;}
+.ggk_main_box .input_box{float:left;}
+.ggk_main_box .input_box input{width:120px;height:30px;border:1px #2e2e2e solid;background:#fff;padding:0 0 0 5px;margin:0;}
+.ggk_main_box .btn_box{float:left;padding:0 0 0 10px;}
+.ggk_main_box .btn_box input{width:50px;height:32px;border:0;color:#fff;background:#A10000;border-radius:5px;}
+#main{background-color:#ffffff;width:160px;height:40px;}
+
+.set_main{box-shadow:#000 0px 0 10px;background:#fff;border-radius:5px;padding:0.3em;margin-top:1em;}
+.set_box{background:#fff;padding:2.5em 1em 0.5em 1em;border-radius:5px;position:relative;border:2px #B8B8B8 dashed;}
+.set_box:after{content:"奖项设置：";position:absolute;top:-2px;left:-2px;color:#fff;border-radius:5px 0 0 0 ;padding:0.5em 2.5em 0.5em 1.5em;background:url(../images/title_bg.png) #AE5418 repeat-y right bottom;font-weight:bold;}
+.set_box p{line-height:140%;}
+
+.event_main{box-shadow:#000 0px 0 10px;background:#fff;border-radius:5px;padding:0.3em;margin-top:1em;}
+.event_box{background:#fff;padding:2.5em 1em 0.5em 1em;border-radius:5px;position:relative;border:2px #B8B8B8 dashed;}
+.event_box:after{content:"活动说明：";position:absolute;top:-2px;left:-2px;color:#fff;border-radius:5px 0 0 0 ;padding:0.5em 2.5em 0.5em 1.5em;background:url(../images/title_bg.png) #AE5418 repeat-y right bottom;font-weight:bold;}
+.event_box p{line-height:140%;}
+.event_box p.red{color:#f90;}
+
+.zjd_bg{background:url(../images/zjd_bg.jpg) repeat fixed;}
+
+.zjd_main{background:url(../images/egg_bg.jpg) no-repeat;background-size:100%;box-shadow:#000 0px 0 10px;padding:1em;border-radius:5px;}
+.zjd_title{padding:0;margin:0;}
+.zjd_title a{float:right;display:block;background:url(../images/link_btn.jpg) no-repeat;background-size:100%;width:100px;height:25px;}
+.zjd_title img{width:50%;float:left;}
+.zjd_link{padding:1em 0 0 0;text-align:right;}
+.zjd_link a{float:right;display:block;background:url(../images/link_btn.jpg) no-repeat;background-size:100%;width:100px;height:25px;margin-right:0.5em;}
+
+.eggList{padding-top:40px;position:relative;height:110px;}
+.eggList li{float:left;background:url(../images/egg_1.png) no-repeat bottom;background-size:100%;width:90px;height:106px;cursor:pointer;position:relative;}
+.eggList li span{position:absolute; width:30px;height:60px;left:68px;top:64px;color:#ff0;font-size:42px;font-weight:bold}
+.eggList li.curr{background:url(../images/egg_2.png) no-repeat bottom;cursor:default;z-index:300;background-size:100%;}
+.eggList li.curr sup{position:absolute;background:url(images/img-4.png) no-repeat;background-size:100%;width:90px; height:106px;top:-36px;left:-34px;z-index:800;}
+.hammer{background:url(../images/img-6.png) no-repeat;width:48px;height:56px;background-size:100%;position:absolute;margin-left:-20px;text-indent:-9999px;z-index:150;left:168px;top:40px;}
+.resultTip{position:absolute; background:#000;width:100%;padding:50px 0;z-index:500;top:20px;left:0px;color:#fff;text-align:center;overflow:hidden;display:none;z-index:500;}
+.resultTip b{font-size:14px;line-height:24px;}
+
+
+.record_bg{background:#eee;}
+.record_main{box-shadow:#000 0px 0 10px;background:#fff;border-radius:5px;padding:0.3em;margin-top:1em;}
+.record_box{background:#fff;padding:2.5em 1em 0.5em 1em;border-radius:5px;position:relative;border:2px #B8B8B8 dashed;}
+.record_box:after{content:"中奖记录：";position:absolute;top:-2px;left:-2px;color:#fff;border-radius:5px 0 0 0 ;padding:0.5em 2.5em 0.5em 1.5em;background:url(../images/title_bg.png) #AE5418 repeat-y right bottom;font-weight:bold;}
+.record_box p{line-height:140%;padding:0;margin:0;}
+.record_list{margin:1em 0;padding:0.5em;background:#eee;}
+

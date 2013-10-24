@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+<meta name="format-detection" content="telephone=no" />
+<title>幸运大转盘</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jQueryRotate.2.2.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#startbtn").rotate({
+		bind:{
+			click:function(){
+				var a = Math.floor(Math.random() * 360);
+				 $(this).rotate({
+					 	duration:3000,
+					 	angle: 0, 
+            			animateTo:1440+a,
+						easing: $.easing.easeOutSine,
+						callback: function(){
+							alert('中奖了！');
+						}
+				 });
+			}
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="turntable_box">
+    <div class="turntable">
+        <div id="disk"></div>
+        <div id="start"><img src="images/start.png" id="startbtn"></div>
+    </div>
+</div>
+<div class="min_box">
+	<div class="set_main">
+    	<div class="set_box">
+        	<div class="set_box_layer"><a href="#">查看中奖记录</a></div>
+        	<p>一等奖：0101流行馆5000体验券。</p>
+            <p>二等奖：0101流行馆5000体验券。</p>
+            <p>三等奖：0101流行馆5000体验券。</p>
+            <p>四等奖：0101流行馆5000体验券。</p>
+        </div>
+    </div>
+    <div class="event_main">
+    	<div class="event_box">
+        	<p>一等奖：0101流行馆5000体验券。</p>
+            <p>二等奖：0101流行馆5000体验券。</p>
+            <p>三等奖：0101流行馆5000体验券。</p>
+            <p>四等奖：0101流行馆5000体验券。</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
