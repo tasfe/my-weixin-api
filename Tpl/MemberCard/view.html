@@ -4,21 +4,13 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
         <meta name="format-detection" content="telephone=no" />
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
         <title>{$info.title}</title>
-        <style type="text/css">
-            html,body{padding:0;margin:0;width:100%;height:100%;font-family: 'Helvetica Neue',sans-serif;}
-            body{line-height:1.75em;letter-spacing:0;}
-            h2,h3,h4,h5,h6{font-size:13pt;margin:0 0 1em 0;}
-            .hyhaina_box{width:100%;height:100%;}
-            .hyhaina_title{padding:1em;text-align:center;line-height:2em;background:#eee;box-shadow:#ddd 0px 3px 3px;}
-            .hyhaina_title h2{font-size:1em;padding:0;margin:0;}
-            .hyhaina_info{padding:1em;}
-            .hyhaina_info img{width:100%;border-radius:10px;}
-        </style>
     </head>
-    <body>
+    <body class="member_bg">
         <div class="hyhaina_box">
             <div class="hyhaina_title">
+                <div class="hyhaina_dy"><a href="{:U('/member_card')}"></a></div>
                 <h2>{$info.title}</h2>
             </div>
             <div class="hyhaina_info">
