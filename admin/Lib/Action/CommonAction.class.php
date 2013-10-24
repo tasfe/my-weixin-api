@@ -25,7 +25,7 @@ class CommonAction extends Action {
 
         //上一页url链接
         $this->pre_url = session('preUrl');
-        $preaction = array('index','index_submenu','add_submenu');  //允许记录的上一页
+        $preaction = array('index','index_submenu','add_submenu','config');  //允许记录的上一页
         if (in_array($this->action_name, $preaction))
             session('preUrl', __SELF__);
     }
