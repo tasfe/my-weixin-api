@@ -49,7 +49,7 @@
                         <!-- Text input-->
                         <label class="control-label" for="input01">排序</label>
                         <div class="controls">
-                            <input type="text" placeholder="" value="10" name="sort" value="{$info.sort}" class="input-xlarge">
+                            <input type="text" placeholder="" name="sort" value="{$info.sort}" class="input-xlarge">
                             <p class="help-block">显示顺序，越小越靠前</p>
                         </div>
                     </div>
@@ -58,10 +58,10 @@
                         <label class="control-label">状态</label>
                         <div class="controls">
                             <label class="radio inline">
-                                <input type="radio" name="status" value="1"<php>if($vo['status']==1) echo ' checked="checked"';</php>>显示
+                                <input type="radio" name="status" value="1"<php>if($info['status']==1) echo ' checked="checked"';</php>>显示
                             </label>
                             <label class="radio inline">
-                                <input type="radio" value="0" name="status"<php>if($vo['status']==0) echo ' checked="checked"';</php>>隐藏
+                                <input type="radio" value="0" name="status"<php>if($info['status']==0) echo ' checked="checked"';</php>>隐藏
                             </label>
                         </div>
                     </div>
