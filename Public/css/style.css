@@ -292,6 +292,7 @@ a:hover{text-decoration:none;color:#000;}
 .member_ruis_semi:nth-child(1){margin-top:20px;border-radius:4px 4px 0px 0px;border:solid 1px #c3c3c3;}
 .member_ruis_semi:nth-last-child(1){border-radius:0px 0px 4px 4px;border-left:solid 1px #c3c3c3;border-right:solid 1px #c3c3c3;border-bottom:solid 1px #c3c3c3;}
 .member_ruis_semi a:hover{display:block;height:45px;background:#eeecec;}
+.menber_color{ color:#999;font-size:12px;}
 
 /*======================================================================================*/
 /*文章页显示*/
