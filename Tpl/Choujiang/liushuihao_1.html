@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>请输入流水号</title>
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{:U('js/url')}"></script>
+    </head>
+
+    <body class="ggk_bg">
+        <div class="ggk_box">
+            <div class="ggk_main">
+                <div class="ggk_title cf">
+                    <a href="{:U('/my_prize')}"></a>
+                </div>
+                <div class="ggk_main_box cf">
+                    <div class="input_box">
+                        <input type="text" id="liushuihao" onblur="if (this.value == '')
+                                    this.value = '请您输入流水号';" onfocus="if (this.value == '请您输入流水号')
+                                    this.value = '';" name="" value="请您输入流水号"></div>
+                    <div class="btn_box">
+                        <input type="hidden" id="id" value="{$id}">
+                        <input type="button" id="tijiao" value="确 定">
+
+                    </div>
+                </div>
+            </div>
+            <div class="set_main">
+                <div class="set_box">
+                    <p>{$prize}</p>
+                </div>
+            </div>
+            <div class="event_main">
+                <div class="event_box">
+                    <p>{$explain}</p>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                            $(function() {
+                                $("#tijiao").click(function() {
+                                    var liushuihao = $("#liushuihao");
+                                    var id = $("#id").val();
+                                    if (liushuihao.val() == '' || liushuihao.val() == '请您输入流水号') {
+                                        alert("请您输入流水号！");
+                                        liushuihao.focus();
+                                    } else {
+                                        if (len(liushuihao.val()) != 5) {
+                                            alert("请输入正确的流水号！");
+                                            liushuihao.focus();
+                                            return false;
+                                        }
+
+                                        var data = {
+                                            'id': id,
+                                            'liushuihao': liushuihao.val()
+                                        };
+                                        $.ajax({
+                                            type: "POST", //请求方式
+                                            url: app_url + "/choujiang/insert_liushuihao",
+                                            data: data, //数据
+                                            dataType: 'json', //返回数据类型
+                                            cache: false, //是否缓存
+                                            timeout: 10000, //超时时间
+                                            success: function(data) {
+                                                if (data.data == 1) {
+                                                    location.href = app_url + "/choujiang-" + id;
+                                                } else {
+                                                    alert('流水号已经被使用，请更换一个流水号！');
+                                                }
+                                            },
+                                            error: function() {
+                                                alert("服务器数据处理错误，请重新进入！");
+                                            }
+                                        });
+                                    }
+                                });
+
+                                function len(s) {
+                                    var l = 0;
+                                    var a = s.split("");
+                                    for (var i = 0; i < a.length; i++) {
+                                        if (a[i].charCodeAt(0) < 299) {
+                                            l++;
+                                        } else {
+                                            l += 2;
+                                        }
+                                    }
+                                    return l;
+                                }
+                            });
+        </script>
+    </body>
+</html>

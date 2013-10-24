@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+<meta name="format-detection" content="telephone=no" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+
+<body class="ggk_bg">
+	<div class="ggk_box">
+    	<div class="zjd_main">
+        	<div class="zjd_title cf"><img src="images/zjd_title.png" alt=""><a href="#"></a></div>
+            <ul class="eggList">
+                <p class="hammer" id="hammer">锤子</p>
+                <p class="resultTip" id="resultTip"><b id="result"></b></p>
+                <li><sup></sup></li>
+                <li><sup></sup></li>
+                <li><sup></sup></li>
+            </ul>
+        </div>
+        <div class="set_main">
+            <div class="set_box">
+                <p>一等奖：0101流行馆5000体验券。</p>
+                <p>二等奖：0101流行馆5000体验券。</p>
+                <p>三等奖：0101流行馆5000体验券。</p>
+                <p>四等奖：0101流行馆5000体验券。</p>
+            </div>
+        </div>
+        <div class="event_main">
+            <div class="event_box">
+                <p class="red">本次活动总共可以刮5次,你已经刮了5次,机会如果没用完重新进入本页面可以再刮!</p>
+                <p>亲，请点击进入刮刮奖活动页面，祝您好运哦！</p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+function eggClick(obj) {
+	var _this = obj;
+	$.getJSON("data.php",function(res){
+		if(_this.hasClass("curr")){
+			alert("蛋都碎了，别砸了！刷新再来.");
+			return false;
+		}
+		//_this.unbind('click');
+		$(".hammer").css({"top":_this.position().top-55,"left":_this.position().left+185});
+		$(".hammer").animate({
+			"top":_this.position().top-25,
+			"left":_this.position().left+125
+			},30,function(){
+				_this.addClass("curr"); //蛋碎效果
+				_this.find("sup").show(); //金花四溅
+				$(".hammer").hide();
+				$('.resultTip').css({display:'block',top:'100px',opacity:0}).animate({top: '10px',opacity:0.7},300,function(){
+					if(res.msg==1){
+						$("#result").html("恭喜，您中得"+res.prize+"!");
+					}else{
+						$("#result").html("很遗憾,您没能中奖!");
+					}
+				});	
+			}
+		);
+	});
+}
+
+
+$(".eggList li").click(function() {
+	$(this).children("span").hide();
+	eggClick($(this));
+});
+
+$(".eggList li").hover(function() {
+	var posL = $(this).position().left + $(this).width();
+	$("#hammer").show().css('left', posL);
+})
+</script>
+</body>
+</html>

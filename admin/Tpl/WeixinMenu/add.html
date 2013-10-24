@@ -1,0 +1,94 @@
+<tagLib name="lbase"/>
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台营销管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <include file='Public:header' />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__ROOT__/public/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!--nav-->
+<include file='Public:nav' />
+
+<div class="container">
+    <div class="page-header"><h4>菜单添加</h4></div>
+    <div class="row">
+        <div class="span12">
+            <div class="pull-left">
+                <a href="{:U('/'.$module_name)}" class="btn btn-primary">列 表</a>&nbsp;&nbsp;
+                <!--<a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>&nbsp;&nbsp;-->
+                <a class="btn btn-primary" href="{$pre_url}">返 回</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12" style="margin-top:10px;">
+            <form class="form-horizontal" method="post">
+                <fieldset>
+                    <div id="legend" class="">
+                        <legend class=""></legend>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="input01">名称</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="name" class="input-xlarge">
+                            <p class="help-block">必填</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="input01">菜单KEY</label>
+                        <div class="controls">
+                            <input type="text" placeholder="菜单响应KEY" name="menu_key" class="input-xlarge">
+                            <p class="help-block">小于20个字符，如填写跳转URL则该项忽略</p>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="input01">跳转URL</label>
+                        <div class="controls">
+                            <input type="text" placeholder="点击url链接" name="url" class="input-xlarge">
+                            <p class="help-block">直接跳转的链接，该项优先生效</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="input01">排序</label>
+                        <div class="controls">
+                            <input type="text" placeholder="排序" value="10" name="sort" class="input-xlarge">
+                            <p class="help-block">请填写整数，从小到大</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">显示状态</label>
+                        <div class="controls">
+                            <select class="input-xlarge" name="status">
+                                <option value="1" selected="selected">显示</option>
+                                <option value="0">隐藏</option></select>
+                        </div>
+                    </div>
+                    <div id='pop'></div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="save">保 存</button>&nbsp;&nbsp;
+                        <a class="btn" href="{$pre_url}">返 回</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<include file='Public:footer' />
+<script type="text/javascript" src="__PUBLIC__/js/add_none_editor.js"></script>
+</body>
+</html>
