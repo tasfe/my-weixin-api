@@ -24,11 +24,7 @@ class CouponAction extends CommonAction {
         $CouponRecord=M('CouponRecord');
         $code_info=$CouponRecord->where("weixin_id='{$weixin_id}' and coupon_id={$id}")->find();
         //判断是否已经领取了优惠券
-        if(empty($code_info)){
-            //自动进行领取优惠券
-            $code_info=$this->draw_code($id, $weixin_id, $info);
-            $this->code_info=$code_info;
-        }else{
+        if(!empty($code_info)){
             $this->code_info=$code_info;
             $this->display();
             exit;
@@ -40,6 +36,10 @@ class CouponAction extends CommonAction {
             $this->assign('pop','本次优惠券领取活动已经结束!');
         }elseif($CouponRecord->where("id={$id}")->count('id')>=$info['limited'] && $info['limited']!=0){
             $this->assign('pop','本次优惠券已经被抢光了!');
+        }  else {
+            //自动进行领取优惠券
+            $code_info=$this->draw_code($id, $weixin_id, $info);
+            $this->code_info=$code_info;
         }
         
         $this->display();
