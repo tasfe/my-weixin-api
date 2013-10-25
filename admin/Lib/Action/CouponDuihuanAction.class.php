@@ -28,7 +28,7 @@ class CouponDuihuanAction extends CommonAction {
         $Page->parameter = $parameter;
         $show = $Page->show();
         $prefix = C('DB_PREFIX');
-        $list = $M->field("c.name,b.create_time,b.code,a.create_date,a.user_name,a.user_telephone,a.weixin_id")
+        $list = $M->field("c.name,b.create_time,b.code,a.create_time create_time_duihuan,a.user_name,a.user_telephone,a.weixin_id")
                 ->table("{$prefix}coupon_duihuan a")
                 ->join(" {$prefix}coupon_record b on b.id=a.record_id")
                 ->join(" {$prefix}coupon c on b.coupon_id=c.id")
