@@ -31,7 +31,9 @@ return array(
         //指令内容展示页面
         '/^zhiling-(\d+)$/'=>'Zhiling/view?id=:1',
         //秒杀活动详细页面
-        '/^seckill-(\d+)$/'=>'Seckill/view?id=:1'
+        '/^seckill-(\d+)$/'=>'Seckill/view?id=:1',
+        //优惠券访问规则
+        '/^coupon-(\d+)$/'=>'Coupon/index?id=:1'
     ),
 );
 ?>
