@@ -292,14 +292,14 @@ a:hover{text-decoration:none;color:#000;}
 .member_ruis_semi:nth-child(1){margin-top:20px;border-radius:4px 4px 0px 0px;border:solid 1px #c3c3c3;}
 .member_ruis_semi:nth-last-child(1){border-radius:0px 0px 4px 4px;border-left:solid 1px #c3c3c3;border-right:solid 1px #c3c3c3;border-bottom:solid 1px #c3c3c3;}
 .member_ruis_semi a:hover{display:block;height:45px;background:#eeecec;}
+.menber_color{ color:#999;font-size:12px;}
 
-
-
-
-
-
-
-
-
-
-
+/*======================================================================================*/
+/*文章页显示*/
+.hyhaina_box{width:100%;height:100%;}
+.hyhaina_title{padding:1em;text-align:center;line-height:2em;background:#eee;box-shadow:#ddd 0px 3px 3px;}
+.hyhaina_title h2{font-size:1em;padding:0;margin:0;}
+.hyhaina_info{padding:1em;}
+.hyhaina_info img{width:100%;border-radius:10px;}
+.hyhaina_dy{left:10px;width:30px;height:36px;background:url(../images/member_weiel.png) 0px 10px no-repeat; position:absolute;}
+.hyhaina_dy a{width:30px;height:36px; display:block;}
