@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>微信优惠券</title>
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body class="coupon_bg">
+        <div class="coupon_head">
+            <div class="coupon_box"></div>
+        </div>
+        <div class="min_box">
+            <div class="coupon_main">
+                <div class="coupon_intro_box">
+                    <php>if(!empty($pop)) echo '<p>'.$pop.'</p>';else{</php>
+                    <p>优惠券：<b>{$info.name}</b></p>
+                    <p>兑换码：{$code_info.code}</p>
+                    <p>兑换状态：<php>if($code_info['status']==0) echo '尚未兑换!'; else echo '已经兑换!';</php></p>
+                    <p>兑换截止：<php>if($info['award_stop_time']==0) echo '长期有效'; else echo get_date_full($info['award_stop_time']);</php></p>
+                    <php>}</php>
+                </div>
+            </div>
+            <div class="coupon_take_main">
+                <div class="coupon_take_box">
+                    <p>{$info.direction}</p>
+                </div>
+            </div>
+            <div class="event_main">
+                <div class="event_box">
+                    <p>{$info.activity}</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
