@@ -9,8 +9,7 @@ class MemberCardAction extends CommonAction {
 
     public function index() {
         //设置并获取用户微信唯一识别令牌
-        $weixin_id = $this->weixin_id(U("/member_card"), intval($_GET['id']));
-
+        $weixin_id = $this->weixin_id(U("/member_card"));
         $card_info = $this->get_user_card($weixin_id);
         if (empty($card_info)) {
             $card_info = $this->draw_member_card($weixin_id);
@@ -21,12 +20,35 @@ class MemberCardAction extends CommonAction {
         $sales_info = $this->get_sales(0);
         $base_info = $this->get_sales(1);
         $count = count($sales_info);
-//        dump($count);
-//        exit();
         $this->assign('sales_info', $sales_info);
         $this->assign('base_info', $base_info);
         $this->assign('count', $count);
         $this->display();
+    }
+
+     /**
+     * 
+     * @param String $weixin_id 用户微信ID
+     * @return String
+     */
+    public function add_user() {
+        //设置并获取用户微信唯一识别令牌
+        $weixin_id = $this->weixin_id(U("/member_card"));
+        $card_info = $this->get_user_card($weixin_id);
+        if (empty($card_info)) {
+            $this->assign('weixin_id',$weixin_id);
+            $this->display();
+        } else {
+            $this->redirect('index');
+        }
+    }
+    
+    public function resign(){
+        $weixin_id = $_POST["weixin_id"];
+        $this->draw_member_card($weixin_id);
+        $model = M("MemberCard");
+        $model->add($_POST);
+        $this->redirect('index');
     }
 
     /**
@@ -38,13 +60,13 @@ class MemberCardAction extends CommonAction {
         $id = $_REQUEST['id'];
         $model = M('MemberSales');
         $info = $model->where("id={$id} AND status=1")->find();
-        if(empty($info)){
+        if (empty($info)) {
             $info['title'] = "错误!";
             $info['contents'] = "获取优惠活动信息失败！";
-        }else{
+        } else {
             $model->where("id={$id} AND status=1")->setInc('num');
         }
-        $this->assign('info',$info);
+        $this->assign('info', $info);
         $this->display();
     }
 
