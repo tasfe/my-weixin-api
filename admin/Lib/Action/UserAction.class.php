@@ -37,28 +37,55 @@ class UserAction extends CommonAction {
 
         if (empty($info)) {
             $this->ajaxReturn(3);  //用户不存在
-        }else{
-            $user_pwd=  md5(base64_encode($_POST['user_pwd']));
-            $new_pwd=  md5(base64_encode($_POST['new_user_pwd']));
-            if($user_pwd!=$info['user_pwd']){
+        } else {
+            $user_pwd = md5(base64_encode($_POST['user_pwd']));
+            $new_pwd = md5(base64_encode($_POST['new_user_pwd']));
+            if ($user_pwd != $info['user_pwd']) {
                 $this->ajaxReturn(4);  //当前密码不正确
-            }else{
-                if($M->where("id=%d",$user_id)->setField('user_pwd', $new_pwd)){
+            } else {
+                if ($M->where("id=%d", $user_id)->setField('user_pwd', $new_pwd)) {
                     $this->ajaxReturn(5);  //修改成功
-                }else{
+                } else {
                     $this->ajaxReturn(6);  //修改失败
                 }
             }
         }
 
-
-
-
-
-
-
-
         $this->ajaxReturn(4);
+    }
+    
+    /**
+     *用户列表 
+     */
+    public function index(){
+        parent::index();
+    }
+    
+    /**
+     * 插入新增的用户
+     */
+    public function insert() {
+        $M = D(MODULE_NAME);
+        $data = $M->create();
+        if ($data === false) {
+            $this->ajaxReturn(array('data' => 0));  //失败
+            exit;
+        }
+        
+        if(trim($_POST['user_pwd'])!=trim($_POST['user_pwd_confirm'])){
+            $this->ajaxReturn(array('data'=>2));  //两次密码不一致
+            exit;
+        }
+        
+        $M->create_time = time();
+        $M->user_pwd=md5(base64_encode(trim($_POST['user_pwd'])));
+
+        $id = $M->add();
+        if ($id !== false) {
+            $this->ajaxReturn(array('data' => 1));  //成功
+        } else {
+            $this->ajaxReturn(array('data' => 0));  //失败
+        }
     }
 
 }
