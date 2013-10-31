@@ -74,16 +74,19 @@
                             <li><a href="{:U('coupon_duihuan/duihuan')}">优惠券兑换</a></li>
                         </ul>
                     </li>
+                    
+                    <li class="dropdown<php>if($module_name=='coupon' ||$module_name=='coupon_duihuan') echo ' active';</php>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('/user')}">用户列表</a></li>
+                            <li><a href="{:U('/group')}">权限组管理</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav pull-right">
                     <php>if(session('admin')==1){</php>
                     <li<php>if($module_name=='user') echo ' class="active"';</php>><a href="{:U('user/change_password')}"><small><i class="icon-user"></i> 修改密码</small></a></li>
                     <php>}</php>
-                    <php>
-                        if(session('admin')=='1'){
-                        echo '<li><a href="/login"><small><i class="icon-wrench"></i> 系统管理</small></a></li>';
-                        }
-                    </php>
                     <li><a href="{:U('index/out')}"><small><i class="icon-off"></i> 安全退出</small></a></li>
                 </ul>
             </div>
