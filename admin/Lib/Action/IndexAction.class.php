@@ -18,9 +18,9 @@ class IndexAction extends Action {
             $user_name = MAGIC_QUOTES_GPC ? $_POST['user_name'] : addslashes($_POST['user_name']);
             $user_pwd = md5(base64_encode(trim($_POST['user_pwd'])));
             $remember = intval($_POST['remember']);
-            $Admin = M('Admin');
+            $Admin = M('User');
             $info = $Admin->where("user_name='%s'", $user_name)->find();
-            unset($Admin);
+            
             if (empty($info)) {
                 $this->ajaxReturn(array('data' => 0));
             }
@@ -29,6 +29,7 @@ class IndexAction extends Action {
                 $data = array('admin' => $info['admin'], 'user_id' => $info['id']);
                 $encode_json = aes_encode(json_encode($data), md5(C('admin_secret_key').$_SERVER['HTTP_USER_AGENT']));
                 cookie('weixin_admin', $encode_json, $expire);
+                $Admin->where("id={$info['id']}")->save(array('lastlogin_ip'=>  get_client_ip(),'lastlogin_time'=>time()));
                 $this->ajaxReturn(array('data' => 1));
             } else {
                 $this->ajaxReturn(array('data' => 2));

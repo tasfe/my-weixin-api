@@ -86,7 +86,7 @@
                     </div>
                     <div class="control-group">
                         <!-- Text input-->
-                        <label class="control-label" for="input01">兑换截至时间</label>
+                        <label class="control-label" for="input01">兑换截止时间</label>
                         <div class="controls">
                             <input type="text" placeholder=""  name="award_stop_time" class="input-xlarge">
                             <p class="help-block">请输入正确时间格式如2013-10-22 10:10:10（输入0为无限制）</p>
@@ -97,8 +97,8 @@
                         <!-- Text input-->
                         <label class="control-label" for="input01">数量</label>
                         <div class="controls">
-                            <input type="text" placeholder=""  name="limited" class="input-xlarge">
-                            <p class="help-block">请输入正确优惠券数量（输入0无为限制）</p>
+                            <input type="text" placeholder=""  value="0" name="limited" class="input-xlarge">
+                            <p class="help-block">请输入优惠券数量（输入0无为限制）</p>
                         </div>
                     </div>
                     <div class="control-group">
@@ -118,7 +118,7 @@
                         <div class="controls">
                              <!-- Multiple Radios -->
                             <label class="radio">
-                                <input value="1" name="status" type="radio">
+                                <input value="1" checked="checked" name="status" type="radio">
                                 开启
                             </label>
                             <label class="radio">
