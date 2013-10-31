@@ -3,6 +3,19 @@
 require '../Common/common.php';
 
 /**
+ * 根据用户UID获取用户所在权限组
+ * @param type $uid
+ * @return type
+ */
+function get_user_group($uid) {
+    import('ORG.Util.Auth'); //加载类库
+    $auth = new Auth();
+    $group_name=$auth->getGroups($uid);
+    unset($auth);
+    return $group_name;
+}
+
+/**
  * 判断是否正确登录了系统
  * @return boolean
  */
