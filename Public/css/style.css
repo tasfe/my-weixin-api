@@ -115,7 +115,7 @@ a:hover{text-decoration:none;color:#000;}
 .wrap{margin:0;padding:0;width:100%;height:auto;}
 .wei_img{width:100%;height:160px;background:url(../images/top_pp.jpg) top repeat-x;overflow:hidden;}
 .wei_back{margin:0 auto;width:320px;height:160px;background:url(../images/img.jpg) center top no-repeat;background-size:320px 158px; position:relative;}
-.min_tente{right:0;top:128px;padding:0;height:30px; position:absolute;}
+.min_tente{right:10px;top:128px;padding:0;height:30px; position:absolute;}
 .submit{width:120px;height:30px;background:#ffcc00;text-align:center;line-height:30px;border-radius:5px;box-shadow:0px 1px 1px #a98700;font-size:14px;font-weight:bold;display:block;}
 .submit a{color:#000;text-decoration:none;}
 .submit a:hover{color:#000;text-decoration:none;}
@@ -275,24 +275,26 @@ a:hover{text-decoration:none;color:#000;}
 /*会员卡领取*/
 .memberber_top{width:100%;height:150px;background:url(../images/memberber_top.jpg) no-repeat center #f4c51f;background-size:640px 150px;}
 .member_img{top:50px;width:100%;text-align:center;position:absolute;}
-.member_toot{margin:0 auto;padding:0px;width:280px;height:162px;position:relative;}
-.member_text{top:110px;right:20px;text-align:right;width:280px;position:absolute;}
-.menber_title{margin-right:45px;color:#FFF;widht:200px;display:block;font-size:16px;font-family:"MicroSoft YaHei";}
-.menber_gigital{margin-right:20px;color:#490106;widht:200px;font-size:23px;font-family:"MicroSoft YaHei";}
-.member_marked{margin:0 auto;padding:0;margin-top:60px;height:25px;line-height:25px;text-align:center;color:#9d9d9d;font-size:15px;}
+.member_toot_back{margin:0 auto;padding:0px;width:308px;height:154px;background:url(../images/Card_back.png) bottom right no-repeat; background-size:280px 120px;}
+.member_toot{margin:0 auto;padding:0px;width:268px;height:155px;position:relative;}
+.member_text{top:80px;right:20px;text-align:right;width:280px;position:absolute;}
+.menber_title{margin:10px 0px 0 0;color:#FFF;widht:200px;display:block;font-size:16px;font-family:"MicroSoft YaHei";}
+.menber_gigital{color:#ffe27a;widht:200px;font-size:23px;font-family:"MicroSoft YaHei";}
+.member_marked{margin:0 auto;padding:0 10px;margin-top:70px;height:33px;line-height:35px;color:#986e34;font-size:15px; background:#fff9b3; border:solid 1px #c39f02;}
+.member_marked img{margin:9px 5px 0 0;float:left;}
 .member_ico{font-size:12px;margin-top:80px;line-height:25px;}
 .menber_xianzi{display:inline-block;font-size:15px;}
 .member_ruis{margin-top:20px;overflow:hidden;}
-.member_ruis_rui{height:45px;background:#f6f6f6;border:solid 1px #c3c3c3;border-radius:4px;position:relative;}
-.member_bgimg{right:10px;width:12px;height:36px;background:url(../images/member_weile.png) 0px 15px no-repeat; position:absolute;}
-.member_ruis_top{padding-left:35px;height:45px;line-height:45px;font-size:14px;color:#000;font-weight:bold;}
+.member_ruis_rui{height:45px;background:#eaedf2;border:solid 1px #d5d4d4;border-radius:4px;position:relative;}
+.member_bgimg{right:10px;width:12px;height:36px;background:url(../images/member_weile.png) 0px 15px no-repeat;background-size:14px 12px;position:absolute;}
+.member_ruis_top{padding-left:35px;height:45px;line-height:45px;font-size:16px;color:#000;font-weight:bold;}
 .member__ruis_img{margin:13px 0 0 10px;width:20px;height:11px;float:left;}
-.member_ruis_rui a:hover{border-radius:4px;display:block;height:45px;background:#eeecec;}
-.member_ruis_semi{height:45px;background:#f6f6f6;border-left:solid 1px #c3c3c3;border-right:solid 1px #c3c3c3;border-bottom:solid 1px #c3c3c3; position:relative;}
-.member_ruis_semi:nth-child(1){margin-top:20px;border-radius:4px 4px 0px 0px;border:solid 1px #c3c3c3;}
-.member_ruis_semi:nth-last-child(1){border-radius:0px 0px 4px 4px;border-left:solid 1px #c3c3c3;border-right:solid 1px #c3c3c3;border-bottom:solid 1px #c3c3c3;}
-.member_ruis_semi a:hover{display:block;height:45px;background:#eeecec;}
-.menber_color{ color:#999;font-size:12px;}
+.member_ruis_rui a:hover{border-radius:4px;display:block;height:45px;background:#f7f6f6;}
+.member_ruis_semi{height:45px;background:#eaedf2;border-left:solid 1px #d5d4d4;border-right:solid 1px #d5d4d4;border-bottom:solid 1px #d5d4d4; position:relative;}
+.member_ruis_semi:nth-child(1){margin-top:20px;border-radius:4px 4px 0px 0px;border:solid 1px #d5d4d4;}
+.member_ruis_semi:nth-last-child(1){border-radius:0px 0px 4px 4px;border-left:solid 1px #d5d4d4;border-right:solid 1px #d5d4d4;border-bottom:solid 1px #d5d4d4;}
+.member_ruis_semi a:hover{display:block;height:45px;background:#f7f6f6;}
+.menber_color{ color:#999;font-size:14px;}
 
 /*======================================================================================*/
 /*文章页显示*/
