@@ -22,10 +22,12 @@
 <div class="container" style="margin-top: 10px;">
     <div class="row">
         <div class="span4">
+            <php>if($is_index_census){</php>
             <p>今日新关注用户数：<span style="color:red;font-weight: bold">{$subscribe_count}</span></p>
             <p>今日取消关注数：<span style="color:red;font-weight: bold">{$unsubscribe_count}</span></p>
             <p>昨日新关注用户数：<span style="color:red;font-weight: bold">{$yesterday_subscribe_count}</span></p>
             <p>昨日取消关注数：<span style="color:red;font-weight: bold">{$yesterday_unsubscribe_count}</span></p>
+            <php>}</php>
         </div>
 
         <div class="span4">

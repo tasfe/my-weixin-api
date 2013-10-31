@@ -7,7 +7,13 @@
  */
 class MainAction extends CommonAction {
     public function index(){
-        $this->subscribe_count();
+        import('ORG.Util.Auth'); //加载类库
+        $auth = new Auth();
+        $is_index_census=$auth->check('index_census', session('user_id'));
+        $this->is_index_census=$is_index_census;
+        if ($is_index_census) {
+            $this->subscribe_count();
+        }
         $this->display();
     }
     
