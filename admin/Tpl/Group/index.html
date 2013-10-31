@@ -51,8 +51,8 @@
                         <td>{$vo.remark}</td>
                         <td>
                             <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                            <a href="{:U($module_name.'/edit_user_group?id='.$vo['id'])}">成员管理</a>&nbsp;&nbsp;
-                            <a href="{:U($module_name.'/edit_user_group?id='.$vo['id'])}">授权管理</a>&nbsp;&nbsp;
+                            <a href="{:U($module_name.'/user_manage?id='.$vo['id'])}">成员管理</a>&nbsp;&nbsp;
+                            <a href="{:U($module_name.'/authorize_manage?id='.$vo['id'])}">授权管理</a>&nbsp;&nbsp;
                             <a href="###" onclick="delete_tr({$vo.id});">删除</a>
                         </td>
                     </tr>
@@ -63,56 +63,6 @@
     </div>
 </div>
 <include file='Public:footer' />
-
-<script type="text/javascript">
-    function delete_tr(id) {
-        if (confirm('确实要删除该内容吗?')) {
-            var data = {'id': id};
-            $.ajax({
-                type: "POST",
-                url: app_url + "/" + module_name + "/delete",
-                data: data,
-                timeout: 5000,
-                dataType: 'json',
-                cache: false,
-                success: function(data) {
-                    switch (data.data) {
-                        case 1:
-                            $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>删除成功！</div>')
-                                    .fadeIn("slow")
-                                    .fadeOut(5000);
-                            $('#tr_' + id).hide();
-                            break;
-                        case 2:
-                            $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>无法删除超级用户!</div>')
-                                    .fadeIn("slow")
-                                    .fadeOut(5000);
-                            break;
-                        default:
-                            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
-                                    .fadeIn("slow")
-                                    .fadeOut(5000);
-                            break;
-                    }
-                },
-                error: function() {
-                    error();
-                },
-                beforeSend: function() {
-                    $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
-                            .fadeIn("slow");
-                }
-            });
-        }
-    }
-
-    function error() {
-        $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
-                .fadeIn("slow")
-                .fadeOut(5000);
-    }
-</script>
-
-
+<script type="text/javascript" src="__PUBLIC__/js/list.js"></script>
 </body>
 </html>
