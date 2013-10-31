@@ -69,11 +69,11 @@
                         <label class="control-label">状态</label>
                         <div class="controls">
                             <label class="radio inline">
-                                <input type="radio" name="status" value="1" checked="checked">
+                                <input type="radio" name="status" value="1"<php>if($info['status']==1) echo ' checked="checked"';</php>>
                                 启用
                             </label>
                             <label class="radio inline">
-                                <input type="radio" value="0" name="status">
+                                <input type="radio" value="0" name="status"<php>if($info['status']==0) echo ' checked="checked"';</php>>
                                 禁用
                             </label>
                         </div>

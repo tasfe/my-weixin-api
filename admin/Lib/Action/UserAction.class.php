@@ -98,7 +98,8 @@ class UserAction extends CommonAction {
         $data=array(
             'user_name'=>$_POST['user_name'],
             'title'=>$_POST['title'],
-            'remark'=>$_POST['remark']
+            'remark'=>$_POST['remark'],
+            'status'=>$_POST['status']
         );
         if(trim($_POST['user_pwd'])!=''){
             $data['user_pwd']=md5(base64_encode(trim($_POST['user_pwd'])));
