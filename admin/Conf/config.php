@@ -8,7 +8,8 @@ $config=array(
         'AUTH_GROUP' => 'lfy_auth_group', //用户组数据表名
         'AUTH_GROUP_ACCESS' => 'lfy_auth_group_access', //用户组明细表
         'AUTH_RULE' => 'lfy_auth_rule', //权限规则表
-        'AUTH_USER' => 'lfy_admin'//用户信息表
+        'AUTH_USER' => 'lfy_admin',//用户信息表,
+        'SuperAdmin'=>'admin'  //超级管理员
     )
 );
 return array_merge($base_config,$config);
