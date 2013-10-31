@@ -88,4 +88,21 @@ class GroupAction extends CommonAction {
             $this->ajaxReturn(array('data' => 0));  //失败
         }
     }
+    
+    /**
+     * 删除权限组
+     */
+    public function delete() {
+        $M = D('AuthGroup');
+        $id = intval($_POST['id']);
+        $AuthGroupAccess=M('AuthGroupAccess');
+        $AuthGroupAccess->where("group_id={$id}")->delete();
+        if ($M->where("id=%d", $id)->delete() !== false) {
+            $this->ajaxReturn(array('data' => 1));
+        } else {
+            $this->ajaxReturn(array('data' => 0));
+        }
+    }
+    
+    
 }
