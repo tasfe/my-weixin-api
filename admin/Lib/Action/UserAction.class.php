@@ -87,6 +87,30 @@ class UserAction extends CommonAction {
             $this->ajaxReturn(array('data' => 0));  //失败
         }
     }
+    
+    
+    /**
+     * 用户资料修改
+     */
+    public function update() {
+        $id = intval($_POST['id']);
+        $M = M(MODULE_NAME);
+        $data=array(
+            'user_name'=>$_POST['user_name'],
+            'title'=>$_POST['title'],
+            'remark'=>$_POST['remark']
+        );
+        if(trim($_POST['user_pwd'])!=''){
+            $data['user_pwd']=md5(base64_encode(trim($_POST['user_pwd'])));
+        }
+        
+
+        if ($M->where("id=%d", $id)->save($data)) {
+            $this->ajaxReturn(array('data' => 1));  //失败
+        } else {
+            $this->ajaxReturn(array('data' => 0));  //失败
+        }
+    }
 
 }
 
