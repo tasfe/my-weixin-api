@@ -146,6 +146,31 @@ class UserAction extends CommonAction {
         }
         $this->ajaxReturn(array("data"=>1));
     }
+    
+    /**
+     * 用户删除功能
+     */
+    public function delete() {
+        $M = D(MODULE_NAME);
+        $id = intval($_POST['id']);
+        $user_name=M("User")->where("id={$id}")->getField("user_name");
+        
+        
+        $super_admin=C("AUTH_CONFIG.SuperAdmin");
+        //判断是否为超级用户
+        if($super_admin==$user_name){
+            $this->ajaxReturn(array('data'=>2));
+            exit;
+        }
+        
+        M('AuthGroupAccess')->where("uid={$id}")->delete();
+        
+        if ($M->where("id=%d", $id)->delete() !== false) {
+            $this->ajaxReturn(array('data' => 1));
+        } else {
+            $this->ajaxReturn(array('data' => 0));
+        }
+    }
 
 }
 
