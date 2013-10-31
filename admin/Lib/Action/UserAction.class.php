@@ -111,6 +111,41 @@ class UserAction extends CommonAction {
             $this->ajaxReturn(array('data' => 0));  //失败
         }
     }
+    
+    /**
+     * 编辑用户所属权限组
+     */
+    public function edit_user_group() {
+        $user_id = intval($_GET['id']);
+        $this->user_id=$user_id;
+        $info = M('User')->field('id,user_name')->where("id={$user_id}")->find();
+        $user_group = get_user_group($user_id);
+        $all_group = M('AuthGroup')->order("id")->select();
+        if (!empty($user_group)) {
+            foreach ($all_group as $key => $value) {
+                foreach ($user_group as $u_key => $u_value) {
+                    if ($value['id'] == $u_value['group_id'])
+                        $all_group[$key]['is_checked'] = 1;
+                }
+            }
+        }
+        $this->group_list=$all_group;
+        $this->assign($info);
+        $this->display();
+    }
+    
+    /**
+     * 更新用户权限组信息
+     */
+    public function update_edit_user_group(){
+        $user_id=intval($_POST['user_id']);
+        $M=M('AuthGroupAccess');
+        $M->where("uid=%d",$user_id)->delete();
+        foreach($_POST['groups'] as $key=>$value){
+            $M->add(array('uid'=>$user_id,"group_id"=>$value));
+        }
+        $this->ajaxReturn(array("data"=>1));
+    }
 
 }
 
