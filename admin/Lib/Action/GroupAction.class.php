@@ -104,5 +104,23 @@ class GroupAction extends CommonAction {
         }
     }
     
+    /**
+     * 权限组成员管理
+     */
+    public function user_manage(){
+        $g_id=  intval($_GET['id']);
+        $AuthGroup=M('AuthGroup');
+        $this->group_name=$AuthGroup->where("id={$g_id}")->getField('title');
+        
+        $this->display();
+    }
+    
+    /**
+     * 权限组授权管理
+     */
+    public function authorize_manage(){
+        $this->display();
+    }
+    
     
 }
