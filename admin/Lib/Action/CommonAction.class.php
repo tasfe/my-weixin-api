@@ -29,6 +29,13 @@ class CommonAction extends Action {
         if (in_array($this->action_name, $preaction))
             session('preUrl', __SELF__);
     }
+    
+    public function check_auth($auth_name){
+        if(!check_auth($auth_name)){
+            $this->error('您没有权限,请您联系系统管理员!');
+            exit;
+        }
+    }
 
     public function index($where_and = '', $order = 'id desc', $page_num = 15) {
         $order = empty($order) ? 'id desc' : $order;
