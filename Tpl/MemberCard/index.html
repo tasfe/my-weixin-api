@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>会员卡领取成功</title>
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+        <link href="__PUBLIC__/css/font-face.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body class="member_bg">
+        <div class="memberber_top"></div>
+        <div  class="member_img">
+            <div class="member_toot"><img src="__PUBLIC__/images/tmp/member_img.png">
+                <div class="member_text">
+                    <div class="menber_title">会员卡号：</div>
+                    <div class="menber_gigital">{$card_info.card_no}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="signup_inp_box">
+            <div class="member_marked"><img src=""><img src="__PUBLIC__/images/exclamat_ico.png">使用时向服务员出示此卡</div>
+            <div class="member_ruis">
+                <if condition='$count eq 1'>
+                    <div class="member_ruis_rui">
+                        <a href="{:U('member_card/view',array('id'=>$sales_info[0]['id']))}">
+                            <div class="member_bgimg"></div>
+                            <div class="member__ruis_img"><span class="glyphicon glyphicon-circle-arrow-right menber_color"></span></div>
+                            <div class="member_ruis_top">{$sales_info[0]['title']}</div>
+                        </a>
+                    </div>
+                    <else/>
+                    <div>
+                        <volist name='sales_info' id='vo'>
+                            <div class="member_ruis_semi">
+                                <a href="{:U('member_card/view',array('id'=>$vo['id']))}">
+                                    <div class="member_bgimg"></div>
+                                    <div class="member__ruis_img"><span class="glyphicon glyphicon-circle-arrow-right menber_color"></span></div>
+                                    <div class="member_ruis_top">{$vo.title}</div>
+                                </a>  
+                            </div>
+                        </volist>
+                    </div>
+                </if>
+                <div>
+                    <volist name='base_info' id='item'>
+                        <div class="member_ruis_semi">
+                            <a href="{:U('member_card/view',array('id'=>$item['id']))}">
+                                <div class="member_bgimg"></div>
+                                <div class="member__ruis_img"><span class="glyphicon glyphicon-circle-arrow-right menber_color"></div>
+                                <div class="member_ruis_top">{$item.title}</div> 
+                            </a>  
+                        </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
