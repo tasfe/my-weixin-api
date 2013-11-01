@@ -119,8 +119,34 @@ class GroupAction extends CommonAction {
      * 权限组授权管理
      */
     public function authorize_manage(){
+        $group_id=  intval($_GET['id']);
+        $this->id=$group_id;
+        $AuthGroup=M('AuthGroup');
+        $group_info=$AuthGroup->where("id={$group_id}")->find();
+        $group_auth= explode(',',$group_info['rules']);
+        $this->group_auth=$group_auth;
+        $this->group_name=$group_info['title'];
+        
+        $AuthRule=M('AuthRule');
+        $auth_rule_array=$AuthRule->where("status=1")->select();
+        load("extend");
+        $tree=list_to_tree($auth_rule_array, 'id', 'main');
+        $this->tree_list=$tree;
         $this->display();
     }
     
-    
+    /**
+     * 更新权限组授权信息
+     */
+    public function update_authorize_manage(){
+        $group_id=  intval($_POST['id']);
+        $rules=$_POST['rules'];
+        $AuthGroup=M('AuthGroup');
+        $id=$AuthGroup->where("id={$group_id}")->setField('rules', implode(',', $rules));
+        if($id!==FALSE){
+            $this->ajaxReturn(array('data'=>1));
+        }else{
+            $this->ajaxReturn(array('data'=>0));
+        }
+    }
 }
