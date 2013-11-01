@@ -1,0 +1,253 @@
+<tagLib name="lbase"/>
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台营销管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <include file='Public:header' />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__ROOT__/public/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!--nav-->
+<include file='Public:nav' />
+
+<div class="container">
+    <div class="page-header"><h4>活动添加</h4></div>
+    <div class="row">
+        <div class="span12">
+            <div class="pull-left">
+                <a href="{:U('/'.$module_name)}" class="btn btn-primary">列 表</a>&nbsp;&nbsp;
+                <!--<a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>&nbsp;&nbsp;-->
+                <a class="btn btn-primary" href="{$pre_url}">返 回</a>
+                <!--<a class="btn btn-primary" href="{$pre_url}">返 回</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12" style="margin-top:10px;">
+            <form class="form-horizontal" method="post">
+                <fieldset>
+                    <div id="legend" class="">
+                        <legend class=""></legend>
+                    </div>
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">秒杀活动标题</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="goods_title" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">商品名称</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="goods_name" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">秒杀商品数量</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="goods_num" class="input-xlarge">
+                            <p class="help-block">请输入商品数量，该数值为大于0的整数</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">商品原价</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="goods_cost_price" class="input-xlarge">
+                            <p class="help-block">可以精确到小数点后1位</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">秒杀价格</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="goods_price" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">商品图片</label>
+
+                        <!-- Button -->
+                        <div class="controls">
+                            <lbase:imgUpload name='imgupload' />
+                            <p class="help-block">图片尺寸：640*320</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">开始时间</label>
+                        <div class="controls">
+                            <input type="text" placeholder="请填写活动开始时间" name="begin_time" class="input-xlarge">
+                            <p class="help-block">秒杀活动开始时间，格式为2013-09-29 15:30:25</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">结束时间</label>
+                        <div class="controls">
+                            <input type="text" placeholder="请填写活动结束时间" name="stop_time" class="input-xlarge">
+                            <p class="help-block">秒杀活动结束时间，格式为2013-09-29 15:30:25</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">兑换截止时间</label>
+                        <div class="controls">
+                            <input type="text" placeholder="请填写兑换截止时间" name="exchange_stop_time" class="input-xlarge">
+                            <p class="help-block">商品兑换截止时间，格式为2013-09-29 15:30:25</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+
+                        <!-- Select Basic -->
+                        <label class="control-label">显示状态</label>
+                        <div class="controls">
+                            <select class="input-xlarge" name="status">
+                                <option value="1">显示</option>
+                                <option value="0">隐藏</option></select>
+                        </div>
+
+                    </div><div class="control-group">
+
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">排序</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="sort" value="9999" class="input-xlarge">
+                            <p class="help-block">同时开始的活动，排序越小越靠前</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="input01">兑换码位数</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="code_num" value="10" class="input-xlarge">
+                            <p class="help-block">默认为10位</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="input01">每微信账号参与次数</label>
+                        <div class="controls">
+                            <input type="text" placeholder="" name="wx_user_num" value="1" class="input-xlarge">
+                            <p class="help-block">默认为1次，填写0为不限制秒杀次数</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">商品说明</label>
+                        <div class="controls">
+                            <div class="textarea">
+                                <lbase:editor name="goods_explain" type="editor" width="70%" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">兑换说明</label>
+                        <div class="controls">
+                            <div class="textarea">
+                                <textarea type="" class="" name="exchange_explain" style="width:500px;height: 100px"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">备注</label>
+                        <div class="controls">
+                            <div class="textarea">
+                                <textarea type="" class="" name="remark" style="width:500px;height: 100px"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='pop'></div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="save">保 存</button>&nbsp;&nbsp;
+                        <a class="btn" href="{$pre_url}">返 回</a>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<include file='Public:footer' />
+<script type="text/javascript">
+    $(function() {
+        var save_button = $('#save');
+        save_button.click(function() {
+            goods_explain_editor.sync();
+            var data = $('form').serialize();
+            save_button.attr('disabled', 'disabled');
+            $.ajax({
+                type: "POST",
+                url: app_url + "/" + module_name + "/insert",
+                data: data,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    success(data);
+                },
+                error: function() {
+                    error();
+                }
+            });
+        });
+
+        $('#pop').ajaxStart(function() {
+            $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
+                    .fadeIn("slow");
+        });
+
+        function success(data) {
+            if (data.data == 1) {
+                $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>信息添加成功！</div>')
+                        .fadeIn("slow")
+                        .fadeOut(5000);
+            } else {
+                $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>信息添加失败！</div>')
+                        .fadeIn("slow")
+                        .fadeOut(5000);
+            }
+        }
+
+
+        function error() {
+            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>远程服务器请求失败！</div>')
+                    .fadeIn("slow")
+                    .fadeOut(5000);
+        }
+    });
+</script>
+</body>
+</html>

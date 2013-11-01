@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>{$name}</title>
+        <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jQueryRotate.2.2.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.easing.min.js"></script>
+        <script type="text/javascript" src="{:U('js/url')}"></script>
+    <php>if(empty($msg)){</php>
+    <script type="text/javascript">
+        $(function() {
+            var startbtn = {}
+            startbtn.div = $('#startbtn');
+
+            startbtn.div.on('click', function() {
+                startbtn.start()
+            });
+
+            //开始
+            startbtn.start = function() {
+                startbtn.div.off('click');
+                $.ajax({
+                    type: "POST", //请求方式
+                    url: app_url+"/choujiang/dazhuanpan_make/id/<php>echo $id;</php>",
+                    data: '', //数据
+                    dataType: 'json', //返回数据类型
+                    cache: false, //是否缓存
+                    timeout: 10000, //超时时间
+                    success: function(data) {
+                        startbtn.div.rotate({
+                            duration: 3000,
+                            angle: 0,
+                            animateTo: 1800 + data.data,
+                            easing: $.easing.easeOutSine,
+                            callback: function() {
+                                startbtn.callback(data.prize);
+                                startbtn.div.on('click', function() {
+                                    startbtn.already()
+                                });
+                            }
+                        });
+                    },
+                    error: function() {
+                        alert('系统请求错误，请您返回后重新进入进行大转盘抽奖！');
+                    }
+                });
+            }
+            
+            startbtn.callback=function(prize){
+                switch(prize){
+                    case 11:
+                        alert('恭喜您中得一等奖，请到中奖记录中查看兑奖码！');
+                        break;
+                    case 12:
+                        alert('恭喜您中得二等奖，请到中奖记录中查看兑奖码！');
+                        break;
+                    case 13:
+                        alert('恭喜您中得三等奖，请到中奖记录中查看兑奖码！');
+                        break;
+                    case 14:
+                        alert('恭喜您中得四等奖，请到中奖记录中查看兑奖码！');
+                        break;
+                    case 100:
+                        alert('感谢您的参与，您没有中奖，推荐给好友，让好友也来试试运气吧！');
+                        break;
+                }
+            }
+            
+
+            //已经转盘
+            startbtn.already = function() {
+                alert('您已经玩过大转盘，查看中奖记录请点击右侧[查看中奖记录]');
+            }
+        });
+    </script>
+    <php>}else{</php>
+    <script type="text/javascript">
+        $(function() {
+            var startbtn = {}
+            startbtn.div = $('#startbtn');
+
+            startbtn.div.on('click', function() {
+                startbtn.msg()
+            });
+
+            startbtn.msg = function() {
+                alert("<php>echo $msg;</php>");
+            }
+        });
+    </script>
+    <php>}</php>
+</head>
+<body>
+    <div class="turntable_box">
+        <div class="turntable">
+            <div id="disk"></div>
+            <div id="start"><img src="__PUBLIC__/images/start.png" id="startbtn"></div>
+        </div>
+    </div>
+<php>if(!empty($msg)) echo '<div style="margin: 20px;">'.$msg.'</div>';</php>
+<div class="min_box">
+    <div class="set_main">
+        <div class="set_box">
+            <div class="set_box_layer"><a href="{:U('/my_prize')}">查看中奖记录</a></div>
+            <p>{$prize}</p>
+        </div>
+    </div>
+    <div class="event_main">
+        <div class="event_box">
+            <p>{$explain}</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
