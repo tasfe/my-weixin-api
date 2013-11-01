@@ -51,13 +51,17 @@
                             <img id="verifyImg" class="verifyImg" src="{:U('Index/verify')}"  align="absmiddle" alt="点击刷新验证码" title="点击刷新验证码" width="50" height="22" />
                         </div>
                         <a class="btn btn-primary btn-lg btn-block" href="#" id="login">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
-                        <a class="login-link" href="#">忘记密码?</a>
+                        <label class="checkbox checked" for="checkbox1">
+                            <input type="checkbox" value="1" id="checkbox1"  name="remember" data-toggle="checkbox">
+                            30天内免登录
+                        </label>
                     </form>
                 </div>
             </div>
         </div>
         <!-- Load JS here for greater good =============================-->
         <script src="__PUBLIC__/js/jquery.min.js"></script>
+        <script src="__PUBLIC__/js/flatui-checkbox.js"></script>
         <script type="text/javascript" src="{:U('js/url')}"></script>
         <script type="text/javascript" src="__PUBLIC__/js/login.js"></script>
     </body>
