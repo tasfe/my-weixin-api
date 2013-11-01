@@ -36,14 +36,26 @@ class WeixinMenuAction extends CommonAction {
      * 添加子菜单
      */
     public function add_submenu() {
+        $this->check_auth('Config/WeixinMenu/add');
         $this->menu_id = intval($_GET['id']);
         parent::add();
+    }
+    
+    public function add(){
+        $this->check_auth('Config/WeixinMenu/add');
+        parent::add();
+    }
+    
+    public function insert() {
+        $this->check_auth('Config/WeixinMenu/add');
+        parent::insert();
     }
 
     /**
      * 删除微信服务器上的微信菜单
      */
     public function delete_weixin_menu() {
+        $this->check_auth('Config/WeixinMenu/delete_server');
         if ($this->isAjax()) {
             //获取微信服务器访问授权密钥
             $weixin_access_token = get_weixin_access_token();
@@ -53,6 +65,16 @@ class WeixinMenuAction extends CommonAction {
             header("Content-Type: text/html; charset=UTF-8");
             exit('请使用正确的方式进行访问！');
         }
+    }
+    
+    public function edit(){
+        $this->check_auth('Config/WeixinMenu/edit');
+        parent::edit();
+    }
+    
+    public function update() {
+        $this->check_auth('Config/WeixinMenu/edit');
+        parent::update();
     }
 
     /**
@@ -75,6 +97,7 @@ class WeixinMenuAction extends CommonAction {
      * 将自定义菜单上传到微信服务器
      */
     public function put_weixin_menu() {
+        $this->check_auth('Config/WeixinMenu/upload_server');
         $M = M("WeixinMenu");
         $menu_data = array();
         $main_menu = $M->where("main=0 and status=1")->order('sort,id')->select();
