@@ -8,12 +8,18 @@
 class WeixinMenuAction extends CommonAction {
 
     private $api_url = 'https://api.weixin.qq.com/cgi-bin/menu/'; //微信服务器接口基础地址
+    
+    function _initialize() {
+        parent::_initialize();
+        $this->check_auth('Config/WeixinMenu');
+    }
 
     /**
      * 顶级菜单列表首页
      */
 
     public function index() {
+        $this->check_auth('Config/WeixinMenu');
         parent::index(" and main=0", 'sort,id');
     }
 
