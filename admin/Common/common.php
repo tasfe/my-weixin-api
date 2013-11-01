@@ -16,6 +16,18 @@ function get_user_group($uid) {
 }
 
 /**
+ * 权限检查
+ * @param String $auth_name 规则名称
+ * @param Integer $uid 用户ID
+ */
+function check_auth($auth_name, $uid = '') {
+    $uid=  empty($uid)?session('user_id'):$uid;
+    import('ORG.Util.Auth'); //加载类库
+    $auth = new Auth();
+    return $auth->check($auth_name, $uid);
+}
+
+/**
  * 判断是否正确登录了系统
  * @return boolean
  */
