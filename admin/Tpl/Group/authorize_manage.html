@@ -200,8 +200,6 @@
         }
     });
 </script>
-<script type="text/javascript" src="__PUBLIC__/qtip/jquery.qtip.min.js"></script>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/qtip/jquery.qtip.min.css" media="all">
 <script type="text/javascript" charset="utf-8">
     +function($) {
         //全选节点
@@ -210,28 +208,6 @@
         });
         $('.rules_row').on('change', function() {
             $(this).closest('.rule_check').find('.child_row').find('input').prop('checked', this.checked);
-        });
-        $('.checkbox').each(function() {
-            $(this).qtip({
-                content: {
-                    text: $(this).attr('title'),
-                    title: $(this).text()
-                },
-                position: {
-                    my: 'bottom center',
-                    at: 'top center',
-                    target: $(this)
-                },
-                style: {
-                    classes: 'qtip-dark',
-                    tip: {
-                        corner: true,
-                        mimic: false,
-                        width: 10,
-                        height: 10
-                    }
-                }
-            });
         });
     }(jQuery);
 </script>
