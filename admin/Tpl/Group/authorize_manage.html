@@ -186,7 +186,8 @@
             switch (data.data) {
                 case 1:
                     $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>授权组权限修改成功！</div>')
-                            .fadeIn("slow");
+                            .fadeIn("slow").fadeOut(5000);
+                    save_button.removeAttr('disabled');
                     break;
                 default:
                     $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>授权组权限修改失败！</div>')
