@@ -10,15 +10,18 @@
             <div class="nav-collapse collapse navbar-inverse-collapse">
                 <ul class="nav">
                     <li<php>if($module_name=='main') echo ' class="active"';</php>><a href="{:U('/main')}">首页</a></li>
-                    <php>if(session('admin')==1){</php>
+                <php>if(check_auth('Config')){</php>
                     <li class="dropdown<php>if(in_array($module_name,array('weixin_menu','subscribe','config'))) echo ' active';</php>">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">基础配置 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{:U('config/index')}">系统配置</a></li>
-                            <li><a href="{:U('subscribe/index')}">新订阅管理</a></li>
-                            <li><a href="{:U('/weixin_menu')}">微信菜单管理</a></li>
+                            <php>
+                                if(check_auth('Config/sys_con')) echo '<li><a href="'.U('config/index').'">系统配置</a></li>';
+                                if(check_auth('Config/Subscribe')) echo '<li><a href="'.U('subscribe/index').'">新订阅管理</a></li>';
+                                if(check_auth('Config/WeixinMenu')) echo '<li><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>';
+                            </php>
                         </ul>
                     </li>
+                    <php>}</php>
 
                     <li class="dropdown<php>if($module_name=='zhiling' || $module_name=='reply_database') echo ' active';</php>">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">回复管理 <b class="caret"></b></a>
@@ -27,7 +30,6 @@
                             <li><a href="{:U('reply_database/index')}">智能回复管理</a></li>
                         </ul>
                     </li>
-                    <php>}</php>
                     <li class="dropdown<php>if(in_array($module_name,array('choujiang','choujiang_duijiang','duijiang','choujiang_award'))) echo ' active';</php>">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">活动管理 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
