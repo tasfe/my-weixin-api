@@ -9,6 +9,19 @@ class IndexAction extends Action {
             $this->display();
         }
     }
+    
+    
+     /**
+
+     * 验证码生成方法
+
+     */
+    public function verify() {
+        import('ORG.Util.Image');
+        $type = isset($_GET['type']) ? $_GET['type'] : 'png';
+        $type = 'png';
+        Image::buildImageVerify(6, 1, $type, 60, 42, "verify");
+    }
 
     /**
      * 验证登录
@@ -21,6 +34,9 @@ class IndexAction extends Action {
             $Admin = M('User');
             $info = $Admin->where("user_name='%s'", $user_name)->find();
             
+            if (md5($_POST['verify']) != session('verify')) {
+                $this->ajaxReturn(array('data' => 3));
+            }
             if (empty($info)) {
                 $this->ajaxReturn(array('data' => 0));
             }
