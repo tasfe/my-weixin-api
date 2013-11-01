@@ -1,0 +1,239 @@
+<tagLib name="lbase"/>
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台营销管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <include file='Public:header' />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__ROOT__/public/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <style type="text/css">
+        dl,dt,dd,ul,ol,li,			
+        form,select,input,textarea,button,		
+        table,caption,tr,th,td {
+            margin:0;
+            padding:0;
+        }
+        .main {
+            background-color: #f6f6f6;
+            color: #635c73;
+        }
+        .tab-content .tab-pane {
+            display: none;
+        }
+        .tab-content .in {
+            display: block;
+        }
+        /* 文章新增编辑页,权限授权页,分类编辑页 tab标签 */
+        .tab-nav {
+            border-bottom-color: #e0e0e0;
+        }
+        .tab-nav .current a,
+        .tab-nav .current a:hover {
+            border-color: #7b66ab #e0e0e0 #f6f6f6;
+        }
+        /* 访问授权页面 大类区块 */
+        .checkmod {
+            width: 95%;
+            margin: 0 auto;
+            border-color: #ebebeb;
+        }
+        .checkmod dt {
+            border-bottom-color: #ebebeb;
+            background-color: #ECECEC;
+        }
+        /* 授权编辑页 */
+        .checkmod {
+            margin-bottom: 20px;
+            border: 1px solid #ebebeb;
+        }
+        .checkmod dt {
+            padding-left: 10px;
+            height: 30px;
+            line-height: 30px;
+            font-weight: bold;
+            border-bottom: 1px solid #ebebeb;
+            background-color: #ECECEC;
+        }
+        .checkmod dd {
+            padding-left: 10px;
+            line-height: 30px;
+        }
+        .checkmod dd .checkbox {
+            margin: 0 10px 0 0;
+        }
+        .checkmod dd .divsion {
+            margin-right: 20px;
+        }
+        .checkbox + .checkbox,
+        .radio + .radio {
+            margin-left: 15px;
+        }
+        .checkbox, .radio {
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+        }
+        .checkbox input,
+        .radio input {
+            margin-right: 5px;
+            *margin-right: 1px;
+            vertical-align: -1px;
+        }
+        .hd .checkbox{
+            font-weight: bold;
+        }
+    </style>
+    <!--nav-->
+<include file='Public:nav' />
+<div class="container">
+    <div class="page-header"><h4>[{$group_name}]权限组授权管理</h4></div>
+    <div class="row">
+        <div class="span12">
+            <div class="pull-left">
+                <a href="{:U('/'.$module_name)}" class="btn btn-primary">返回</a>&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12 main" style="margin-top:10px;">
+            <div class="tab-content">
+                <!-- 访问授权 -->
+                <div class="tab-pane in">
+                    <form class="form-horizontal" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
+                        <fieldset>
+                            <div id="legend" class="">
+                                <legend class=""></legend>
+                            </div>
+                            <volist name="tree_list" id="node" >
+                                <dl class="checkmod">
+                                    <dt class="hd">
+                                    <label class="checkbox"><input class="auth_rules rules_all" type="checkbox" name="rules[]" value="<?php echo $node['id']; ?>"<php>if(in_array($node['id'],$group_auth)) echo ' checked="checked"';</php>>{$node.title}</label>
+                                    </dt>
+                                    <dd class="bd">
+                                    <volist name="node['_child']" id="child" >
+                                        <div class="rule_check">
+                                            <div>
+                                                <label class="checkbox" <notempty name="child['tip']">title='{$child.tip}'</notempty>>
+                                                    <input class="auth_rules rules_row" type="checkbox" name="rules[]" value="<?php echo $child['id'] ?>"<php>if(in_array($child['id'],$group_auth)) echo ' checked="checked"';</php>/>{$child.title}</label>
+                                            </div>
+                                            <notempty name="child['_child']">
+                                                <span class="divsion">&nbsp;</span>
+                                                <span class="child_row">
+                                                    <volist name="child['_child']" id="op">
+                                                        <label class="checkbox" <notempty name="op['tip']">title='{$op.tip}'</notempty>>
+                                                            <input class="auth_rules" type="checkbox" name="rules[]" value="<?php echo $op['id'] ?>"<php>if(in_array($op['id'],$group_auth)) echo ' checked="checked"';</php>/>{$op.title}</label>
+                                                    </volist>
+                                                </span>
+                                            </notempty>
+                                        </div>
+                                    </volist>
+                                    </dd>
+                                </dl>
+                            </volist>
+                            <div id='pop'></div>
+
+                            <div class="form-actions">
+                                <input type="hidden" value="{$id}" name="id" />
+                                <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
+                                <a class="btn" href="{$pre_url}">返 回</a>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file='Public:footer' />
+<script type="text/javascript">
+    $(function() {
+        var save_button = $('#save');
+        save_button.click(function() {
+            ajax_action();
+        });
+        function ajax_action() {
+            var data = $('form').serialize();
+            save_button.attr('disabled', 'disabled');
+            $.ajax({
+                type: "POST",
+                url: app_url + "/" + module_name + "/update_authorize_manage",
+                data: data,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    success(data);
+                },
+                error: function() {
+                    error();
+                }
+            });
+        }
+
+        $('#pop').ajaxStart(function() {
+            $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
+                    .fadeIn("slow");
+        });
+        function success(data) {
+            switch (data.data) {
+                case 1:
+                    $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>授权组权限修改成功！</div>')
+                            .fadeIn("slow");
+                    break;
+                default:
+                    $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>授权组权限修改失败！</div>')
+                            .fadeIn("slow");
+            }
+        }
+        function error() {
+            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>远程服务器请求失败！</div>')
+                    .fadeIn("slow")
+                    .fadeOut(5000);
+        }
+    });
+</script>
+<script type="text/javascript" src="__PUBLIC__/qtip/jquery.qtip.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/qtip/jquery.qtip.min.css" media="all">
+<script type="text/javascript" charset="utf-8">
+    +function($) {
+        //全选节点
+        $('.rules_all').on('change', function() {
+            $(this).closest('dl').find('dd').find('input').prop('checked', this.checked);
+        });
+        $('.rules_row').on('change', function() {
+            $(this).closest('.rule_check').find('.child_row').find('input').prop('checked', this.checked);
+        });
+        $('.checkbox').each(function() {
+            $(this).qtip({
+                content: {
+                    text: $(this).attr('title'),
+                    title: $(this).text()
+                },
+                position: {
+                    my: 'bottom center',
+                    at: 'top center',
+                    target: $(this)
+                },
+                style: {
+                    classes: 'qtip-dark',
+                    tip: {
+                        corner: true,
+                        mimic: false,
+                        width: 10,
+                        height: 10
+                    }
+                }
+            });
+        });
+    }(jQuery);
+</script>
+</body>
+</html>
