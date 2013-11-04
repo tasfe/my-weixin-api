@@ -6,11 +6,27 @@
  * @author <zibin_5257@163.com>lanfengye
  */
 class SeckillGoodsAction extends CommonAction {
+    
+    public function index(){
+        $this->check_auth('Seckill/SeckillGoods');
+        parent::index();
+    }
+    
+    public function add() {
+        $this->check_auth('Seckill/SeckillGoods/add');
+        parent::add();
+    }
+    
+    public function delete() {
+        $this->check_auth('Seckill/SeckillGoods/delete');
+        parent::delete();
+    }
 
     /**
      * 插入方法
      */
     public function insert() {
+        $this->check_auth('Seckill/SeckillGoods/add');
         $M = D(MODULE_NAME);
         $data = $M->create();
         if ($data === false) {
@@ -41,6 +57,7 @@ class SeckillGoodsAction extends CommonAction {
      * 编辑页面显示方法
      */
     public function edit() {
+        $this->check_auth('Seckill/SeckillGoods/edit');
         $id = intval($_GET['id']);
         $M = M(MODULE_NAME);
         $info = $M->where("id=%d", $id)->find();
@@ -65,6 +82,7 @@ class SeckillGoodsAction extends CommonAction {
      * 更新方法
      */
     public function update() {
+        $this->check_auth('Seckill/SeckillGoods/edit');
         $id = intval($_POST['id']);
         $M = D(MODULE_NAME);
         $data = $M->create();
