@@ -24,7 +24,7 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增活动</a>
+                <php>if(check_auth('Seckill/SeckillGoods/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新增活动</a>';</php>
             </div>
         </div>
         <div class="span12" style="margin-top:10px;">
@@ -63,16 +63,17 @@
                         <td>{:get_seckill_num($vo['id'])}</td>
                         <td>{:get_seckill_surplus($vo['id'])}</php></td>
                         <td><php>if(empty($vo['begin_time'])) echo $vo['begin_time']; else echo get_date_full($vo['begin_time']);</php></td>
-                        <td><php>if(empty($vo['stop_time'])) echo $vo['stop_time']; else echo get_date_full($vo['stop_time']);</php></td>
-                        <td>{:get_seckill_status($vo['id'])}</td>
-                        <td><php>if($vo['wx_user_num']==0) echo '不限制'; else echo $vo['wx_user_num'];</php></td>
-                        <td>{:get_status_img($vo['status'])}</td>
-                        <td>{$vo.sort}</td>
-                        <td>{:get_seckill_pv($vo['id'])}</td>
+                    <td><php>if(empty($vo['stop_time'])) echo $vo['stop_time']; else echo get_date_full($vo['stop_time']);</php></td>
+                    <td>{:get_seckill_status($vo['id'])}</td>
+                    <td><php>if($vo['wx_user_num']==0) echo '不限制'; else echo $vo['wx_user_num'];</php></td>
+                    <td>{:get_status_img($vo['status'])}</td>
+                    <td>{$vo.sort}</td>
+                    <td>{:get_seckill_pv($vo['id'])}</td>
                     <td>
-                        <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
-                        <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                        <a href="###" onclick="delete_tr({$vo.id});">删除</a>
+                    <php>
+                        if(check_auth('Seckill/SeckillGoods/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Seckill/SeckillGoods/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
                     </td>
                     </tr>
                 </foreach>
