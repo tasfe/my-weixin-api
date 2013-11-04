@@ -24,7 +24,7 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增优惠</a>
+                <php>if(check_auth('Coupon/Index/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新增优惠</a>';</php>
             </div>
         </div>
         <div class="span12" style="margin-top:10px;">
@@ -54,15 +54,16 @@
                         <td>{$vo.id}</td>
                         <td>{$vo.name}</td>
                         <td><php>if($vo['begin_time']==0) echo '不限制'; else echo get_date_full($vo['begin_time']);</php></td>
-                        <td><php>if($vo['stop_time']==0) echo '不限制'; else echo get_date_full($vo['stop_time']);</php></td>
-                        <td><php>if($vo['award_stop_time']==0) echo '不限制'; else echo get_date_full($vo['award_stop_time']);</php></td>
-                        <td><php>if($vo['limited']==0) echo '不限制'; else echo $vo['limited'];</php></td>
-                        <td>{$vo.remark}</td>
-                        <td>{$vo.status|get_status_img}</td>
+                    <td><php>if($vo['stop_time']==0) echo '不限制'; else echo get_date_full($vo['stop_time']);</php></td>
+                    <td><php>if($vo['award_stop_time']==0) echo '不限制'; else echo get_date_full($vo['award_stop_time']);</php></td>
+                    <td><php>if($vo['limited']==0) echo '不限制'; else echo $vo['limited'];</php></td>
+                    <td>{$vo.remark}</td>
+                    <td>{$vo.status|get_status_img}</td>
                     <td>
-                        <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
-                        <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                        <a href="###" onclick="delete_tr({$vo.id});">删除</a>
+                    <php>
+                        if(check_auth('Coupon/Index/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Coupon/Index/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
                     </td>
                     </tr>
                 </foreach>
