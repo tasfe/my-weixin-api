@@ -8,6 +8,7 @@
 class UserAction extends CommonAction {
 
     public function change_password() {
+        $this->check_auth('User/change_password');
         $this->display();
     }
 
@@ -15,6 +16,7 @@ class UserAction extends CommonAction {
      * 更新密码
      */
     public function update_password() {
+        $this->check_auth('User/change_password');
         $user_id = intval(session('user_id'));
         if ($_POST['user_pwd'] == '') {
             $this->ajaxReturn(0);  //当前密码为空
@@ -58,13 +60,21 @@ class UserAction extends CommonAction {
      *用户列表 
      */
     public function index(){
+        $this->check_auth('User/Index');
         parent::index();
     }
     
+    public function add(){
+        $this->check_auth('User/Index/add');
+        parent::add();
+    }
+
+
     /**
      * 插入新增的用户
      */
     public function insert() {
+        $this->check_auth('User/Index/add');
         $M = D(MODULE_NAME);
         $data = $M->create();
         if ($data === false) {
@@ -88,11 +98,16 @@ class UserAction extends CommonAction {
         }
     }
     
-    
+    public function edit() {
+        $this->check_auth('User/Index/edit');
+        parent::edit();
+    }
+
     /**
      * 用户资料修改
      */
     public function update() {
+        $this->check_auth('User/Index/edit');
         $id = intval($_POST['id']);
         $M = M(MODULE_NAME);
         $data=array(
@@ -117,6 +132,7 @@ class UserAction extends CommonAction {
      * 编辑用户所属权限组
      */
     public function edit_user_group() {
+        $this->check_auth('User/Index/edit_user_group');
         $user_id = intval($_GET['id']);
         $this->user_id=$user_id;
         $info = M('User')->field('id,user_name')->where("id={$user_id}")->find();
@@ -139,6 +155,7 @@ class UserAction extends CommonAction {
      * 更新用户权限组信息
      */
     public function update_edit_user_group(){
+        $this->check_auth('User/Index/edit_user_group');
         $user_id=intval($_POST['user_id']);
         $M=M('AuthGroupAccess');
         $M->where("uid=%d",$user_id)->delete();
@@ -152,10 +169,10 @@ class UserAction extends CommonAction {
      * 用户删除功能
      */
     public function delete() {
+        $this->check_auth('User/Index/delete');
         $M = D(MODULE_NAME);
         $id = intval($_POST['id']);
         $user_name=M("User")->where("id={$id}")->getField("user_name");
-        
         
         $super_admin=C("AUTH_CONFIG.SuperAdmin");
         //判断是否为超级用户
