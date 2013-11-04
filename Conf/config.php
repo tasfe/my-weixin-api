@@ -17,7 +17,7 @@ return array(
     'DB_PREFIX' => 'lfy_', // 数据库表前缀
     'DB_SUFFIX' => '', // 数据库表后缀
     
-    'root_path'=>'/weixin_api',  //所在目录，如果为根目录则填写''
+    'root_path'=>'/weixin',  //所在目录，如果为根目录则填写''
     
     /* URL路由规则 */
     'URL_ROUTER_ON' => true,
