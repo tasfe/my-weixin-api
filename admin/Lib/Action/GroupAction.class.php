@@ -8,6 +8,7 @@
 class GroupAction extends CommonAction {
 
     public function index() {
+        $this->check_auth('User/Group');
         $order = empty($order) ? 'id desc' : $order;
         $M = M("AuthGroup");
         //处理搜索条件
@@ -38,8 +39,14 @@ class GroupAction extends CommonAction {
         $this->list = $list;
         $this->display();
     }
+    
+    public function add() {
+        $this->check_auth('User/Group/add');
+        parent::add();
+    }
 
     public function insert() {
+        $this->check_auth('User/Group/add');
         $M = D('AuthGroup');
         $data = $M->create();
         if ($data === false) {
@@ -58,6 +65,7 @@ class GroupAction extends CommonAction {
      * 编辑页面显示方法
      */
     public function edit() {
+        $this->check_auth('User/Group/edit');
         $id = intval($_GET['id']);
         $M = M('AuthGroup');
         $info = $M->where("id=%d", $id)->find();
@@ -74,6 +82,7 @@ class GroupAction extends CommonAction {
      * 更新方法
      */
     public function update() {
+        $this->check_auth('User/Group/edit');
         $id = intval($_POST['id']);
         $M = D('AuthGroup');
         $data = $M->create();
@@ -93,6 +102,7 @@ class GroupAction extends CommonAction {
      * 删除权限组
      */
     public function delete() {
+        $this->check_auth('User/Group/delete');
         $M = D('AuthGroup');
         $id = intval($_POST['id']);
         $AuthGroupAccess=M('AuthGroupAccess');
@@ -108,6 +118,7 @@ class GroupAction extends CommonAction {
      * 权限组成员管理
      */
     public function user_manage(){
+        $this->check_auth('User/Group/user_manage');
         $g_id=  intval($_GET['id']);
         $AuthGroup=M('AuthGroup');
         $this->group_name=$AuthGroup->where("id={$g_id}")->getField('title');
@@ -119,6 +130,7 @@ class GroupAction extends CommonAction {
      * 权限组授权管理
      */
     public function authorize_manage(){
+        $this->check_auth('User/Group/authorize_manage');
         $group_id=  intval($_GET['id']);
         $this->id=$group_id;
         $AuthGroup=M('AuthGroup');
@@ -139,6 +151,7 @@ class GroupAction extends CommonAction {
      * 更新权限组授权信息
      */
     public function update_authorize_manage(){
+        $this->check_auth('User/Group/authorize_manage');
         $group_id=  intval($_POST['id']);
         $rules=$_POST['rules'];
         $AuthGroup=M('AuthGroup');
