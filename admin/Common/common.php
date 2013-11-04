@@ -295,11 +295,13 @@ function get_reply_text($type) {
 /**
  * 获得上级节点
  */
-function get_main_str($data) {
+function get_main_str($data,$type="Zhiling") {
     if ($data == 0) {
         return '父级';
     } else {
-        return $data;
+        $M=M($type);
+        $name=$M->where("id={$data}")->getField('title');
+        return $name;
     }
 }
 
