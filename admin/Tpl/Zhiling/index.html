@@ -31,7 +31,7 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>
+                <php>if(check_auth('Reply/Zhiling/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新 增</a>';</php>
             </div>
             <ul class="nav pull-right">
                 <form action="" method="get">
@@ -84,7 +84,12 @@
                         <td>{:get_main_str($vo['main'])}</td>
                         <td>{$vo.num}</td>
                         <td>{$vo.remark}</td>
-                        <td><a href='#'>查看</a>&nbsp;&nbsp;<a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<a href="###" onclick="delete_tr({$vo.id});">删除</a></td>
+                        <td>
+                    <php>
+                        if(check_auth('Reply/Zhiling/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Reply/Zhiling/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a>';
+                    </php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
