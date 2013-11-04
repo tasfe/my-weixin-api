@@ -24,7 +24,7 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增</a>
+                <php>if(check_auth('User/Group/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新增</a>';</php>
             </div>
         </div>
         <div class="span12" style="margin-top:10px;">
@@ -50,11 +50,13 @@
                         <td>{$vo.status|get_status_img}</td>
                         <td>{$vo.remark}</td>
                         <td>
-                            <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                            <a href="{:U($module_name.'/user_manage?id='.$vo['id'])}">成员管理</a>&nbsp;&nbsp;
-                            <a href="{:U($module_name.'/authorize_manage?id='.$vo['id'])}">授权管理</a>&nbsp;&nbsp;
-                            <a href="###" onclick="delete_tr({$vo.id});">删除</a>
-                        </td>
+                    <php>
+                        if(check_auth('User/Group/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('User/Group/user_manage')) echo '<a href="'.U($module_name.'/user_manage?id='.$vo['id']).'">成员管理</a>&nbsp;&nbsp;';
+                        if(check_auth('User/Group/authorize_manage')) echo '<a href="'.U($module_name.'/authorize_manage?id='.$vo['id']).'">授权管理</a>&nbsp;&nbsp;';
+                        if(check_auth('User/Group/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
