@@ -26,7 +26,7 @@ class IndexAction extends CommonAction {
         $this->token = MC('weixin_token');
     }
 
-    public function index() {
+    public function index() {    
         $echoStr = $_GET["echostr"];
         if ($this->checkSignature()) {
             //获取传递过来的XML数据文件
@@ -74,7 +74,7 @@ class IndexAction extends CommonAction {
             }
         } else {
             header("Content-Type: text/html; charset=UTF-8");
-            echo '腾讯大辽网-微信公众平台API访问成功!';
+            echo '微信公众平台API访问成功!';
         }
     }
 
@@ -85,7 +85,7 @@ class IndexAction extends CommonAction {
         //获取菜单消息
         $content = trim($this->msg_info->EventKey);
         $Zhiling = M('Zhiling');
-        $data = $Zhiling->where(array("menu_key" => $content, "status" => 1))->find();
+        $data = $Zhiling->where(array("menu_key" => $content, "status" => 1,"main"=>0))->find();
         if (!empty($data)) {
             //判断回复的消息类型
             $this->text_msg_return($data);
@@ -230,7 +230,7 @@ class IndexAction extends CommonAction {
         }
     }
 
-    private function text_msg_return($data) {
+    private function text_msg_return($data,$type='Zhiling') {
         switch ($data['msg_type']) {
             case 1:  //文本
                 $content = empty($data['contents']) ? '欢迎您关注微信！' : $data['contents'];
@@ -259,6 +259,7 @@ class IndexAction extends CommonAction {
                 break;
             case 3: //多条图文
                 $data_array[] = $data;
+                $Zhiling=M($type);
                 $temp_array = $Zhiling->where("main={$data['id']} and status=1")->order("sort,id")->select();
                 //合并两个结果数组
                 $return_array = array_merge($data_array, $temp_array);
@@ -287,7 +288,7 @@ class IndexAction extends CommonAction {
             if ($key + 1 > $this->return_count) {
                 break;
             }
-
+            
             //判断点击链接是否为空
             if (empty($value['click_url'])) {
                 $url = 'http://' . $_SERVER['SERVER_NAME'] . U($action_name . '/view?id=' . $value['id']);
