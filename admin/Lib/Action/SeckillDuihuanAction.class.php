@@ -8,6 +8,7 @@
 class SeckillDuihuanAction extends CommonAction {
 
     public function index() {
+        $this->check_auth('Seckill/duihuan');
         $M = M(MODULE_NAME);
 
         //处理搜索条件
@@ -50,11 +51,17 @@ class SeckillDuihuanAction extends CommonAction {
         $this->list = $list;
         $this->display();
     }
+    
+    public function duihuan(){
+        $this->check_auth('Seckill/SeckillDuihuan');
+        $this->display();
+    }
 
     /**
      * 获取兑换码信息
      */
     public function get_code() {
+        $this->check_auth('Seckill/SeckillDuihuan');
         $code = trim($_POST['code']);
         if (empty($code)) {
             $this->assign($info);
@@ -75,6 +82,7 @@ class SeckillDuihuanAction extends CommonAction {
      * 进行兑奖码兑换操作
      */
     public function duihuan_action() {
+        $this->check_auth('Seckill/SeckillDuihuan');
         $id = intval($_POST['id']);
         M("SeckillRecord")->where("id={$id}")->setField("status", 1);
         $info = M("SeckillRecord")->where("id={$id}")->find();
