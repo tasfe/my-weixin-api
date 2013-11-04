@@ -51,13 +51,14 @@
                         <td>{$vo.card_no}</td>
                         <td>{$vo.user_name}</td>
                         <td><php>if($vo['user_sex']==0) echo '男'; else echo '女';</php></td>
-                        <td>{$vo.user_telephone}</td>
-                        <td>{$vo.user_birthday}</td>
-                        <td>{$vo['create_time']|get_date_full}</php></td>
+                    <td>{$vo.user_telephone}</td>
+                    <td>{$vo.user_birthday}</td>
+                    <td>{$vo['create_time']|get_date_full}</php></td>
                     <td>
-                        <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
-                        <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                        <a href="###" onclick="delete_tr({$vo.id});">删除</a>
+                    <php>
+                        if(check_auth('Member/MemberCard/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Member/MemberCard/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
                     </td>
                     </tr>
                 </foreach>
