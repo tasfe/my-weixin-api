@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台营销管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+    <include file='Public:header' />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__ROOT__/public/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!--nav-->
+<include file='Public:nav' />
+
+<div class="container">
+    <div class="page-header"><h4>用户管理</h4></div>
+    <div class="row">
+        <div class="span12">
+            <div class="pull-left">
+                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增用户</a>
+            </div>
+        </div>
+        <div class="span12" style="margin-top:10px;">
+            <div id='pop'></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>UID</th>
+                        <th>用户名</th>
+                        <th>昵称</th>
+                        <th>最后登陆时间</th>
+                        <th>最后登陆IP</th>
+                        <th>状态</th>
+                        <th>权限组</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="9"><div class="row pagination page"><div class="span12">{$page}</div></div></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                <foreach name='list' item='vo'>
+                    <tr id='tr_{$vo.id}'>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.user_name}</td>
+                        <td>{$vo.title}</td>
+                        <td><php>if(empty($vo['lastlogin_time'])) echo '未登录'; else echo get_date_full($vo['lastlogin_time']);</php></td>
+                    <td>{$vo.lastlogin_ip}</td>
+                    <td>{$vo.status|get_status_img}</td>
+                    <td><php>
+                        foreach(get_user_group($vo['id']) as $key=>$value){
+                        if($key>0) echo ',';
+                        echo $value['title'];
+                        }
+                    </php></td>
+                    <td>{$vo.remark}</td>
+                    <td>
+                        <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
+                        <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
+                        <a href="{:U($module_name.'/edit_user_group?id='.$vo['id'])}">授权</a>&nbsp;&nbsp;
+                        <a href="###" onclick="delete_tr({$vo.id});">删除</a>
+                    </td>
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<include file='Public:footer' />
+
+<script type="text/javascript">
+    function delete_tr(id) {
+        if (confirm('确实要删除该内容吗?')) {
+            var data = {'id': id};
+            $.ajax({
+                type: "POST",
+                url: app_url + "/" + module_name + "/delete",
+                data: data,
+                timeout: 5000,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    switch (data.data) {
+                        case 1:
+                            $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>删除成功！</div>')
+                                    .fadeIn("slow")
+                                    .fadeOut(5000);
+                            $('#tr_' + id).hide();
+                            break;
+                        case 2:
+                            $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>无法删除超级用户!</div>')
+                                    .fadeIn("slow")
+                                    .fadeOut(5000);
+                            break;
+                        default:
+                            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
+                                    .fadeIn("slow")
+                                    .fadeOut(5000);
+                            break;
+                    }
+                },
+                error: function() {
+                    error();
+                },
+                beforeSend: function() {
+                    $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
+                            .fadeIn("slow");
+                }
+            });
+        }
+    }
+
+    function error() {
+        $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>删除失败！</div>')
+                .fadeIn("slow")
+                .fadeOut(5000);
+    }
+</script>
+
+
+</body>
+</html>
