@@ -280,11 +280,11 @@ a:hover{text-decoration:none;color:#000;}
 .member_text{top:85px;right:20px;text-align:right;width:280px;position:absolute;}
 .menber_title{margin:10px 0px 0 0;color:#fff;widht:200px;display:block;font-size:16px;font-family:"MicroSoft YaHei";text-shadow:1px 0px 0px #000,-1px 0px 0px #000,0px 1px 0px #000,0px -1px 0px #000;}
 .menber_gigital{color:#f4c51f;widht:200px;font-size:23px;font-family:"MicroSoft YaHei";text-shadow: 2px 0px 0px #000,-2px 0px 0px #000,0px 2px 0px #000,0px -2px 0px #000;}
-.member_marked{margin:0 auto;padding:0 10px;margin-top:70px;height:33px;line-height:35px;color:#986e34;font-size:15px; background:#fff9b3; border:solid 1px #c39f02;border-radius:5px;}
+.member_marked{overflow:hidden;margin:0 auto;padding:0 10px;margin-top:70px;height:33px;line-height:35px;color:#986e34;font-size:15px; background:#fff9b3; border:solid 1px #c39f02;border-radius:5px;}
 .member_marked span{margin:0px 5px 0 0;color:#d89713;font-size:14px;float:left;}
 .member_ico{font-size:12px;margin-top:80px;line-height:25px;}
 .menber_xianzi{display:inline-block;font-size:15px;}
-.member_ruis{margin-top:3px;overflow:hidden;}
+.member_ruis{margin-top:0px;width:100%;overflow:hidden;}
 .member_ruis_rui{height:45px;background:#eaedf2;border:solid 1px #d5d4d4;border-radius:4px;position:relative;}
 .member_ruis_top{padding:0px 10px 0 35px;height:45px;line-height:45px;font-size:16px;color:#000;font-weight:bold; position:relative;}
 
