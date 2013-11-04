@@ -10,32 +10,139 @@ Target Server Type    : MYSQL
 Target Server Version : 50533
 File Encoding         : 65001
 
-Date: 2013-10-25 10:58:28
+Date: 2013-11-04 13:28:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `lfy_admin`
+-- Table structure for `lfy_auth_group`
 -- ----------------------------
-DROP TABLE IF EXISTS `lfy_admin`;
-CREATE TABLE `lfy_admin` (
+DROP TABLE IF EXISTS `lfy_auth_group`;
+CREATE TABLE `lfy_auth_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(50) NOT NULL DEFAULT '',
-  `user_pwd` char(32) NOT NULL DEFAULT '',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `lastlogin_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `admin` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否为系统管理员，0-否 1-是',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态 0-禁用 1-启用',
-  PRIMARY KEY (`id`),
-  KEY `main` (`id`,`user_name`,`admin`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '用户组中文名称',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：为1正常，为0禁用',
+  `rules` varchar(5000) NOT NULL DEFAULT '' COMMENT '用户组拥有的规则id， 多个规则","隔开',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='权限用户组表';
 
 -- ----------------------------
--- Records of lfy_admin
+-- Records of lfy_auth_group
 -- ----------------------------
-INSERT INTO `lfy_admin` VALUES ('1', 'admin', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '0', '1', '1');
-INSERT INTO `lfy_admin` VALUES ('2', '0101', '0099bb964beb82f6506828227ed82a77', '0', '0', '2', '1');
+INSERT INTO `lfy_auth_group` VALUES ('1', '默认用户组', '1', '2,1,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,79,80,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,58,59,57,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,81', '默认全部权限');
+INSERT INTO `lfy_auth_group` VALUES ('2', '兑奖管理', '1', '2,1,3', '');
+
+-- ----------------------------
+-- Table structure for `lfy_auth_group_access`
+-- ----------------------------
+DROP TABLE IF EXISTS `lfy_auth_group_access`;
+CREATE TABLE `lfy_auth_group_access` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户组id',
+  UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
+  KEY `uid` (`uid`),
+  KEY `group_id` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='权限用户组-用户明细表';
+
+-- ----------------------------
+-- Records of lfy_auth_group_access
+-- ----------------------------
+INSERT INTO `lfy_auth_group_access` VALUES ('1', '1');
+INSERT INTO `lfy_auth_group_access` VALUES ('10', '2');
+
+-- ----------------------------
+-- Table structure for `lfy_auth_rule`
+-- ----------------------------
+DROP TABLE IF EXISTS `lfy_auth_rule`;
+CREATE TABLE `lfy_auth_rule` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(80) NOT NULL DEFAULT '' COMMENT '规则唯一标识',
+  `title` char(20) NOT NULL DEFAULT '' COMMENT '规则中文名称',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT ' 状态 0-禁用 1-正常',
+  `condition` varchar(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+  `main` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级菜单 0-为一级主菜单',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`,`main`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
+
+-- ----------------------------
+-- Records of lfy_auth_rule
+-- ----------------------------
+INSERT INTO `lfy_auth_rule` VALUES ('1', 'Main/index_census', '首页统计', '1', '', '2');
+INSERT INTO `lfy_auth_rule` VALUES ('2', 'Main', '首页', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('11', 'Config', '基础配置', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('12', 'Config/sys_con', '系统配置', '1', '', '11');
+INSERT INTO `lfy_auth_rule` VALUES ('13', 'Config/Subscribe', '新订阅管理', '1', '', '11');
+INSERT INTO `lfy_auth_rule` VALUES ('14', 'Config/Subscribe/add', '新增', '1', '', '13');
+INSERT INTO `lfy_auth_rule` VALUES ('15', 'Config/Subscribe/edit', '编辑', '1', '', '13');
+INSERT INTO `lfy_auth_rule` VALUES ('16', 'Config/Subscribe/delete', '删除', '1', '', '13');
+INSERT INTO `lfy_auth_rule` VALUES ('17', 'Config/WeixinMenu', '微信菜单管理', '1', '', '11');
+INSERT INTO `lfy_auth_rule` VALUES ('18', 'Config/WeixinMenu/add', '新增菜单', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('19', 'Config/WeixinMenu/edit', '编辑菜单', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('20', 'Config/WeixinMenu/delete', '删除菜单', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('21', 'Config/WeixinMenu/upload_server', '上传到服务器', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('22', 'Config/WeixinMenu/delete_server', '删除服务器菜单', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('23', 'Config/WeixinMenu/submenu', '子菜单管理', '1', '', '17');
+INSERT INTO `lfy_auth_rule` VALUES ('24', 'Reply', '回复管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('25', 'Reply/Zhiling', '文本指令管理', '1', '', '24');
+INSERT INTO `lfy_auth_rule` VALUES ('26', 'Reply/Zhiling/add', '新增', '1', '', '25');
+INSERT INTO `lfy_auth_rule` VALUES ('27', 'Reply/Zhiling/edit', '编辑', '1', '', '25');
+INSERT INTO `lfy_auth_rule` VALUES ('28', 'Reply/Zhiling/delete', '删除', '1', '', '25');
+INSERT INTO `lfy_auth_rule` VALUES ('29', 'Reply/ReplyDatabase', '智能回复管理', '1', '', '24');
+INSERT INTO `lfy_auth_rule` VALUES ('30', 'Reply/ReplyDatabase/add', '新增', '1', '', '29');
+INSERT INTO `lfy_auth_rule` VALUES ('31', 'Reply/ReplyDatabase/edit', '编辑', '1', '', '29');
+INSERT INTO `lfy_auth_rule` VALUES ('32', 'Reply/ReplyDatabase/delete', '删除', '1', '', '29');
+INSERT INTO `lfy_auth_rule` VALUES ('33', 'Activities', '活动管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('34', 'Activities/Choujiang', '活动管理', '1', '', '33');
+INSERT INTO `lfy_auth_rule` VALUES ('35', 'Activities/Choujiang/add', '新增', '1', '', '34');
+INSERT INTO `lfy_auth_rule` VALUES ('36', 'Activities/Choujiang/edit', '编辑', '1', '', '34');
+INSERT INTO `lfy_auth_rule` VALUES ('37', 'Activities/Choujiang/delete', '删除', '1', '', '34');
+INSERT INTO `lfy_auth_rule` VALUES ('38', 'Activities/Choujiang/award', '奖品管理', '1', '', '33');
+INSERT INTO `lfy_auth_rule` VALUES ('39', 'Activities/Choujiang/award/add', '新增', '1', '', '38');
+INSERT INTO `lfy_auth_rule` VALUES ('40', 'Activities/Choujiang/award/edit', '编辑', '1', '', '38');
+INSERT INTO `lfy_auth_rule` VALUES ('41', 'Activities/Choujiang/award/delete', '删除', '1', '', '38');
+INSERT INTO `lfy_auth_rule` VALUES ('42', 'Seckill', '微信秒杀管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('43', 'Seckill/SeckillGoods', '秒杀商品管理', '1', '', '42');
+INSERT INTO `lfy_auth_rule` VALUES ('44', 'Seckill/SeckillGoods/add', '新增', '1', '', '43');
+INSERT INTO `lfy_auth_rule` VALUES ('45', 'Seckill/SeckillGoods/edit', '编辑', '1', '', '43');
+INSERT INTO `lfy_auth_rule` VALUES ('46', 'Seckill/SeckillGoods/delete', '删除', '1', '', '43');
+INSERT INTO `lfy_auth_rule` VALUES ('47', 'Seckill/duihuan', '兑换记录', '1', '', '42');
+INSERT INTO `lfy_auth_rule` VALUES ('48', 'Seckill/SeckillDuihuan', '秒杀兑换', '1', '', '42');
+INSERT INTO `lfy_auth_rule` VALUES ('49', 'Member', '会员管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('50', 'Member/config', '基础配置', '1', '', '49');
+INSERT INTO `lfy_auth_rule` VALUES ('51', 'Member/config/edit', '编辑', '1', '', '50');
+INSERT INTO `lfy_auth_rule` VALUES ('52', 'Member/MemberSales', '会员优惠', '1', '', '49');
+INSERT INTO `lfy_auth_rule` VALUES ('53', 'Member/MemberSales/add', '新增', '1', '', '52');
+INSERT INTO `lfy_auth_rule` VALUES ('54', 'Member/MemberSales/edit', '编辑', '1', '', '52');
+INSERT INTO `lfy_auth_rule` VALUES ('55', 'Member/MemberSales/delete', ' 删除', '1', '', '52');
+INSERT INTO `lfy_auth_rule` VALUES ('56', 'Member/MemberCard', '会员名单', '1', '', '49');
+INSERT INTO `lfy_auth_rule` VALUES ('57', 'Member/identity', '会员验证', '1', '', '49');
+INSERT INTO `lfy_auth_rule` VALUES ('58', 'Member/MemberCard/edit', '编辑', '1', '', '56');
+INSERT INTO `lfy_auth_rule` VALUES ('59', 'Member/MemberCard/delete', '删除', '1', '', '56');
+INSERT INTO `lfy_auth_rule` VALUES ('60', 'Coupon', '优惠券管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('61', 'Coupon/Index', '优惠券活动', '1', '', '60');
+INSERT INTO `lfy_auth_rule` VALUES ('62', 'Coupon/Index/add', '新增', '1', '', '61');
+INSERT INTO `lfy_auth_rule` VALUES ('63', 'Coupon/Index/edit', '编辑', '1', '', '61');
+INSERT INTO `lfy_auth_rule` VALUES ('64', 'Coupon/Index/delete', '删除', '1', '', '61');
+INSERT INTO `lfy_auth_rule` VALUES ('65', 'Coupon/CouponDuihuan', '兑换记录', '1', '', '60');
+INSERT INTO `lfy_auth_rule` VALUES ('66', 'Coupon/CouponDuihuan/duihuan', '优惠券兑换', '1', '', '60');
+INSERT INTO `lfy_auth_rule` VALUES ('67', 'User', '用户管理', '1', '', '0');
+INSERT INTO `lfy_auth_rule` VALUES ('68', 'User/Index', '用户管理', '1', '', '67');
+INSERT INTO `lfy_auth_rule` VALUES ('69', 'User/Index/add', '新增', '1', '', '68');
+INSERT INTO `lfy_auth_rule` VALUES ('70', 'User/Index/edit', '编辑', '1', '', '68');
+INSERT INTO `lfy_auth_rule` VALUES ('71', 'User/Index/delete', '删除', '1', '', '68');
+INSERT INTO `lfy_auth_rule` VALUES ('72', 'User/Index/edit_user_group', '授权', '1', '', '68');
+INSERT INTO `lfy_auth_rule` VALUES ('73', 'User/Group', '权限组管理', '1', '', '67');
+INSERT INTO `lfy_auth_rule` VALUES ('74', 'User/Group/add', '新增', '1', '', '73');
+INSERT INTO `lfy_auth_rule` VALUES ('75', 'User/Group/edit', ' 编辑', '1', '', '73');
+INSERT INTO `lfy_auth_rule` VALUES ('76', 'User/Group/delete', ' 删除', '1', '', '73');
+INSERT INTO `lfy_auth_rule` VALUES ('77', 'User/Group/authorize_manage', '授权管理', '1', '', '73');
+INSERT INTO `lfy_auth_rule` VALUES ('78', 'User/Group/user_manage', '成员管理', '1', '', '73');
+INSERT INTO `lfy_auth_rule` VALUES ('79', 'Activities/Choujiang/award/duihuan', '奖品兑换', '1', '', '33');
+INSERT INTO `lfy_auth_rule` VALUES ('80', 'Activities/Choujiang/award/duihuanjilu', '奖品兑换记录', '1', '', '79');
+INSERT INTO `lfy_auth_rule` VALUES ('81', 'User/change_password', '修改密码', '1', '', '67');
 
 -- ----------------------------
 -- Table structure for `lfy_cache_version`
@@ -248,12 +355,13 @@ CREATE TABLE `lfy_coupon` (
   `remark` varchar(200) NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`),
   KEY `main` (`id`,`begin_time`,`stop_time`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='优惠券基础信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='优惠券基础信息表';
 
 -- ----------------------------
 -- Records of lfy_coupon
 -- ----------------------------
-INSERT INTO `lfy_coupon` VALUES ('1', '微信会员专享打折卡', '6', '1.使用本优惠券享受全场商品8折优惠，仅使用一次', '21212121', '0', '0', '0', '1', '0', '0', '');
+INSERT INTO `lfy_coupon` VALUES ('1', '微信会员专享打折卡', '6', '1.使用本优惠券享受全场商品8折优惠，仅使用一次。<br /><br />\r\n2.使用本优惠券享受全场商品8折优惠，仅使用一次。', '1.使用本优惠券享受全场商品8折优惠，仅使用一次。<br /><br />\r\n2.使用本优惠券享受全场商品8折优惠，仅使用一次。', '1382407810', '1382407810', '10000', '1', '0', '1382407810', '1.使用本优惠券享受全场商品8折优惠，仅使用一次。<br /><br />\r\n2.使用本优惠券享受全场商品8折优惠，仅使用一次。');
+INSERT INTO `lfy_coupon` VALUES ('2', '大乐透', '6', '大乐透大乐透大乐透大乐透<br />\r\ndsdsd<br />\r\nsdsd<br />\r\nsdsdsd', '大乐透大乐透大乐透<br />\r\nddd<br />\r\naaaaa', '1382407810', '1382407810', '0', '1', '1382690662', '1382407810', '最新活动');
 
 -- ----------------------------
 -- Table structure for `lfy_coupon_duihuan`
@@ -269,16 +377,18 @@ CREATE TABLE `lfy_coupon_duihuan` (
   `user_telephone` varchar(50) NOT NULL DEFAULT '' COMMENT '用户联系电话',
   PRIMARY KEY (`id`),
   KEY `main` (`id`,`weixin_id`,`record_id`,`create_time`,`create_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='微信优惠券兑换记录';
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='微信优惠券兑换记录';
 
 -- ----------------------------
 -- Records of lfy_coupon_duihuan
 -- ----------------------------
-INSERT INTO `lfy_coupon_duihuan` VALUES ('1', 'dfdf', '0', '0', '2013-09-09', '', '');
 INSERT INTO `lfy_coupon_duihuan` VALUES ('5', '123456', '9', '1380509564', '2013-09-30', '', '');
 INSERT INTO `lfy_coupon_duihuan` VALUES ('6', '1acf3b3c931e50ea84153f5374c868d4', '15', '1380509587', '2013-09-30', '', '');
 INSERT INTO `lfy_coupon_duihuan` VALUES ('7', '123456', '12', '1380510859', '2013-09-30', '', '');
 INSERT INTO `lfy_coupon_duihuan` VALUES ('8', '123456', '11', '1380510941', '2013-09-30', '窦子滨', '15940442002');
+INSERT INTO `lfy_coupon_duihuan` VALUES ('9', '9bf27ad185dd05f8d6930f9395adc0c3', '3', '1382688940', '2013-10-25', 'damon', '13142431441');
+INSERT INTO `lfy_coupon_duihuan` VALUES ('10', '1234567', '1', '1382690844', '2013-10-25', '帅姐', '12345678900');
+INSERT INTO `lfy_coupon_duihuan` VALUES ('11', '123456', '4', '1382692253', '2013-10-25', '', '');
 
 -- ----------------------------
 -- Table structure for `lfy_coupon_record`
@@ -295,13 +405,16 @@ CREATE TABLE `lfy_coupon_record` (
   `client_ip` varchar(50) NOT NULL DEFAULT '' COMMENT '领取的ip',
   PRIMARY KEY (`id`),
   KEY `main` (`weixin_id`,`create_time`,`create_date`,`coupon_id`,`code`,`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='优惠券领取记录表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='优惠券领取记录表';
 
 -- ----------------------------
 -- Records of lfy_coupon_record
 -- ----------------------------
-INSERT INTO `lfy_coupon_record` VALUES ('1', '1234567', '0', '2013-10-25', '1', '123456', '0', '');
 INSERT INTO `lfy_coupon_record` VALUES ('2', '123456', '1382668562', '2013-10-25', '1', 'MVBJ8G', '1', '127.0.0.1');
+INSERT INTO `lfy_coupon_record` VALUES ('3', '9bf27ad185dd05f8d6930f9395adc0c3', '1382671908', '2013-10-25', '1', 'YXLSUQ', '1', '0.0.0.0');
+INSERT INTO `lfy_coupon_record` VALUES ('4', '123456', '1382691061', '2013-10-25', '1', 'V8AEE4', '1', '127.0.0.1');
+INSERT INTO `lfy_coupon_record` VALUES ('5', '123456', '1382691088', '2013-10-25', '1', 'GMCLKT', '0', '127.0.0.1');
+INSERT INTO `lfy_coupon_record` VALUES ('6', '123456', '1382691141', '2013-10-25', '1', '9J6WB4', '0', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `lfy_member_card`
@@ -319,7 +432,7 @@ CREATE TABLE `lfy_member_card` (
   `card_no` varchar(20) NOT NULL DEFAULT '' COMMENT '微信会员卡号',
   PRIMARY KEY (`id`),
   KEY `main` (`id`,`weixin_id`,`create_date`,`user_name`,`user_telephone`,`user_birthday`,`card_no`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='微信会员卡用户信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='微信会员卡用户信息表';
 
 -- ----------------------------
 -- Records of lfy_member_card
@@ -331,6 +444,14 @@ INSERT INTO `lfy_member_card` VALUES ('6', 'a00d794b122696cc5e636ba2893ebb39', '
 INSERT INTO `lfy_member_card` VALUES ('7', 'd19a3cdc71334e6d147e7d21cbe25a86', '1382602105', '2013-10-24', '', '', '0', '0000-00-00', '1000000007');
 INSERT INTO `lfy_member_card` VALUES ('8', '77a30dbe7dc74e09140dd5c7195a103d', '1382603934', '2013-10-24', '', '', '0', '0000-00-00', '1000000008');
 INSERT INTO `lfy_member_card` VALUES ('9', 'd3e1d251e02a526fa829a4d2bd2880e5', '1382604242', '2013-10-24', '', '', '0', '0000-00-00', '1000000009');
+INSERT INTO `lfy_member_card` VALUES ('10', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383117890', '2013-10-30', '', '', '0', '0000-00-00', '1000000010');
+INSERT INTO `lfy_member_card` VALUES ('11', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383118119', '2013-10-30', '', '', '0', '0000-00-00', '1000000011');
+INSERT INTO `lfy_member_card` VALUES ('12', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383118138', '2013-10-30', '', '', '0', '0000-00-00', '1000000012');
+INSERT INTO `lfy_member_card` VALUES ('13', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383118172', '2013-10-30', '', '', '0', '0000-00-00', '1000000013');
+INSERT INTO `lfy_member_card` VALUES ('14', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383118240', '2013-10-30', '', '', '0', '0000-00-00', '1000000014');
+INSERT INTO `lfy_member_card` VALUES ('15', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383122831', '2013-10-30', '', '', '0', '0000-00-00', '1000000015');
+INSERT INTO `lfy_member_card` VALUES ('16', 'd19a3cdc71334e6d147e7d21cbe25a86', '0', '0000-00-00', '', '', '0', '0000-00-00', '');
+INSERT INTO `lfy_member_card` VALUES ('17', 'a0220cd5b5cb5126f968382b766b6ee9', '1383527758', '2013-11-04', '', '', '0', '0000-00-00', '1000000017');
 
 -- ----------------------------
 -- Table structure for `lfy_member_sales`
@@ -352,10 +473,10 @@ CREATE TABLE `lfy_member_sales` (
 -- ----------------------------
 -- Records of lfy_member_sales
 -- ----------------------------
-INSERT INTO `lfy_member_sales` VALUES ('1', '会员优先预约', '0', '<p style=\"text-indent:2em;\">会员卡到店消费独享9折优惠会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证。它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡，如学校、俱乐部、公司、机关、团体等。</p><p style=\"text-indent:2em;\">会员制服务也是现在流行的一种服务管理模式，它可以提高顾客的回头率，提高顾客对企业忠诚度。很多的服务行业都采取这样的服务模式，会员制的形式多数都表现为会员卡。一个公司发行的会员卡相当于公司的名片，在会员卡上可以印刷公司的标志或者图案，为公司形象作宣传，是公司进行广告宣传的理想载体。同时发行会员卡还能起到吸引新顾客，留住老顾客，增强顾客忠诚度的作用，还能实现打折、积分、客户管理等功能，是一种确实可行的增加效益的途径。</p>', '1', '1', '0', '3');
-INSERT INTO `lfy_member_sales` VALUES ('2', '会员卡说明', '0', '<p>会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证，它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡。</p>', '1', '1', '1', '2');
-INSERT INTO `lfy_member_sales` VALUES ('3', ' 联系方式及地址', '0', '<p>【地址】:沈阳市和平区青年大街322号昌鑫大厦F座1801</p><p>【邮编】:110000</p><p>【电话】:024-31897563</p><p>【传真】:024-31897564<br /></p>', '2', '1', '1', '2');
-INSERT INTO `lfy_member_sales` VALUES ('4', '微信会员卡独享9折优惠', '1382594184', '<p style=\"text-indent:2em;\">会员卡到店消费独享9折优惠会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证。它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡，如学校、俱乐部、公司、机关、团体等。</p><p style=\"text-indent:2em;\"><img src=\"/web-api/uploadfiles/20131024/61841382603793.jpg\" style=\"float:left;\" title=\"sports.jpg\" border=\"0\" hspace=\"0\" vspace=\"0\" /><br /></p><p style=\"text-indent:2em;\">会员制服务也是现在流行的一种服务管理模式，它可以提高顾客的回头率，提高顾客对企业忠诚度。很多的服务行业都采取这样的服务模式，会员制的形式多数都表现为会员卡。一个公司发行的会员卡相当于公司的名片，在会员卡上可以印刷公司的标志或者图案，为公司形象作宣传，是公司进行广告宣传的理想载体。同时发行会员卡还能起到吸引新顾客，留住老顾客，增强顾客忠诚度的作用，还能实现打折、积分、客户管理等功能，是一种确实可行的增加效益的途径。</p>', '1', '1', '0', '9');
+INSERT INTO `lfy_member_sales` VALUES ('1', '会员优先预约', '0', '<p style=\"text-indent:2em;\">会员卡到店消费独享9折优惠会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证。它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡，如学校、俱乐部、公司、机关、团体等。</p><p style=\"text-indent:2em;\">会员制服务也是现在流行的一种服务管理模式，它可以提高顾客的回头率，提高顾客对企业忠诚度。很多的服务行业都采取这样的服务模式，会员制的形式多数都表现为会员卡。一个公司发行的会员卡相当于公司的名片，在会员卡上可以印刷公司的标志或者图案，为公司形象作宣传，是公司进行广告宣传的理想载体。同时发行会员卡还能起到吸引新顾客，留住老顾客，增强顾客忠诚度的作用，还能实现打折、积分、客户管理等功能，是一种确实可行的增加效益的途径。</p>', '1', '1', '0', '14');
+INSERT INTO `lfy_member_sales` VALUES ('2', '会员卡说明', '0', '<p>会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证，它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡。</p>', '1', '1', '1', '10');
+INSERT INTO `lfy_member_sales` VALUES ('3', ' 联系方式及地址', '0', '<p>【地址】:沈阳市和平区青年大街322号昌鑫大厦F座1801</p><p>【邮编】:110000</p><p>【电话】:024-31897563</p><p>【传真】:024-31897564<br /></p>', '2', '1', '1', '7');
+INSERT INTO `lfy_member_sales` VALUES ('4', '微信会员卡独享9折优惠', '1382594184', '<p style=\"text-indent:2em;\">会员卡到店消费独享9折优惠会员卡泛指普通身份识别卡，包括商场、宾馆、健身中心、酒家等消费场所的会员认证。它们的用途非常广泛，凡涉及到需要识别身份的地方，都可应用到身份识别卡，如学校、俱乐部、公司、机关、团体等。</p><p style=\"text-indent:2em;\"><img src=\"/web-api/uploadfiles/20131024/61841382603793.jpg\" style=\"float:left;\" title=\"sports.jpg\" border=\"0\" hspace=\"0\" vspace=\"0\" /><br /></p><p style=\"text-indent:2em;\">会员制服务也是现在流行的一种服务管理模式，它可以提高顾客的回头率，提高顾客对企业忠诚度。很多的服务行业都采取这样的服务模式，会员制的形式多数都表现为会员卡。一个公司发行的会员卡相当于公司的名片，在会员卡上可以印刷公司的标志或者图案，为公司形象作宣传，是公司进行广告宣传的理想载体。同时发行会员卡还能起到吸引新顾客，留住老顾客，增强顾客忠诚度的作用，还能实现打折、积分、客户管理等功能，是一种确实可行的增加效益的途径。</p>', '1', '1', '0', '30');
 
 -- ----------------------------
 -- Table structure for `lfy_reply_database`
@@ -396,11 +517,19 @@ CREATE TABLE `lfy_seckill_access` (
   `seckill_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '秒杀活动ID 0-为秒杀活动首页',
   PRIMARY KEY (`id`),
   KEY `main` (`id`,`weixin_id`,`create_time`,`create_date`,`seckill_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1709 DEFAULT CHARSET=utf8 COMMENT='秒杀活动浏览记录';
+) ENGINE=MyISAM AUTO_INCREMENT=1717 DEFAULT CHARSET=utf8 COMMENT='秒杀活动浏览记录';
 
 -- ----------------------------
 -- Records of lfy_seckill_access
 -- ----------------------------
+INSERT INTO `lfy_seckill_access` VALUES ('1709', 'a0220cd5b5cb5126f968382b766b6ee9', '1383206102', '2013-10-31', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1710', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286516', '2013-11-01', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1711', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286571', '2013-11-01', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1712', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286575', '2013-11-01', '1');
+INSERT INTO `lfy_seckill_access` VALUES ('1713', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286586', '2013-11-01', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1714', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383287342', '2013-11-01', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1715', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383287375', '2013-11-01', '0');
+INSERT INTO `lfy_seckill_access` VALUES ('1716', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383528888', '2013-11-04', '0');
 
 -- ----------------------------
 -- Table structure for `lfy_seckill_duihuan`
@@ -416,7 +545,7 @@ CREATE TABLE `lfy_seckill_duihuan` (
   `user_telephone` varchar(50) NOT NULL DEFAULT '' COMMENT '用户联系电话',
   PRIMARY KEY (`id`),
   KEY `main` (`id`,`weixin_id`,`seckill_record_id`,`create_time`,`create_date`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='微信秒杀兑换记录';
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='微信秒杀兑换记录';
 
 -- ----------------------------
 -- Records of lfy_seckill_duihuan
@@ -426,6 +555,7 @@ INSERT INTO `lfy_seckill_duihuan` VALUES ('5', '123456', '9', '1380509564', '201
 INSERT INTO `lfy_seckill_duihuan` VALUES ('6', '1acf3b3c931e50ea84153f5374c868d4', '15', '1380509587', '2013-09-30', '', '');
 INSERT INTO `lfy_seckill_duihuan` VALUES ('7', '123456', '12', '1380510859', '2013-09-30', '', '');
 INSERT INTO `lfy_seckill_duihuan` VALUES ('8', '123456', '11', '1380510941', '2013-09-30', '窦子滨', '15940442002');
+INSERT INTO `lfy_seckill_duihuan` VALUES ('9', '48b0c41d59750da652032c9c7652bde8', '16', '1382689014', '2013-10-25', '', '');
 
 -- ----------------------------
 -- Table structure for `lfy_seckill_goods`
@@ -457,7 +587,7 @@ CREATE TABLE `lfy_seckill_goods` (
 -- ----------------------------
 -- Records of lfy_seckill_goods
 -- ----------------------------
-INSERT INTO `lfy_seckill_goods` VALUES ('1', '换季全网低价小衫', '达芙妮小衫', '10', '150.2', '80.0', '/weixin_api/Public/images/tmp/img3.jpg', '1378795427', '1478795427', '0', '1', '99999', '0', '换季全网低价小', '', '每人仅限参与1次', '1', '10');
+INSERT INTO `lfy_seckill_goods` VALUES ('1', '换季全网低价小衫', '达芙妮小衫', '10', '150.2', '80.0', '/weixin_api/Public/upload/pic/big/20131101/52734a3e9f229.jpg', '1378795427', '1478795427', '0', '1', '99999', '0', '<p>换季全网低价小</p>', '', '每人仅限参与1次', '1', '10');
 INSERT INTO `lfy_seckill_goods` VALUES ('2', '打折大清仓特价商品', '以纯牛仔裤', '0', '220.0', '90.0', '/weixin_api/Public/images/tmp/img3.jpg', '2013', '2016', '0', '0', '99999', '0', '打折大清仓特价商品', '', '每人仅限参与1次', '1', '10');
 INSERT INTO `lfy_seckill_goods` VALUES ('3', 'dfdsfdsfdsf', 'ffdfsdf', '5', '50.0', '2.0', '/weixin_api/Public/images/tmp/img3.jpg', '1380499200', '1380505020', '0', '1', '99999', '0', '<p>hfghgfhghg</p>', '1231321', '1231321', '0', '10');
 INSERT INTO `lfy_seckill_goods` VALUES ('4', '', '', '0', '0.0', '0.0', '', '0', '0', '0', '1', '9999', '1382586101', '<p>111111111111111111111111111gfdgdfgdfgfghhgfhgfh</p>', ' ', ' ', '1', '10');
@@ -489,7 +619,7 @@ INSERT INTO `lfy_seckill_record` VALUES ('12', '123456', '1380267139', '2013-09-
 INSERT INTO `lfy_seckill_record` VALUES ('13', '8c041571fecd0ac29a0e3757ffd6b1b3', '1380267393', '2013-09-27', 'R9MCCFCU3J', '0', '1');
 INSERT INTO `lfy_seckill_record` VALUES ('14', '123456', '1380270129', '2013-09-27', 'H5LRQA7W2L', '0', '3');
 INSERT INTO `lfy_seckill_record` VALUES ('15', '1acf3b3c931e50ea84153f5374c868d4', '1380270621', '2013-09-27', '2XCAELYMAN', '1', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('16', '48b0c41d59750da652032c9c7652bde8', '1380271099', '2013-09-27', '63YNG892VU', '0', '1');
+INSERT INTO `lfy_seckill_record` VALUES ('16', '48b0c41d59750da652032c9c7652bde8', '1380271099', '2013-09-27', '63YNG892VU', '1', '1');
 
 -- ----------------------------
 -- Table structure for `lfy_sign_in`
@@ -599,7 +729,6 @@ CREATE TABLE `lfy_subscribe` (
 -- Records of lfy_subscribe
 -- ----------------------------
 INSERT INTO `lfy_subscribe` VALUES ('1', '文本回复22222', '<p><img src=\"http://127.0.0.1/weixin_api/uploadfiles/20130627/78571372327701.jpg\" style=\"float:none;\" title=\"微信公众平台自定义菜单.jpg\" border=\"0\" hspace=\"0\" vspace=\"0\" width=\"291\" height=\"500\" /><br /></p>', 'ghgjgjgj', '2', '/weixin_api/public/upload/pic/small/20130627/51cc0f0c52c53.jpg', '', '1372300501', 'jhgjg', '0', '10', '0', 'fdfsdf', '0');
-INSERT INTO `lfy_subscribe` VALUES ('34', 'fdfdsfsf', '<p>ffffffffffffffffff</p>', 'fdfdsf', '2', '/weixin_api/Public/upload/pic/big/20130710/51dd045a1dbf4.png', '/weixin_api/Public/upload/pic/small/20130710/51dd045a1dbf4.png', '1372397268', '', '1', '0', '0', '', '0');
 
 -- ----------------------------
 -- Table structure for `lfy_unsubscrib`
@@ -617,6 +746,31 @@ CREATE TABLE `lfy_unsubscrib` (
 -- ----------------------------
 -- Records of lfy_unsubscrib
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `lfy_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `lfy_user`;
+CREATE TABLE `lfy_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) NOT NULL DEFAULT '',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '中文昵称',
+  `user_pwd` char(32) NOT NULL DEFAULT '',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `lastlogin_ip` varchar(50) NOT NULL DEFAULT '',
+  `lastlogin_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `admin` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否为系统管理员，0-否 1-是',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态 0-禁用 1-启用',
+  `remark` varchar(200) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `main` (`id`,`user_name`,`admin`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lfy_user
+-- ----------------------------
+INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '0.0.0.0', '1383541391', '1', '1', '管理员');
+INSERT INTO `lfy_user` VALUES ('10', '0101', '兑奖操作1', '3093ac5f0f832395bb4664d0625d747b', '1383203093', '', '0', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for `lfy_weixin_menu`
@@ -687,5 +841,5 @@ CREATE TABLE `lfy_zhiling` (
 -- ----------------------------
 -- Records of lfy_zhiling
 -- ----------------------------
-INSERT INTO `lfy_zhiling` VALUES ('1', '中国12', 'china', '中华人民共和国', '<p><img src=\"/weixin_api/uploadfiles/20130710/56671373446972.jpg\" style=\"float:none;\" title=\"800 (10).jpg\" border=\"0\" hspace=\"0\" vspace=\"0\" /><br /></p><p>中华人民共和国地图</p>', 'fdfdff', '2', '', '', '0', '', '1', '0', '0', '', '39');
-INSERT INTO `lfy_zhiling` VALUES ('2', '在线客服', 'service', 'gfgfdgfdg', '<p>gfgfdgfdgdfgfddffg</p>', 'fgfgfgfdgfdgfgfdg', '2', '/weixin_api/public/upload/pic/small/20130628/51cd364240fc7.jpg', '', '1372403271', '', '1', '0', '0', 'gggg', '1');
+INSERT INTO `lfy_zhiling` VALUES ('1', '中国12', 'china', '中华人民共和国', '<p><img src=\"/weixin_api/uploadfiles/20130710/56671373446972.jpg\" style=\"float:none;\" title=\"800 (10).jpg\" border=\"0\" hspace=\"0\" vspace=\"0\" /><br /></p><p>中华人民共和国地图</p>', 'fdfdff', '3', '', '', '0', '', '1', '0', '2', '', '39');
+INSERT INTO `lfy_zhiling` VALUES ('2', '在线客服', 'service', 'gfgfdgfdg', '<p>gfgfdgfdgdfgfddffg</p>', 'fgfgfgfdgfdgfgfdg', '3', '/weixin_api/public/upload/pic/small/20130628/51cd364240fc7.jpg', '', '1372403271', '', '1', '0', '0', 'gggg', '1');
