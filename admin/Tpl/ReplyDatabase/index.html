@@ -16,23 +16,14 @@
 </head>
 
 <body>
-    <!--nav-->
 <include file='Public:nav' />
-
 <div class="container">
-    <!--            <ul class="breadcrumb">
-                    <li><a href="#">首页</a> <span class="divider">/</span></li>
-                    <li><a href="#">Library</a> <span class="divider">/</span></li>
-                    <li class="active">Data</li>
-                </ul>-->
     <div class="page-header"><h4>智能回复管理</h4></div>
-
-    <!--<p class="view"><b>功能：</b>管理&nbsp;|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加</p>-->
     <div class="row">
         <div class="span12">
             <div class="pull-left">
                 <a href="{:U('/'.$module_name)}" class="btn btn-primary">刷 新</a>&nbsp;&nbsp;
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>
+                <php>if(check_auth('Reply/ReplyDatabase/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新 增</a>';</php>
             </div>
             <ul class="nav pull-right">
                 <form action="" method="get">
@@ -81,7 +72,11 @@
                         <td>{$vo.sort}</td>
                         <td>{$vo.num}</td>
                         <td>{$vo.remark}</td>
-                        <td><a href='#'>查看</a>&nbsp;&nbsp;<a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<a href="###" onclick="delete_tr({$vo.id});">删除</a></td>
+                        <td>
+                    <php>
+                        if(check_auth('Reply/ReplyDatabase/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Reply/ReplyDatabase/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
                     </tr>
                 </foreach>
                 </tbody>
