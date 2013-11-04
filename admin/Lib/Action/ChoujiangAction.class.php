@@ -7,10 +7,26 @@
  */
 class ChoujiangAction extends CommonAction {
 
+    public function index() {
+        $this->check_auth('Activities/Choujiang');
+        parent::index();
+    }
+
+    public function add() {
+        $this->check_auth('Activities/Choujiang/add');
+        parent::add();
+    }
+
+    public function delete() {
+        $this->check_auth('Activities/Choujiang/delete');
+        parent::delete();
+    }
+
     /**
      * 插入方法
      */
     public function insert() {
+        $this->check_auth('Activities/Choujiang/add');
         $M = D(MODULE_NAME);
         $data = $M->create();
         if ($data === false) {
@@ -38,17 +54,18 @@ class ChoujiangAction extends CommonAction {
      * 编辑页面显示方法
      */
     public function edit() {
+        $this->check_auth('Activities/Choujiang/edit');
         $id = intval($_GET['id']);
         $M = M(MODULE_NAME);
         $info = $M->where("id=%d", $id)->find();
-        
-        $info['begin_time']=  empty($info['begin_time'])?$info['begin_time']:get_date_full($info['begin_time']);
-        $info['stop_time']=  empty($info['stop_time'])?$info['stop_time']:get_date_full($info['stop_time']);
-        $info['award_stop_time']=  empty($info['award_stop_time'])?$info['award_stop_time']:get_date_full($info['award_stop_time']);
-        
-        $info['explain']=  br2nl($info['explain']);
-        $info['prize']=  br2nl($info['prize']);
-        
+
+        $info['begin_time'] = empty($info['begin_time']) ? $info['begin_time'] : get_date_full($info['begin_time']);
+        $info['stop_time'] = empty($info['stop_time']) ? $info['stop_time'] : get_date_full($info['stop_time']);
+        $info['award_stop_time'] = empty($info['award_stop_time']) ? $info['award_stop_time'] : get_date_full($info['award_stop_time']);
+
+        $info['explain'] = br2nl($info['explain']);
+        $info['prize'] = br2nl($info['prize']);
+
         unset($M);
         if (empty($info)) {
             $this->pop = '编辑的信息不存在！';
@@ -62,6 +79,7 @@ class ChoujiangAction extends CommonAction {
      * 更新方法
      */
     public function update() {
+        $this->check_auth('Activities/Choujiang/edit');
         $id = intval($_POST['id']);
         $M = D(MODULE_NAME);
         $data = $M->create();
