@@ -54,8 +54,10 @@
                         <td>{:get_status_img($vo['status'])}</td>
                         <td>{$vo.num}</td>
                         <td>
-                            <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                        </td>
+                    <php>
+                        if(check_auth('Member/config/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                    </php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
