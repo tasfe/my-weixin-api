@@ -31,7 +31,7 @@ class UserAction extends CommonAction {
             exit;
         }
 
-        $M = D('Admin');
+        $M = D('User');
 
         $info = $M->where("id=%d and status=1", $user_id)->find();
 
