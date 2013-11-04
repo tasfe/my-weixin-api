@@ -24,7 +24,7 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增活动</a>
+                <php>if(check_auth('Activities/Choujiang/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新增活动</a>';</php>
             </div>
         </div>
         <div class="span12" style="margin-top:10px;">
@@ -60,11 +60,11 @@
                     <td>{$vo.user_sum_num}</td>
                     <td>{:get_choujiang_user_num($vo['id'])}</td>
                     <td>
-                        <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
-                        <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                        <a href="{:U('choujiang_award/index?id='.$vo['id'])}">奖品管理</a>&nbsp;&nbsp;
-                        <!--<a href="{:U('choujiang/tongji?id='.$vo['id'])}">统计信息</a>&nbsp;&nbsp;-->
-                        <a href="###" onclick="delete_tr({$vo.id});">删除</a>
+                    <php>
+                        if(check_auth('Activities/Choujiang/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Activities/Choujiang/award')) echo '<a href="'.U('choujiang_award/index?id='.$vo['id']).'">奖品管理</a>&nbsp;&nbsp;';
+                        if(check_auth('Activities/Choujiang/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
                     </td>
                     </tr>
                 </foreach>
