@@ -25,7 +25,7 @@
         <div class="span12">
             <div class="pull-left">
                 <a class="btn btn-primary" href="{:U('/choujiang')}">活动列表</a>&nbsp;&nbsp;
-                <a href="{:U($module_name.'/add?choujiang_id='.$choujiang_id)}" class="btn btn-primary">新增奖品</a>
+                <php>if(check_auth('Activities/Choujiang/award/add')) echo '<a href="'.U($module_name.'/add?choujiang_id='.$choujiang_id).'" class="btn btn-primary">新增奖品</a>';</php>
             </div>
         </div>
 
@@ -64,9 +64,11 @@
                         <td>{$vo.chance}</td>
                         <td>{:get_status_img($vo['make_key'])}</td>
                         <td>
-                            <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                            <a href="###" onclick="delete_tr({$vo.id});">删除</a>
-                        </td>
+                    <php>
+                        if(check_auth('Activities/Choujiang/award/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Activities/Choujiang/award/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
