@@ -27,7 +27,7 @@
             <div class="span12">
                 <div class="pull-left">
                     <a href="{:U('/'.$module_name)}" class="btn btn-primary">刷 新</a>&nbsp;&nbsp;
-                    <a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>
+                    <php>if(check_auth('Config/Subscribe/add')){</php><a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a><php>}</php>
                 </div>
             </div>
 
@@ -65,7 +65,11 @@
                             <td>{:get_main_str($vo['main'])}</td>
                             <td>{$vo.num}</td>
                             <td>{$vo.remark}</td>
-                            <td><a href='#'>查看</a>&nbsp;&nbsp;<a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<a href="###" onclick="delete_tr({$vo.id});">删除</a></td>
+                            <td>
+                                <a href='#'>查看</a>&nbsp;&nbsp;
+                                <php>if(check_auth('Config/Subscribe/edit')){</php><a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<php>}</php>
+                                <php>if(check_auth('Config/Subscribe/delete')){</php><a href="###" onclick="delete_tr({$vo.id});">删除</a><php>}</php>
+                            </td>
                         </tr>
                     </foreach>
                     </tbody>

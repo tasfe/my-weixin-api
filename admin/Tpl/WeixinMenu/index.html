@@ -24,10 +24,10 @@
     <div class="row">
         <div class="span12">
             <div class="pull-left">
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新增菜单</a>&nbsp;&nbsp;
+                <php>if(check_auth('Config/WeixinMenu/add')){</php><a href="{:U($module_name.'/add')}" class="btn btn-primary">新增菜单</a>&nbsp;&nbsp;<php>}</php>
                 <a class="btn btn-primary" href="{:U($module_name.'/get_weixin_server_menu')}">查询当前菜单</a>&nbsp;&nbsp;
-                <a class="btn btn-primary" id="put_weixin_server">上传到微信服务器</a>&nbsp;&nbsp;
-                <a class="btn btn-primary" id="delete_weixin_menu">删除微信服务器菜单</a>
+                <php>if(check_auth('Config/WeixinMenu/upload_server')){</php><a class="btn btn-primary" id="put_weixin_server">上传到微信服务器</a>&nbsp;&nbsp;<php>}</php>
+                <php>if(check_auth('Config/WeixinMenu/delete_server')){</php><a class="btn btn-primary" id="delete_weixin_menu">删除微信服务器菜单</a><php>}</php>
             </div>
         </div>
         <div class="span12" style="margin-top:10px;">
@@ -59,10 +59,10 @@
                         <td>{$vo.sort}</td>
                         <td>{:get_status_img($vo['status'])}</td>
                         <td>
-                            <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                            <a href="{:U($module_name.'/index_submenu?menu_id='.$vo['id'])}">子菜单管理</a>&nbsp;&nbsp;
-                            <a href="###" onclick="delete_tr({$vo.id});">删除</a>
-                        </td>
+                            <php>if(check_auth('Config/WeixinMenu/edit')){</php><a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;<php>}</php>
+                    <php>if(check_auth('Config/WeixinMenu/submenu')){</php><a href="{:U($module_name.'/index_submenu?menu_id='.$vo['id'])}">子菜单管理</a>&nbsp;&nbsp;<php>}</php>
+                    <php>if(check_auth('Config/WeixinMenu/delete')){</php><a href="###" onclick="delete_tr({$vo.id});">删除</a><php>}</php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
