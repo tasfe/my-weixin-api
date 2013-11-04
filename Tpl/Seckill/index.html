@@ -49,7 +49,7 @@
                             <ul>
                                 <foreach name='future_array' item='vo'>
                                     <li>
-                                        <img src="__PUBLIC__/images/tmp/img3.jpg" />
+                                        <img src="{$vo.pic_url}" />
                                         <div class="credit_tit">{$vo.goods_title}</div>
                                         <p>商品数量：<span class="red">{$vo.goods_num}</span></p>
                                         <p>商品原价：<span class="gray"><del>{$vo.goods_cost_price}元</del></span></p>
