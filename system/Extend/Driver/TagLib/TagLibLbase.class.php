@@ -55,9 +55,8 @@ class TagLibLbase extends TagLib {
                 //判断是否需要导入编辑器脚本
                 if ($js) {
                     $str.="<script type='text/javascript'> var lfy_root_path='" . __ROOT__ . "';var lfy_editor_upload_path='" . $root_path . "/uploadfiles/';</script>";
-                    $str.='<load href="__PUBLIC__/ueditor/editor_config.js" />';
-                    $str.='<load href="__PUBLIC__/ueditor/editor_all_min.js" />';
-                    $str.='<load href="__PUBLIC__/ueditor/themes/default/ueditor.css" />';
+                    $str.='<load href="__PUBLIC__/ueditor/ueditor.config.js" />';
+                    $str.='<load href="__PUBLIC__/ueditor/ueditor.all.min.js" />';
                 }
 
                 $str.='<script type="text/plain" id="' . $id_str . '" name="' . $name . '" style="width:' . $width . ';">' . $content . '</script>';
