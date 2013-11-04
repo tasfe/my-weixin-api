@@ -6,10 +6,16 @@
  */
 class MemberCardAction extends CommonAction {
     
+    public function index(){
+        $this->check_auth('Member/MemberCard');
+        parent::index();
+    }
+    
     /**
      * 会员验证方法
      */
     public function identity() {
+        $this->check_auth('Member/identity');
         $this->display();
     }
     
@@ -17,6 +23,7 @@ class MemberCardAction extends CommonAction {
      * 会员验证方法
      */
     public function detail() {
+        $this->check_auth('Member/identity');
         $code = $_POST['code'];
         if(empty($code)){
             $flasemsg = "您输入的会员卡号无效！"; 
@@ -33,11 +40,17 @@ class MemberCardAction extends CommonAction {
         $this->assign('info',$info);
         $this->display();
     }
+    
+    public function delete() {
+        $this->check_auth('Member/MemberCard/delete');
+        parent::delete();
+    }
 
     /**
      * 编辑页面显示方法
      */
     public function edit() {
+        $this->check_auth('Member/MemberCard/edit');
         $id = intval($_GET['id']);
         $M = M(MODULE_NAME);
         $info = $M->where("id=%d", $id)->find();
@@ -62,6 +75,7 @@ class MemberCardAction extends CommonAction {
      * 更新方法
      */
     public function update() {
+        $this->check_auth('Member/MemberCard/edit');
         $id = intval($_POST['id']);
         $M = D(MODULE_NAME);
         $data = $M->create();
