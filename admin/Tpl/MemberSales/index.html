@@ -25,7 +25,7 @@
         <div class="span12">
             <div class="pull-left">
                 <a href="{:U('/'.$module_name)}" class="btn btn-primary">刷 新</a>&nbsp;&nbsp;
-                <a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>&nbsp;&nbsp;
+                <php>if(check_auth('Member/MemberSales/add')) echo '<a href="'.U($module_name.'/add').'" class="btn btn-primary">新增</a>';</php>
             </div>
         </div>
     </div>
@@ -59,10 +59,11 @@
                         <td>{$vo.num}</td>
                         <td>{$vo['create_time']|get_date_full}</php></td>
                         <td>
-                            <!--<a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;-->
-                            <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
-                            <a href="###" onclick="delete_tr({$vo.id});">删除</a>
-                        </td>
+                    <php>
+                        if(check_auth('Member/MemberSales/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                        if(check_auth('Member/MemberSales/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                    </php>
+                    </td>
                     </tr>
                 </foreach>
                 </tbody>
