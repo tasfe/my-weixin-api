@@ -8,6 +8,7 @@
 class ChoujiangDuijiangAction extends CommonAction {
 
     public function index() {
+        $this->check_auth('Activities/Choujiang/award/duihuanjilu');
         $M = M(MODULE_NAME);
 
         //处理搜索条件
