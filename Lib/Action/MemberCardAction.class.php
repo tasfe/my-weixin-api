@@ -47,7 +47,7 @@ class MemberCardAction extends CommonAction {
         $weixin_id = $_POST["weixin_id"];
         $this->draw_member_card($weixin_id);
         $model = M("MemberCard");
-        $model->add($_POST);
+        $model->where("weixin_id='{$weixin_id}'")->save($_POST);
         $this->redirect('index');
     }
 

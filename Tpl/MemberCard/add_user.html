@@ -13,55 +13,50 @@
         <div class="member_top">
             <div class="member_banner"></div>
         </div>
-        <div class="member_tips">以下信息将作为消费凭证，请认真填写</div>
+        <div class="member_tips">以下信息将作为会员资料，请认真填写</div>
         <div class="signup_inp_box">
             <form action="{:U('member_card/resign')}" name='form_add' id='form_add' method="post">
                 <div class="signup_inp_list">
                     <div class="signup_inp_list_layer"><span class="glyphicon glyphicon-user"></span></div>
                     <input type="text" onblur="if (this.value == '')
                                 this.value = '姓名';" onfocus="if (this.value == '姓名')
-                                this.value = '';" name="user_name" value="姓名" >
+                                            this.value = '';" name="user_name" value="姓名" >
                 </div>
-                <div class="signup_inp_list">
-                    <div class="signup_inp_list_layer"><span class="glyphicon glyphicon-heart-empty"></span></div>
-                    <input type="text" onblur="if (this.value == '')
-                                this.value = '性别';" onfocus="if (this.value == '性别')
-                                this.value = '';" name="user_sex" value="性别">
-                </div>
+                <div style="line-height: 20px;margin-top: 5px;"><input type="radio" name="user_sex" checked="checked" value="0" />男&nbsp;&nbsp;<input type="radio" name="user_sex" value="1" />女</div>
                 <div class="signup_inp_list">
                     <div class="signup_inp_list_layer"><span class="glyphicon glyphicon-calendar"></span></div>
                     <input type="text" onblur="if (this.value == '')
-                                this.value = '出生日期';" onfocus="if (this.value == '出生日期')
-                                this.value = '';" name="user_birthday" value="出生日期">
+                                this.value = '出生日期1980-10-10';" onfocus="if (this.value == '出生日期1980-10-10')
+                                            this.value = '';" name="user_birthday" value="出生日期1980-10-10">
                 </div>
                 <div class="signup_inp_list">
                     <div class="signup_inp_list_layer"><span class="glyphicon glyphicon-phone"></span></div>
                     <input type="text" onblur="if (this.value == '')
                                 this.value = '电话';" onfocus="if (this.value == '电话')
-                                this.value = '';" name="user_telephone" value="电话">
+                                            this.value = '';" name="user_telephone" value="电话">
                 </div>
                 <input type="hidden" value="{$weixin_id}" name='weixin_id' id='weixin_id'/>
-                <div class="member_btn" id='member_btn'><a href='javascript:;' onclick="submit_form();">修改我的会员卡信息</a></div>
+                <div class="member_btn" id='member_btn'><a href='javascript:;' onclick="submit_form();">保存我的会员卡信息</a></div>
             </form>
         </div>
     </div>
 </body>
 </html>
 <script>
-        function submit_form(){
-            var obj = document.getElementById("form_add");
-            if(obj.user_name.value == "姓名"){
-                obj.user_name.value = "";
-            }
-            if(obj.user_sex.value == "性别"){
-                obj.user_sex.value = "";
-            }
-            if(obj.user_birthday.value == "出生日期"){
-                obj.user_birthday.value = "";
-            }
-            if(obj.user_telephone.value == "电话"){
-                obj.user_telephone.value = "";
-            }
-            document.form_add.submit();
+    function submit_form() {
+        var obj = document.getElementById("form_add");
+        if (obj.user_name.value == "姓名") {
+            obj.user_name.value = "";
         }
+        if (obj.user_sex.value == "性别") {
+            obj.user_sex.value = "";
+        }
+        if (obj.user_birthday.value == "出生日期1980-10-10") {
+            obj.user_birthday.value = "";
+        }
+        if (obj.user_telephone.value == "电话") {
+            obj.user_telephone.value = "";
+        }
+        document.form_add.submit();
+    }
 </script>
