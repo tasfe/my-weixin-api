@@ -33,7 +33,7 @@ class MemberCardAction extends CommonAction {
      */
     public function add_user() {
         //设置并获取用户微信唯一识别令牌
-        $weixin_id = $this->weixin_id(U("/member_card"));
+        $weixin_id = $this->weixin_id(U("member_card/add_user"));
         $card_info = $this->get_user_card($weixin_id);
         if (empty($card_info)) {
             $this->assign('weixin_id',$weixin_id);

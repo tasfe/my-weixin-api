@@ -33,7 +33,9 @@ return array(
         //秒杀活动详细页面
         '/^seckill-(\d+)$/'=>'Seckill/view?id=:1',
         //优惠券访问规则
-        '/^coupon-(\d+)$/'=>'Coupon/index?id=:1'
+        '/^coupon-(\d+)$/'=>'Coupon/index?id=:1',
+        //会员卡填写资料领取规则
+        '/^member_card-add_user$/'=>'MemberCard/add_user'
     ),
 );
 ?>
