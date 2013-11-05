@@ -9,14 +9,12 @@
  * @return  mix
  */
 function MC($name) {
-    //获取缓存版本
-    $cache_version = get_cache_version();
     $name = strtolower($name);
-    if (S('cache_config_' . $cache_version)) {
-        $sys_conf = S('cache_config_' . $cache_version);
+    if (S('cache_config')) {
+        $sys_conf = S('cache_config');
     } else {
         $sys_conf = M("Config")->where("status=1")->getField("name,val");
-        S("cache_config_{$cache_version}", $sys_conf, 3600);
+        S("cache_config", $sys_conf, 3600);
     }
     return $sys_conf[$name];
 }
