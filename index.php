@@ -1,7 +1,7 @@
 <?php
 define('THINK_PATH', './system/');
 define('APP_DEBUG',true);
-define('APP_NAME', 'weixin');
+define('APP_NAME', 'weixinappkk');
 define('APP_PATH', './');
 define('RUNTIME_PATH', './Runtime/web/');
 define('TEMP_PATH', './Runtime/temp/');
