@@ -451,7 +451,7 @@ class IndexAction extends CommonAction {
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $tmpArr = array($this->token, $timestamp, $nonce);
+        $tmpArr = array("{$this->token}", $timestamp, $nonce);
         sort($tmpArr);
         $tmpStr = implode($tmpArr);
         $tmpStr = sha1($tmpStr);
