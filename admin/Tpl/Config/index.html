@@ -1,68 +1,92 @@
-<tagLib name="lbase"/>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>微信公众平台营销管理系统</title>
+        <title>微信管理系统</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-    <include file='Public:header' />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <include file="Public:header" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="__ROOT__/public/js/html5shiv.js"></script>
+      <script src="__PUBLIC__/js/html5.js"></script>
     <![endif]-->
 </head>
 
-<body>
-    <!--nav-->
-<include file='Public:nav' />
-<div class="container">
-    <div class="page-header"><h4>系统配置</h4></div>
-    <div class="row">
-        <div class="span12" style="margin-top:10px;">
-            <form class="form-horizontal" method="post">
-                <fieldset>
-                    <foreach name="conf_list" item="vo">
-                        <div class="control-group">
-                            <label class="control-label" for="input01">{$vo.c_name}</label>
-                            <div class="controls">
-                                <switch name="vo.list_type">
-                                <case value="0">
-                                    <input type="text" placeholder="" value="{$vo.val}" name="{$vo.name}" class="input-xlarge">
-                                    <p class="help-block">{$vo.remark}</p>
-                                </case>
-                                <case value="1">value2</case>
-                                <case value="2">value2</case>
-                                <case value="3">
-                                    <div class="textarea">
-                                        <textarea type="" class="" name="{$vo.name}" style="width:500px;height: 100px">{$vo.val}</textarea>
-                                        <p class="help-block">{$vo.remark}</p>
-                                    </div>
-                                </case>
-                                <case value="4">value2</case>
-                                <case value="5">value2</case>
-                                <default />
-                                <input type="text" placeholder="" name="{$vo.name}" class="input-xlarge">
-                                <p class="help-block">{$vo.remark}</p>
-                                </switch>
-                            </div>
-                        </div>
-                    </foreach>
-                    <div id='pop'></div>
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class="">
+    <!--<![endif]-->
 
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
-                        <a class="btn" href="{$pre_url}">返 回</a>
+    <!--顶部菜单-->
+<include file="Public:navbar" />
+
+<!--左侧导航条-->
+<include file="Public:nav" />
+
+<!--右侧整体区域-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row-fluid">
+
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">系统配置</a>
+                    <div class="block-body collapse in">
+
+                        <div class="span12" style="margin-top:10px;">
+                            <form class="form-horizontal" method="post">
+                                <fieldset>
+                                    <foreach name="conf_list" item="vo">
+                                        <div class="control-group">
+                                            <label class="control-label" for="input01">{$vo.c_name}</label>
+                                            <div class="controls">
+                                                <switch name="vo.list_type">
+                                                <case value="0">
+                                                    <input type="text" placeholder="" value="{$vo.val}" name="{$vo.name}" class="input-xlarge">
+                                                    <p class="help-block">{$vo.remark}</p>
+                                                </case>
+                                                <case value="1">value2</case>
+                                                <case value="2">value2</case>
+                                                <case value="3">
+                                                    <div class="textarea">
+                                                        <textarea type="" class="" name="{$vo.name}" style="width:500px;height: 100px">{$vo.val}</textarea>
+                                                        <p class="help-block">{$vo.remark}</p>
+                                                    </div>
+                                                </case>
+                                                <case value="4">value2</case>
+                                                <case value="5">value2</case>
+                                                <default />
+                                                <input type="text" placeholder="" name="{$vo.name}" class="input-xlarge">
+                                                <p class="help-block">{$vo.remark}</p>
+                                                </switch>
+                                            </div>
+                                        </div>
+                                    </foreach>
+                                    <div id='pop'></div>
+
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
+                                        <a class="btn" href="{$pre_url}">返 回</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
                     </div>
-                </fieldset>
-            </form>
+                </div>
+            </div>
+
+            <footer>
+                <include file="Public:footer" />
+            </footer>
         </div>
     </div>
 </div>
-</div>
-
-<include file='Public:footer' />
 <script type="text/javascript">
     $(function() {
         $('#save').click(function() {
@@ -108,4 +132,5 @@
 </script>
 </body>
 </html>
+
 
