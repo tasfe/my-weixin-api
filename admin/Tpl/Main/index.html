@@ -1,45 +1,85 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>微信公众平台营销管理系统</title>
+        <title>Bootstrap Admin</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-
-    <include file='Public:header' />
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <include file="Public:header" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="__ROOT__/public/js/html5shiv.js"></script>
+      <script src="__PUBLIC__/js/html5.js"></script>
     <![endif]-->
 </head>
 
-<body>
-    <!--nav-->
-<include file='Public:nav' />
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class="">
+    <!--<![endif]-->
 
-<div class="container" style="margin-top: 10px;">
-    <div class="row">
-        <div class="span4">
-            <php>if($is_index_census){</php>
-            <p>今日新关注用户数：<span style="color:red;font-weight: bold">{$subscribe_count}</span></p>
-            <p>今日取消关注数：<span style="color:red;font-weight: bold">{$unsubscribe_count}</span></p>
-            <p>昨日新关注用户数：<span style="color:red;font-weight: bold">{$yesterday_subscribe_count}</span></p>
-            <p>昨日取消关注数：<span style="color:red;font-weight: bold">{$yesterday_unsubscribe_count}</span></p>
-            <php>}</php>
-        </div>
+    <!--顶部菜单-->
+<include file="Public:navbar" />
 
-        <div class="span4">
-            
-        </div>
-        
-        <div class="span4">
-            
+<!--左侧导航条-->
+<include file="Public:nav" />
+
+<!--右侧整体区域-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row-fluid">
+
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">Latest Stats</a>
+                    <div class="block-body collapse in">
+
+                        <div class="stat-widget-container">
+                            <div class="stat-widget">
+                                <div class="stat-button">
+                                    <p class="title">2,500</p>
+                                    <p class="detail">Accounts</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-widget">
+                                <div class="stat-button">
+                                    <p class="title">3,299</p>
+                                    <p class="detail">Subscribers</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-widget">
+                                <div class="stat-button">
+                                    <p class="title">$1,500</p>
+                                    <p class="detail">Pending</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-widget">
+                                <div class="stat-button">
+                                    <p class="title">$12,675</p>
+                                    <p class="detail">Completed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <footer>
+                <include file="Public:footer" />
+            </footer>
         </div>
     </div>
 </div>
-
-<include file='Public:footer' />
 </body>
 </html>
+
+
