@@ -1,49 +1,63 @@
 <div class="sidebar-nav">
     <a href="#config-menu" class="nav-header" data-toggle="collapse"><i class="icon-wrench"></i>基础配置</a>
-    <ul id="config-menu" class="nav nav-list collapse in">
-        <li><a href="{:U('config/index')}">系统配置</a></li>
-        <li ><a href="{:U('subscribe/index')}">新订阅管理</a></li>
-        <li ><a href="user.html">自定义菜单管理</a></li>
+    <ul id="config-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('weixin_menu','subscribe','config','main'))) echo ' in';</php>">
+        <php>
+            if(check_auth('Config/sys_con')) if($module_name=='config') echo '<li class="active"><a href="'.U('config/index').'">系统配置</a></li>'; else echo '<li><a href="'.U('config/index').'">系统配置</a></li>';
+            if(check_auth('Config/Subscribe')) if($module_name=='subscribe') echo '<li class="active"><a href="'.U('subscribe/index').'">新订阅管理</a></li>'; else echo '<li><a href="'.U('subscribe/index').'">新订阅管理</a></li>';
+            if(check_auth('Config/WeixinMenu')) if($module_name=='weixin_menu') echo '<li class="active"><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>'; else echo '<li><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>';
+        </php>
     </ul>
 
     <a href="#reply-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i>回复管理</a>
-    <ul id="reply-menu" class="nav nav-list collapse">
-        <li ><a href="sign-in.html">指令管理</a></li>
-        <li ><a href="sign-up.html">智能回复管理</a></li>
+    <ul id="reply-menu" class="nav nav-list collapse<php>if($module_name=='zhiling' || $module_name=='reply_database') echo ' in';</php>">
+        <php>
+            if(check_auth('Reply/Zhiling')) if($module_name=='zhiling') echo '<li class="active"><a href="'.U('zhiling/index').'">指令管理</a></li>'; else echo '<li><a href="'.U('zhiling/index').'">指令管理</a></li>';
+            if(check_auth('Reply/ReplyDatabase')) if($module_name=='reply_database') echo '<li class="active"><a href="'.U('reply_database/index').'">智能回复管理</a></li>'; else echo '<li><a href="'.U('reply_database/index').'">智能回复管理</a></li>';
+        </php>
     </ul>
 
     <a href="#choujiang-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-calendar"></i>抽奖活动管理</a>
-    <ul id="choujiang-menu" class="nav nav-list collapse">
-        <li ><a href="403.html">活动管理</a></li>
-        <li ><a href="404.html">兑换记录</a></li>
-        <li ><a href="500.html">奖品兑换</a></li>
+    <ul id="choujiang-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('choujiang','choujiang_duijiang','duijiang','choujiang_award'))) echo ' in';</php>">
+        <php>
+            if(check_auth('Activities/Choujiang')) if($module_name=='choujiang' || $module_name=='choujiang_award') echo '<li class="active"><a href="'.U('choujiang/index').'">活动管理</a></li>'; else echo '<li><a href="'.U('choujiang/index').'">活动管理</a></li>';
+            if(check_auth('Activities/Choujiang/award/duihuanjilu')) if($module_name=='choujiang_duijiang') echo '<li class="active"><a href="'.U('choujiang_duijiang/index').'">奖品兑换记录</a></li>'; else echo '<li><a href="'.U('choujiang_duijiang/index').'">奖品兑换记录</a></li>';
+            if(check_auth('Activities/Choujiang/award/duihuan')) if($module_name=='duijiang') echo '<li class="active"><a href="'.U('duijiang/index').'">奖品兑换</a></li>'; else echo '<li><a href="'.U('duijiang/index').'">奖品兑换</a></li>';
+        </php>
     </ul>
 
     <a href="#seckillgoods-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-gift"></i>秒杀管理</a>
-    <ul id="seckillgoods-menu" class="nav nav-list collapse">
-        <li ><a href="403.html">秒杀活动管理</a></li>
-        <li ><a href="404.html">兑换记录</a></li>
-        <li ><a href="500.html">奖品兑换</a></li>
+    <ul id="seckillgoods-menu" class="nav nav-list collapse<php>if($module_name=='seckill_goods' || $module_name=='seckill_duihuan') echo ' in';</php>">
+        <php>
+            if(check_auth('Seckill/SeckillGoods')) if($module_name=='seckill_goods') echo '<li class="active"><a href="'.U('seckill_goods/index').'">秒杀活动管理</a></li>'; else echo '<li><a href="'.U('seckill_goods/index').'">秒杀活动管理</a></li>';
+            if(check_auth('Seckill/duihuan')) if($module_name=='seckill_duihuan' && $action_name=='index') echo '<li class="active"><a href="'.U('seckill_duihuan/index').'">兑换记录</a></li>'; else echo '<li><a href="'.U('seckill_duihuan/index').'">兑换记录</a></li>';
+            if(check_auth('Seckill/SeckillDuihuan')) if($module_name=='seckill_duihuan' && ($action_name=='duihuan' || $action_name=='get_code' || $action_name=='duihuan_action')) echo '<li class="active"><a href="'.U('seckill_duihuan/duihuan').'">秒杀兑换</a></li>'; else echo '<li><a href="'.U('seckill_duihuan/duihuan').'">秒杀兑换</a></li>';
+        </php>
     </ul>
 
     <a href="#member-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-barcode"></i>会员管理</a>
-    <ul id="member-menu" class="nav nav-list collapse">
-        <li ><a href="403.html">基础配置</a></li>
-        <li ><a href="404.html">优惠管理</a></li>
-        <li ><a href="500.html">会员名单</a></li>
-        <li ><a href="500.html">会员验证</a></li>
+    <ul id="member-menu" class="nav nav-list collapse<php>if($module_name=='member_card' ||$module_name=='member_sales') echo ' in';</php>">
+        <php>
+            if(check_auth('Member/config')) if($module_name=='member_sales' && $action_name=='config') echo '<li class="active"><a href="'.U('member_sales/config').'">基础配置</a></li>'; else echo '<li><a href="'.U('member_sales/config').'">基础配置</a></li>';
+            if(check_auth('Member/MemberSales')) if($module_name=='member_sales' && $action_name!='config') echo '<li class="active"><a href="'.U('member_sales/index').'">优惠管理</a></li>'; else echo '<li><a href="'.U('member_sales/index').'">优惠管理</a></li>';
+            if(check_auth('Member/MemberCard')) if($module_name=='member_card' && ($action_name=='index' || $action_name=='edit')) echo '<li class="active"><a href="'.U('member_card/index').'">会员名单</a></li>'; else echo '<li><a href="'.U('member_card/index').'">会员名单</a></li>';
+            if(check_auth('Member/identity')) if($module_name=='member_card' && ($action_name=='identity' || $action_name=='detail')) echo '<li class="active"><a href="'.U('member_card/identity').'">会员验证</a></li>'; else echo '<li><a href="'.U('member_card/identity').'">会员验证</a></li>';
+        </php>
     </ul>
 
     <a href="#coupon-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-tags"></i>优惠券管理</a>
-    <ul id="coupon-menu" class="nav nav-list collapse">
-        <li ><a href="403.html">优惠券活动管理</a></li>
-        <li ><a href="404.html">兑换记录</a></li>
-        <li ><a href="500.html">优惠券兑换</a></li>
+    <ul id="coupon-menu" class="nav nav-list collapse<php>if($module_name=='coupon' ||$module_name=='coupon_duihuan') echo ' in';</php>">
+        <php>
+            if(check_auth('Coupon/Index')) if($module_name=='coupon') echo '<li class="active"><a href="'.U('coupon/index').'">优惠券活动管理</a></li>'; else echo '<li><a href="'.U('coupon/index').'">优惠券活动管理</a></li>';
+            if(check_auth('Coupon/CouponDuihuan')) if($module_name=='coupon_duihuan' && $action_name=='index') echo '<li class="active"><a href="'.U('coupon_duihuan/index').'">兑换记录</a></li>'; else echo '<li><a href="'.U('coupon_duihuan/index').'">兑换记录</a></li>';
+            if(check_auth('Coupon/CouponDuihuan/duihuan')) if($module_name=='coupon_duihuan' && $action_name!='index') echo '<li class="active"><a href="'.U('coupon_duihuan/duihuan').'">优惠券兑换</a></li>'; else echo '<li><a href="'.U('coupon_duihuan/duihuan').'">优惠券兑换</a></li>';
+        </php>
     </ul>
 
     <a href="#user-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-user"></i>用户管理</a>
-    <ul id="user-menu" class="nav nav-list collapse">
-        <li ><a href="403.html">用户管理</a></li>
-        <li ><a href="404.html">权限组管理</a></li>
+    <ul id="user-menu" class="nav nav-list collapse<php>if($module_name=='user' ||$module_name=='group') echo ' in';</php>">
+        <php>
+            if(check_auth('User/Index')) if($module_name=='user') echo '<li class="active"><a href="'.U('/user').'">用户列表</a></li>'; else echo '<li><a href="'.U('/user').'">用户列表</a></li>';
+            if(check_auth('User/Group')) if($module_name=='group') echo '<li class="active"><a href="'.U('/group').'">权限组管理</a></li>'; else echo '<li><a href="'.U('/group').'">权限组管理</a></li>';
+        </php>
     </ul>
 </div>
