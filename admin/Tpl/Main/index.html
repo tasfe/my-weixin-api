@@ -8,7 +8,6 @@
         <meta name="description" content="">
         <meta name="author" content="">
     <include file="Public:header" />
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="__PUBLIC__/js/html5.js"></script>
     <![endif]-->
@@ -34,45 +33,46 @@
         <div class="row-fluid">
             <div class="row-fluid">
 
+                <!--最近状态start-->
                 <div class="block">
-                    <a class="block-heading" data-toggle="collapse">Latest Stats</a>
+                    <a class="block-heading" data-toggle="collapse">最近状态</a>
                     <div class="block-body collapse in">
 
                         <div class="stat-widget-container">
                             <div class="stat-widget">
                                 <div class="stat-button">
-                                    <p class="title">2,500</p>
-                                    <p class="detail">Accounts</p>
+                                    <p class="title">{$subscribe_count}</p>
+                                    <p class="detail">今日新关注用户数</p>
                                 </div>
                             </div>
 
                             <div class="stat-widget">
                                 <div class="stat-button">
-                                    <p class="title">3,299</p>
-                                    <p class="detail">Subscribers</p>
+                                    <p class="title">{$unsubscribe_count}</p>
+                                    <p class="detail">今日取消关注数</p>
                                 </div>
                             </div>
 
                             <div class="stat-widget">
                                 <div class="stat-button">
-                                    <p class="title">$1,500</p>
-                                    <p class="detail">Pending</p>
+                                    <p class="title">{$yesterday_subscribe_count}</p>
+                                    <p class="detail">昨日新关注用户数</p>
                                 </div>
                             </div>
 
                             <div class="stat-widget">
                                 <div class="stat-button">
-                                    <p class="title">$12,675</p>
-                                    <p class="detail">Completed</p>
+                                    <p class="title">{$yesterday_unsubscribe_count}</p>
+                                    <p class="detail">昨日取消关注数</p>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
+                <!--最近状态end-->
+
             </div>
-
-
             <footer>
                 <include file="Public:footer" />
             </footer>
