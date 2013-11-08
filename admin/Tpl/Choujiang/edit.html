@@ -1,150 +1,172 @@
 <tagLib name="lbase"/>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>微信公众平台营销管理系统</title>
+        <title>微信公众平台管理系统</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-    <include file='Public:header' />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <include file="Public:header" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="__ROOT__/public/js/html5shiv.js"></script>
+      <script src="__PUBLIC__/js/html5.js"></script>
     <![endif]-->
 </head>
 
-<body>
-    <!--nav-->
-<include file='Public:nav' />
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class="">
+    <!--<![endif]-->
 
+    <!--顶部菜单-->
+<include file="Public:navbar" />
 
-<div class="container">
-    <!--            <ul class="breadcrumb">
-                    <li><a href="#">首页</a> <span class="divider">/</span></li>
-                    <li><a href="#">Library</a> <span class="divider">/</span></li>
-                    <li class="active">Data</li>
-                </ul>-->
-    <div class="page-header"><h4>活动编辑</h4></div>
+<!--左侧导航条-->
+<include file="Public:nav" />
 
-    <!--<p class="view"><b>功能：</b>管理&nbsp;|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加|&nbsp;添加</p>-->
-    <div class="row">
-        <div class="span12">
-            <div class="pull-left">
-                <a href="{:U('/'.$module_name)}" class="btn btn-primary">列 表</a>&nbsp;&nbsp;
-                <!--<a href="{:U($module_name.'/add')}" class="btn btn-primary">新 增</a>&nbsp;&nbsp;-->
-                <a class="btn btn-primary" href="{$pre_url}">返 回</a>
+<!--右侧整体区域-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row-fluid">
+                <!--右侧栏目区域start-->
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">抽奖活动编辑</a>
+                    <div class="block-body collapse in">
+
+                        <div class="container-fluid" style="margin-top: 10px;">
+                            <!--右侧栏目内容区域start-->
+                            <div class="row">
+                                <div class="span12">
+                                    <div class="pull-left">
+                                        <a href="{:U('/'.$module_name)}" class="btn btn-primary">列 表</a>&nbsp;&nbsp;
+                                        <a class="btn btn-primary" href="{$pre_url}">返 回</a>
+                                    </div>
+                                </div>
+                                <!--右侧字段区域start-->
+                                <div class="span12" style="margin-top:10px;">
+                                    <form class="form-horizontal" method="post">
+                                        <fieldset>
+                                            <div id="legend" class="">
+                                                <legend class=""></legend>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">抽奖活动名称</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" name="name" value="{$info.name}" class="input-xlarge">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">活动开始时间</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="活动开始时间" name="begin_time" value="{$info.begin_time}" class="input-xlarge">
+                                                    <p class="help-block">立即开始请填写0，日期时间格式2013-08-01 15:20</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">活动结束时间</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="活动结束时间" name="stop_time" value="{$info.stop_time}" class="input-xlarge">
+                                                    <p class="help-block">不限制结束时间请填写0，日期时间格式2013-08-01 18:00</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">兑换截止时间</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="兑换截止时间" name="award_stop_time" value="{$info.award_stop_time}" class="input-xlarge">
+                                                    <p class="help-block">不限制兑换截止时间请填写0，日期时间格式2013-08-01 18:00</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">兑奖码长度</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="兑奖码长度" name="award_code_length" value="{$info.award_code_length}" class="input-xlarge">
+                                                    <p class="help-block">建议大于等于8位以上，以免重复</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">活动类型</label>
+                                                <div class="controls">
+                                                    <select class="input-xlarge" name="type">
+                                                        <option value="dazhuanpan"<php>if($info['type']=='dazhuanpan') echo ' selected="selected"';</php>>大转盘</option>
+                                                        <option value="guaguaka"<php>if($info['type']=='guaguaka') echo ' selected="selected"';</php>>刮刮卡</option>
+                                                        <option value="zajindan"<php>if($info['type']=='zajindan') echo ' selected="selected"';</php>>砸金蛋</option></select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">用户每日限制次数</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="用户每日限制次数" name="user_num" value="{$info.user_num}" class="input-xlarge">
+                                                    <p class="help-block">不限制次数填写0，否则填写具体整数值</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label" for="input01">每用户总限制次数</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="每用户总限制次数" name="user_sum_num" value="{$info.user_sum_num}" class="input-xlarge">
+                                                    <p class="help-block">不限制次数填写0，否则填写具体整数值</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">奖品说明</label>
+                                                <div class="controls">
+                                                    <div class="textarea">
+                                                        <textarea name="prize" style="width:400px;height:300px;">{$info.prize}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">活动说明</label>
+                                                <div class="controls">
+                                                    <div class="textarea">
+                                                        <textarea name="explain" style="width:400px;height:300px;">{$info.explain}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id='pop'></div>
+
+                                            <div class="form-actions">
+                                                <input type="hidden" name="id" value="{$info.id}">
+                                                <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
+                                                <a class="btn" href="{$pre_url}">返 回</a>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <!--右侧字段区域end-->
+                            </div>
+                            <!--右侧栏目内容区域end-->
+                        </div>
+
+                    </div>
+                </div>
+                <!--右侧栏目区域end-->
             </div>
+            <footer>
+                <include file="Public:footer" />
+            </footer>
         </div>
     </div>
-    <div class="row">
-        <div class="span12" style="margin-top:10px;">
-            <form class="form-horizontal" method="post">
-                <fieldset>
-                    <div id="legend" class="">
-                        <legend class=""></legend>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="input01">抽奖活动名称</label>
-                        <div class="controls">
-                            <input type="text" placeholder="" name="name" value="{$info.name}" class="input-xlarge">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="input01">活动开始时间</label>
-                        <div class="controls">
-                            <input type="text" placeholder="活动开始时间" name="begin_time" value="{$info.begin_time}" class="input-xlarge">
-                            <p class="help-block">立即开始请填写0，日期时间格式2013-08-01 15:20</p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="input01">活动结束时间</label>
-                        <div class="controls">
-                            <input type="text" placeholder="活动结束时间" name="stop_time" value="{$info.stop_time}" class="input-xlarge">
-                            <p class="help-block">不限制结束时间请填写0，日期时间格式2013-08-01 18:00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label class="control-label" for="input01">兑换截止时间</label>
-                        <div class="controls">
-                            <input type="text" placeholder="兑换截止时间" name="award_stop_time" value="{$info.award_stop_time}" class="input-xlarge">
-                            <p class="help-block">不限制兑换截止时间请填写0，日期时间格式2013-08-01 18:00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label class="control-label" for="input01">兑奖码长度</label>
-                        <div class="controls">
-                            <input type="text" placeholder="兑奖码长度" name="award_code_length" value="{$info.award_code_length}" class="input-xlarge">
-                            <p class="help-block">建议大于等于8位以上，以免重复</p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label">活动类型</label>
-                        <div class="controls">
-                            <select class="input-xlarge" name="type">
-                                <option value="dazhuanpan"<php>if($info['type']=='dazhuanpan') echo ' selected="selected"';</php>>大转盘</option>
-                                <option value="guaguaka"<php>if($info['type']=='guaguaka') echo ' selected="selected"';</php>>刮刮卡</option>
-                                <option value="zajindan"<php>if($info['type']=='zajindan') echo ' selected="selected"';</php>>砸金蛋</option></select>
-                        </div>
-
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="input01">用户每日限制次数</label>
-                        <div class="controls">
-                            <input type="text" placeholder="用户每日限制次数" name="user_num" value="{$info.user_num}" class="input-xlarge">
-                            <p class="help-block">不限制次数填写0，否则填写具体整数值</p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="input01">每用户总限制次数</label>
-                        <div class="controls">
-                            <input type="text" placeholder="每用户总限制次数" name="user_sum_num" value="{$info.user_sum_num}" class="input-xlarge">
-                            <p class="help-block">不限制次数填写0，否则填写具体整数值</p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label">奖品说明</label>
-                        <div class="controls">
-                            <div class="textarea">
-                                <textarea name="prize" style="width:400px;height:300px;">{$info.prize}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label">活动说明</label>
-                        <div class="controls">
-                            <div class="textarea">
-                                <textarea name="explain" style="width:400px;height:300px;">{$info.explain}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='pop'></div>
-
-                    <div class="form-actions">
-                        <input type="hidden" name="id" value="{$info.id}">
-                        <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
-                        <a class="btn" href="{$pre_url}">返 回</a>
-                    </div>
-
-                </fieldset>
-            </form>
-        </div>
-    </div>
-
 </div>
-</div>
-
-<include file='Public:footer' />
 <script type="text/javascript" src="__PUBLIC__/js/edit_none_editor.js"></script>
 </body>
 </html>
+
+
