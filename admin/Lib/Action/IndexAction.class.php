@@ -41,7 +41,7 @@ class IndexAction extends Action {
                 $this->ajaxReturn(array('data' => 0));
             }
             if ($info['user_pwd'] == $user_pwd) {
-                $expire = $remember ? 864000 : 3600;  //cookie保存时间
+                $expire = $remember ? 2592000 : 3600;  //cookie保存时间
                 $data = array('admin' => $info['admin'], 'user_id' => $info['id']);
                 $encode_json = aes_encode(json_encode($data), md5(C('admin_secret_key').$_SERVER['HTTP_USER_AGENT']));
                 cookie('weixin_admin', $encode_json, $expire);
