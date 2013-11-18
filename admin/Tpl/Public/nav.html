@@ -1,5 +1,5 @@
 <div class="sidebar-nav">
-    <a href="#config-menu" class="nav-header" data-toggle="collapse"><i class="icon-wrench"></i>基础配置</a>
+    <a href="#config-menu" class="nav-header" data-toggle="collapse"><i class="icon-wrench"></i><strong>基础配置</strong></a>
     <ul id="config-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('weixin_menu','subscribe','config','main'))) echo ' in';</php>">
         <php>
             if(check_auth('Config/sys_con')) if($module_name=='config') echo '<li class="active"><a href="'.U('config/index').'">系统配置</a></li>'; else echo '<li><a href="'.U('config/index').'">系统配置</a></li>';
@@ -7,8 +7,15 @@
             if(check_auth('Config/WeixinMenu')) if($module_name=='weixin_menu') echo '<li class="active"><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>'; else echo '<li><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>';
         </php>
     </ul>
+    
+    <a href="#Mobile-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i><strong>手机控制管理</strong></a>
+    <ul id="Mobile-menu" class="nav nav-list collapse<php>if($module_name=='mobile_config' || $module_name=='reply_database') echo ' in';</php>">
+        <php>
+            if(check_auth('Mobile/mobile_con')) if($module_name=='mobile_config') echo '<li class="active"><a href="'.U('mobile_config/index').'">基础配置</a></li>'; else echo '<li><a href="'.U('mobile_config/index').'">基础配置</a></li>';
+        </php>
+    </ul>
 
-    <a href="#reply-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i>回复管理</a>
+    <a href="#reply-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i><strong>回复管理</strong></a>
     <ul id="reply-menu" class="nav nav-list collapse<php>if($module_name=='zhiling' || $module_name=='reply_database') echo ' in';</php>">
         <php>
             if(check_auth('Reply/Zhiling')) if($module_name=='zhiling') echo '<li class="active"><a href="'.U('zhiling/index').'">指令管理</a></li>'; else echo '<li><a href="'.U('zhiling/index').'">指令管理</a></li>';
@@ -16,7 +23,7 @@
         </php>
     </ul>
 
-    <a href="#choujiang-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-calendar"></i>抽奖活动管理</a>
+    <a href="#choujiang-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-calendar"></i><strong>抽奖活动管理</strong></a>
     <ul id="choujiang-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('choujiang','choujiang_duijiang','duijiang','choujiang_award'))) echo ' in';</php>">
         <php>
             if(check_auth('Activities/Choujiang')) if($module_name=='choujiang' || $module_name=='choujiang_award') echo '<li class="active"><a href="'.U('choujiang/index').'">活动管理</a></li>'; else echo '<li><a href="'.U('choujiang/index').'">活动管理</a></li>';
@@ -25,7 +32,7 @@
         </php>
     </ul>
 
-    <a href="#seckillgoods-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-gift"></i>秒杀管理</a>
+    <a href="#seckillgoods-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-gift"></i><strong>秒杀管理</strong></a>
     <ul id="seckillgoods-menu" class="nav nav-list collapse<php>if($module_name=='seckill_goods' || $module_name=='seckill_duihuan') echo ' in';</php>">
         <php>
             if(check_auth('Seckill/SeckillGoods')) if($module_name=='seckill_goods') echo '<li class="active"><a href="'.U('seckill_goods/index').'">秒杀活动管理</a></li>'; else echo '<li><a href="'.U('seckill_goods/index').'">秒杀活动管理</a></li>';
@@ -34,7 +41,7 @@
         </php>
     </ul>
 
-    <a href="#member-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-barcode"></i>会员管理</a>
+    <a href="#member-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-barcode"></i><strong>会员管理</strong></a>
     <ul id="member-menu" class="nav nav-list collapse<php>if($module_name=='member_card' ||$module_name=='member_sales') echo ' in';</php>">
         <php>
             if(check_auth('Member/config')) if($module_name=='member_sales' && $action_name=='config') echo '<li class="active"><a href="'.U('member_sales/config').'">基础配置</a></li>'; else echo '<li><a href="'.U('member_sales/config').'">基础配置</a></li>';
@@ -44,7 +51,7 @@
         </php>
     </ul>
 
-    <a href="#coupon-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-tags"></i>优惠券管理</a>
+    <a href="#coupon-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-tags"></i><strong>优惠券管理</strong></a>
     <ul id="coupon-menu" class="nav nav-list collapse<php>if($module_name=='coupon' ||$module_name=='coupon_duihuan') echo ' in';</php>">
         <php>
             if(check_auth('Coupon/Index')) if($module_name=='coupon') echo '<li class="active"><a href="'.U('coupon/index').'">优惠券活动管理</a></li>'; else echo '<li><a href="'.U('coupon/index').'">优惠券活动管理</a></li>';
@@ -53,7 +60,7 @@
         </php>
     </ul>
 
-    <a href="#user-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-user"></i>用户管理</a>
+    <a href="#user-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-user"></i><strong>用户管理</strong></a>
     <ul id="user-menu" class="nav nav-list collapse<php>if($module_name=='user' ||$module_name=='group') echo ' in';</php>">
         <php>
             if(check_auth('User/Index')) if($module_name=='user') echo '<li class="active"><a href="'.U('/user').'">用户列表</a></li>'; else echo '<li><a href="'.U('/user').'">用户列表</a></li>';
