@@ -14,7 +14,7 @@ class ConfigAction extends CommonAction {
 
     public function index() {
         $M = M('Config');
-        $conf_list = $M->where("status=1")->order("sort,name")->select();
+        $conf_list = $M->where("status=1 and group_id=1")->order("sort,name")->select();
         $this->conf_list = $conf_list;
 //        dump($conf_list);
         $this->display();
