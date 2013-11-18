@@ -26,7 +26,7 @@ class IndexAction extends CommonAction {
         $this->token = MC('weixin_token');
     }
 
-    public function index() {    
+    public function index() {
         $echoStr = $_GET["echostr"];
         if ($this->checkSignature()) {
             //获取传递过来的XML数据文件
@@ -85,7 +85,7 @@ class IndexAction extends CommonAction {
         //获取菜单消息
         $content = trim($this->msg_info->EventKey);
         $Zhiling = M('Zhiling');
-        $data = $Zhiling->where(array("menu_key" => $content, "status" => 1,"main"=>0))->find();
+        $data = $Zhiling->where(array("menu_key" => $content, "status" => 1, "main" => 0))->find();
         if (!empty($data)) {
             //判断回复的消息类型
             $this->text_msg_return($data);
@@ -165,7 +165,7 @@ class IndexAction extends CommonAction {
             }
         }
     }
-    
+
     /**
      * 处理系统级指令
      * @param type $content
@@ -173,11 +173,27 @@ class IndexAction extends CommonAction {
     private function system_callback($content) {
         switch ($content) {
             case 'wxid':
-                $this->return_text('您的微信ID：'.$this->msg_info->FromUserName);
+                $this->return_text('您的微信ID：' . $this->msg_info->FromUserName);
                 exit;
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 处理手机微信管理指令系统
+     * @param String $content 用户回复的文本信息
+     */
+    private function dictate_control($content) {
+        if (MC('mobile_bind_status')) { //判断是否开启绑定
+            $mobile_bind_dictate = MC('mobile_bind_dictate');
+            if (stripos($content, $mobile_bind_dictate) === 0){ //判断开头为"绑定指令"
+//                $this->bind_control();  //处理绑定事件
+                import("@.ORG.Bind");
+                $Bind=new Bind((string)$this->msg_info->FromUserName, (string)$this->msg_info->Content);
+                $Bind->bind_control();
+            }
         }
     }
 
@@ -188,6 +204,7 @@ class IndexAction extends CommonAction {
         //获取文本消息内容
         $content = trim($this->msg_info->Content);
         $this->system_callback($content);   //系统级指令
+        $this->dictate_control($content);  //指令系统
         $Zhiling = M('Zhiling');
         $data = $Zhiling->where(array("code" => $content, "status" => 1))->find();
         //判断是否定义指令
@@ -230,7 +247,7 @@ class IndexAction extends CommonAction {
         }
     }
 
-    private function text_msg_return($data,$type='Zhiling') {
+    private function text_msg_return($data, $type = 'Zhiling') {
         switch ($data['msg_type']) {
             case 1:  //文本
                 $content = empty($data['contents']) ? '欢迎您关注微信！' : $data['contents'];
@@ -259,7 +276,7 @@ class IndexAction extends CommonAction {
                 break;
             case 3: //多条图文
                 $data_array[] = $data;
-                $Zhiling=M($type);
+                $Zhiling = M($type);
                 $temp_array = $Zhiling->where("main={$data['id']} and status=1")->order("sort,id")->select();
                 //合并两个结果数组
                 $return_array = array_merge($data_array, $temp_array);
@@ -288,7 +305,7 @@ class IndexAction extends CommonAction {
             if ($key + 1 > $this->return_count) {
                 break;
             }
-            
+
             //判断点击链接是否为空
             if (empty($value['click_url'])) {
                 $url = 'http://' . $_SERVER['SERVER_NAME'] . U($action_name . '/view?id=' . $value['id']);
@@ -365,7 +382,7 @@ class IndexAction extends CommonAction {
      * 给微信接口返回单条文本信息
      * @param String $str 要回复的文本
      */
-    private function return_text($str) {
+    public function return_text($str) {
         $textTpl = "<xml>
                             <ToUserName><![CDATA[%s]]></ToUserName>
                             <FromUserName><![CDATA[%s]]></FromUserName>
