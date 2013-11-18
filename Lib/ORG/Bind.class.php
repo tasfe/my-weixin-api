@@ -33,13 +33,11 @@ class Bind{
     public function bind_control() {
         $mobile_bind_dictate = MC('mobile_bind_dictate');  //绑定指令
         $mobile_bind_secret = MC('mobile_bind_secret'); //绑定密钥
-
         $matchs = array();
         preg_match("#^{$mobile_bind_dictate}\s(\w*)\s(.*)$#", $this->content, $matchs);
         if ($matchs[1] == $mobile_bind_secret) {
             $this->bind_list_control();
         } else {
-            file_put_contents('error.txt', '密码错误');
             $Index=A('Index');
             $Index->return_text('请核对您的微信管理绑定密码并重新绑定!');
         }

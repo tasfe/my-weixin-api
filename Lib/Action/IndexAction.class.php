@@ -189,7 +189,6 @@ class IndexAction extends CommonAction {
         if (MC('mobile_bind_status')) { //判断是否开启绑定
             $mobile_bind_dictate = MC('mobile_bind_dictate');
             if (stripos($content, $mobile_bind_dictate) === 0){ //判断开头为"绑定指令"
-//                $this->bind_control();  //处理绑定事件
                 import("@.ORG.Bind");
                 $Bind=new Bind((string)$this->msg_info->FromUserName, (string)$this->msg_info->Content);
                 $Bind->bind_control();
