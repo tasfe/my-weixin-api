@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台管理系统</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <include file="Public:header" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__PUBLIC__/js/html5.js"></script>
+    <![endif]-->
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class="">
+    <!--<![endif]-->
+
+    <!--顶部菜单-->
+<include file="Public:navbar" />
+
+<!--左侧导航条-->
+<include file="Public:nav" />
+
+<!--右侧整体区域-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row-fluid">
+
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">基础配置</a>
+                    <div class="block-body collapse in">
+
+                        <div class="span12" style="margin-top:10px;">
+                            <form class="form-horizontal" method="post">
+                                <fieldset>
+                                    <foreach name="conf_list" item="vo">
+                                        <div class="control-group">
+                                            <label class="control-label" for="input01">{$vo.c_name}</label>
+                                            <div class="controls">
+                                                <switch name="vo.list_type">
+                                                <case value="0">
+                                                    <input type="text" placeholder="" value="{$vo.val}" name="{$vo.name}" class="input-xlarge">
+                                                    <p class="help-block">{$vo.remark}</p>
+                                                </case>
+                                                <case value="1">
+                                                    <php>
+                                                        $temp_list=explode(',',$vo['val_arr']);
+                                                        foreach($temp_list as $key1=>$value){
+                                                            $val_list=explode(':',$value);
+                                                            if(count($val_list)<2){
+                                                                if($vo['val']==$value){
+                                                                    echo '<label class="radio inline">'
+                                                                        .'<input type="radio" value="'.$value.'" checked="checked" name="'.$vo['name'].'">'.$value.'</label>';
+                                                                }else{
+                                                                    echo '<label class="radio inline">'
+                                                                        .'<input type="radio" value="'.$value.'" name="'.$vo['name'].'">'.$value.'</label>';
+                                                                }
+                                                            }else{
+                                                                if($vo['val']==$val_list[0]){
+                                                                    echo '<label class="radio inline">'
+                                                                        .'<input type="radio" value="'.$val_list[0].'" checked="checked" name="'.$vo['name'].'">'.$val_list[1].'</label>';
+                                                                }else{
+                                                                    echo '<label class="radio inline">'
+                                                                        .'<input type="radio" value="'.$val_list[0].'" name="'.$vo['name'].'">'.$val_list[1].'</label>';
+                                                                }
+                                                            }
+                                                        }
+                                                    </php>
+                                                </case>
+                                                <case value="2">value2</case>
+                                                <case value="3">
+                                                    <div class="textarea">
+                                                        <textarea type="" class="" name="{$vo.name}" style="width:500px;height: 100px">{$vo.val}</textarea>
+                                                        <p class="help-block">{$vo.remark}</p>
+                                                    </div>
+                                                </case>
+                                                <case value="4">value2</case>
+                                                <case value="5">value2</case>
+                                                <default />
+                                                <input type="text" placeholder="" name="{$vo.name}" class="input-xlarge">
+                                                <p class="help-block">{$vo.remark}</p>
+                                                </switch>
+                                            </div>
+                                        </div>
+                                    </foreach>
+                                    <div id='pop'></div>
+
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
+                                        <a class="btn" href="{$pre_url}">返 回</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <include file="Public:footer" />
+            </footer>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('#save').click(function() {
+            var data = $('form').serialize();
+            $('#save').attr('disabled', 'disabled');
+            $.ajax({
+                type: "POST",
+                url: app_url + "/" + module_name + "/update",
+                data: data,
+                timeout: 5000,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    success(data);
+                },
+                error: function() {
+                    error();
+                }
+            });
+        });
+
+        $('#pop').ajaxStart(function() {
+            $('#pop').html('<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">×</button>数据请求中，请稍候...</div>')
+                    .fadeIn("slow");
+        });
+
+        function success(data) {
+            $('#save').removeAttr('disabled');
+            if (data.data == 1) {
+                $('#pop').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>配置修改成功！</div>')
+                        .fadeIn("slow");
+            } else {
+                $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>配置修改失败或者信息并无改变！</div>')
+                        .fadeIn("slow");
+            }
+        }
+
+        function error() {
+            $('#pop').html('<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>远程服务器请求失败！</div>')
+                    .fadeIn("slow");
+        }
+    });
+</script>
+</body>
+</html>
+
+
