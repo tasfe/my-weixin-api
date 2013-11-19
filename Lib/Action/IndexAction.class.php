@@ -36,38 +36,7 @@ class IndexAction extends CommonAction {
                 //对XML进行解析
                 $this->msg_info = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $this->insert_subscribe_user((string) $this->msg_info->FromUserName);
-
-                //选择消息类型
-                switch ($this->msg_info->MsgType) {
-                    case 'event': //事件消息
-                        switch ($this->msg_info->Event) {
-                            case 'subscribe':  //订阅事件
-                                $this->subscribe_msg();
-                                break;
-                            case 'unsubscribe':  //取消订阅事件
-                                //写入取消订阅记录
-                                $this->unsubscribe((string) $this->msg_info->FromUserName);
-                                break;
-                            case 'CLICK':  //自定义菜单点击事件(预留)
-                                //调用菜单单击消息处理
-                                $this->menu_click_msg();
-                                break;
-                            default:  //默认事件为订阅事件
-                                $this->subscribe_msg();
-                                break;
-                        }
-                        break;
-                    case 'text':  //文本消息
-                        $this->text_msg();
-                        break;
-                    case 'image':  //图片消息
-                        break;
-                    case 'location': //地理位置消息
-                        break;
-                    default:
-                        $this->subscribe_msg();
-                        break;
-                }
+                $this->msg_type_action();
             } else {
                 echo $echoStr;
                 exit;
@@ -75,6 +44,43 @@ class IndexAction extends CommonAction {
         } else {
             header("Content-Type: text/html; charset=UTF-8");
             echo '微信公众平台API访问成功!';
+        }
+    }
+
+    /**
+     * 根据消息类型选择执行不同方法
+     */
+    private function msg_type_action() {
+        //选择消息类型
+        switch ($this->msg_info->MsgType) {
+            case 'event': //事件消息
+                switch ($this->msg_info->Event) {
+                    case 'subscribe':  //订阅事件
+                        $this->subscribe_msg();
+                        break;
+                    case 'unsubscribe':  //取消订阅事件
+                        //写入取消订阅记录
+                        $this->unsubscribe((string) $this->msg_info->FromUserName);
+                        break;
+                    case 'CLICK':  //自定义菜单点击事件(预留)
+                        //调用菜单单击消息处理
+                        $this->menu_click_msg();
+                        break;
+                    default:  //默认事件为订阅事件
+                        $this->subscribe_msg();
+                        break;
+                }
+                break;
+            case 'text':  //文本消息
+                $this->text_msg();
+                break;
+            case 'image':  //图片消息
+                break;
+            case 'location': //地理位置消息
+                break;
+            default:
+                $this->subscribe_msg();
+                break;
         }
     }
 
@@ -188,9 +194,9 @@ class IndexAction extends CommonAction {
     private function dictate_control($content) {
         if (MC('mobile_bind_status')) { //判断是否开启绑定
             $mobile_bind_dictate = MC('mobile_bind_dictate');
-            if (stripos($content, $mobile_bind_dictate) === 0){ //判断开头为"绑定指令"
+            if (stripos($content, $mobile_bind_dictate) === 0) { //判断开头为"绑定指令"
                 import("@.ORG.Bind");
-                $Bind=new Bind($this->msg_info);
+                $Bind = new Bind($this->msg_info);
                 $Bind->bind_control();
             }
         }
@@ -382,21 +388,10 @@ class IndexAction extends CommonAction {
      * @param String $str 要回复的文本
      */
     public function return_text($str) {
-        $textTpl = "<xml>
-                            <ToUserName><![CDATA[%s]]></ToUserName>
-                            <FromUserName><![CDATA[%s]]></FromUserName>
-                            <CreateTime>%s</CreateTime>
-                            <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
-                            <FuncFlag>0</FuncFlag>
-                            </xml>";
-        if (!empty($str)) {
-            $msgType = "text";
-            $resultStr = sprintf($textTpl, $this->msg_info->FromUserName, $this->msg_info->ToUserName, time(), $msgType, $str);
-            echo $resultStr;
-        } else {
-            echo "您什么都没有输入...";
-        }
+        import("@.ORG.TextMsg");
+        $TextMsg = new TextMsg($this->msg_info);
+        $TextMsg->return_text($str);
+        unset($TextMsg);
     }
 
     /**
