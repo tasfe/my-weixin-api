@@ -41,7 +41,7 @@ class CouponConvert {
      */
     private function make_shuoming($coupon_info) {
         $str = "优惠券{$coupon_info['code']}兑换成功,以下为优惠券信息:\n\n"
-                . "优惠券名称:{$coupon_info['names']}\n\n"
+                . "优惠券名称:{$coupon_info['name']}\n\n"
                 . "使用说明:{$coupon_info['direction']}";
         return $str;
     }
