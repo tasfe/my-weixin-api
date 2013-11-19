@@ -197,10 +197,16 @@ class IndexAction extends CommonAction {
         if (MC('mobile_bind_status')) { //判断是否开启绑定
             $mobile_bind_dictate = MC('mobile_bind_dictate');
             if (stripos($content, $mobile_bind_dictate) === 0) { //判断开头为"绑定指令"
-                import("@.ORG.Bind");
+                import("@.ORG.MobileControl.Bind");
                 $Bind = new Bind($this->msg_info);
                 $Bind->bind_control();
             }
+        }
+        //获取绑定名单
+        $bind_list=M('MobileBindList')->where("status=1")->getField('id,weixin_id');
+        if(in_array($this->msg_info->FromUserName, $bind_list)){
+            import("@.ORG.MobileControl.MobileDictate");
+            $MobileDictate=new MobileDictate($this->msg_info);
         }
     }
 
