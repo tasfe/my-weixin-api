@@ -7,12 +7,10 @@
  */
 class IndexAction extends CommonAction {
 
-    var $token = '123456';  //与微信交互密钥
+    var $token = '';  //与微信交互密钥
     //var $key_count=1;  //提取大于等于该数值的词
     var $msg_info;  //微信传递过来的消息信息 全局对象
     private $return_count = 10;  //图文列表返回的数量
-    private $get_keys_num = 1000;  //最大获取的数据记录数量 最大统计关键词密度记录数量
-    private $no_keys_return = '该话题没有找到，咱们换个话题吧！';   //智能回复库中不存在的提示语句
 
     /**
      * 初始化方法
@@ -21,7 +19,6 @@ class IndexAction extends CommonAction {
     public function _initialize() {
         parent::_initialize();
         //初始化配置信息
-        $this->no_keys_return = MC('no_keys_return');
         $this->return_count = MC('list_return_count');
         $this->token = MC('weixin_token');
     }
@@ -225,10 +222,11 @@ class IndexAction extends CommonAction {
                 exit;
             }
 
-            //用户聊天语句分词
-            $keyword = utf8_strlen($this->msg_info->Content) > 2 ? $this->get_keys($this->msg_info->Content) : $this->msg_info->Content;
-            //读取数据库中定义好的关键词回复
-            $return_array = $this->get_keys_count($this->get_data($keyword), $keyword);
+            //导入智能回复扩展类
+            import("@.ORG.IntelligentMsg");
+            $IntelligentMsg = new IntelligentMsg($this->msg_info);
+            $return_array = $IntelligentMsg->get_intelligent_msg();
+
             if (empty($return_array)) {
                 //默认没有找到回复
 //                $this->return_text($this->no_keys_return);
@@ -395,65 +393,6 @@ class IndexAction extends CommonAction {
     }
 
     /**
-     * 对用户输入的信息进行分词
-     * @param String $keywords 用户输入的信息
-     * @return array 分词数组
-     */
-    private function get_keys($keywords) {
-        define('appkey', '5839506671989993634'); //海量分词密钥
-        define('secret', 'd142f86976af111c6b858cc75b2023a9b13341fc'); //海量分词私钥
-        define('api_url', 'http://freeapi.hylanda.com/rest/se/segment/realtime');  //海量分词接口地址
-        $return_array = array();
-
-        import('@.ORG.Hailiang');
-        $api = new Hailiang(secret);
-        $params['appkey'] = appkey;
-        $params['v'] = '1.0';
-        $params['time'] = time(); //1305690837;//time();
-        $params['xmlparam'] = $api->get_xml_data($keywords);
-
-
-        $ret = $api->execute(api_url, $params);
-        if ($ret === false)
-            exit;
-        else {
-            $postObj = simplexml_load_string($ret, 'SimpleXMLElement', LIBXML_NOCDATA);
-            if ($postObj->ret != 0) {
-                exit;
-            }
-            $templist = (array) $postObj->Result->Resource->AnalyzeResult->Annotations;
-            foreach ($templist['Item'] as $key => $value) {
-                if (utf8_strlen($value['Text']) >= $this->key_count) {
-                    $tempStr = (array) $value['Text'];
-                    $return_array[] = $tempStr[0];
-                }
-            }
-            return $return_array;
-        }
-    }
-
-    /**
-     * 根据关键词进行获取信息
-     * @param array $keys_array 关键词数组
-     */
-    private function get_data($keys_array) {
-        $M = M('ReplyDatabase');
-        $where = '(';
-        if (is_array($keys_array)) {
-            foreach ($keys_array as $key => $value) {
-                if ($key > 0)
-                    $where.='or ';
-                $where.="keywords like '%{$value}%' or title like '%{$value}%' ";
-            }
-        }else {
-            $where.="keywords like '%{$keys_array}%' or title like '%{$keys_array}%' ";
-        }
-        $where.=") and status=1 ";
-        $list = $M->where("{$where}")->order('msg_type,sort,id desc')->limit($this->get_keys_num)->select();
-        return $list;
-    }
-
-    /**
      * 对签名进行验证
      * @return boolean
      */
@@ -474,58 +413,4 @@ class IndexAction extends CommonAction {
         }
     }
 
-    /**
-     * 获取关键词数组的词频
-     * 如果需要查找的关键词是一个数组，则对数据数组增加str_num列，str_num列记录关键词得分
-     */
-    private function get_keys_count($data, $keywords) {
-        if (is_array($keywords)) {
-            foreach ($data as $key => $value) {
-                $str_num = 0;  //关键词得分
-                foreach ($keywords as $key_key => $key_value) {
-                    if (strpos($value['keywords'], $key_value) !== false or strpos($value['title'], $key_value) !== false) {
-                        $str_num++;  //如果关键词中存在该关键词，则得分+1
-                    }
-                }
-                $data[$key]['str_num'] = $str_num;
-            }
-            $data = $this->keys_num_order($data);
-        }
-        return $data;
-    }
-
-    /**
-     * 针对数据数组按照关键词得分进行排序
-     * @return array 针对关键词得分，输出类型，排序顺序，id进行依次排序后的数组
-     * */
-    private function keys_num_order($data) {
-        foreach ($data as $key => $value) {
-            $str_num[$key] = $value['str_num']; //1 按照关键词得分进行排序
-            $type[$key] = $value['msg_type'];  //2 按照输出类型进行排序
-            $sort[$key] = $value['sort'];  //3 按照排序顺序进行排序
-            $id[$key] = $value['id'];  //4 最后按照id进行排序
-        }
-//对数组进行排序
-//按照如下顺序依次排序
-//1-关键词得分 数值递减,2-输出类型 数值递增,3-排序顺序 数值递增,4-ID 数值递减
-        array_multisort($str_num, SORT_DESC, SORT_NUMERIC, $type, SORT_ASC, SORT_NUMERIC, $sort, SORT_ASC, SORT_NUMERIC, $id, SORT_DESC, SORT_NUMERIC, $data);
-        $str_num = null;
-        $type = null;
-        $sort = null;
-        $id = null;
-        unset($str_num);
-        unset($type);
-        unset($sort);
-        unset($id);
-        return $data;
-    }
-
-}
-
-// 计算中文字符串长度
-function utf8_strlen($string = null) {
-// 将字符串分解为单元
-    preg_match_all("/./us", $string, $match);
-// 返回单元个数
-    return count($match[0]);
 }
