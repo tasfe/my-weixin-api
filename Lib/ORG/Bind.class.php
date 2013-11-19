@@ -4,6 +4,7 @@
  * 手机微信控制绑定扩展类
  * @Created on:2013-11-18 16:16:43
  * @author 蓝枫叶{zibin_5257@163.com}
+ * @uses TextMsg::return_text() 微信文本回复扩展类::回复纯文本
  */
 class Bind {
 

@@ -4,6 +4,8 @@
  * 智能回复消息扩展类
  * @Created on:2013-11-19 11:17:13
  * @author 蓝枫叶{zibin_5257@163.com}
+ * @uses class TextMsg::return_text() 微信文本回复扩展类::回复纯文本
+ * @uses class Hailiang 海量分词扩展类
  */
 class IntelligentMsg {
 
