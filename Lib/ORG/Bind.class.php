@@ -22,7 +22,7 @@ class Bind {
     /**
      * 生成指令说明
      */
-    private function make_control_shuoming() {
+    public function make_control_shuoming() {
         $str = "您可以用以下指令进行管理:\n"
                 . "测试指令:" . MC('bind_test_dictate') . "\n"
                 . "优惠券兑换:" . MC('coupon_convert_dictate') . " 兑换码\n"
