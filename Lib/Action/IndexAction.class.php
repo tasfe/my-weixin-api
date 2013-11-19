@@ -2,6 +2,10 @@
 
 /**
  * 腾讯微信公众平台自定义回复接口
+ * @uses class Hailiang 海量云分词扩展类
+ * @uses class TextMsg 微信文本回复扩展类
+ * @uses IntellingentMsg 微信智能回复扩展类
+ * @uses Bind 微信手机端管理绑定扩展类
  * @version v1.0 2013-01-31
  * @author lanfengye <zibin_5257@163.com>
  */
@@ -187,6 +191,7 @@ class IndexAction extends CommonAction {
     /**
      * 处理手机微信管理指令系统
      * @param String $content 用户回复的文本信息
+     * @uses class Bind::bind_control() 微信手机管理绑定扩展类::处理绑定事件
      */
     private function dictate_control($content) {
         if (MC('mobile_bind_status')) { //判断是否开启绑定
@@ -201,6 +206,7 @@ class IndexAction extends CommonAction {
 
     /**
      * 文本消息处理
+     * @uses class IntelligentMsg 微信智能回复扩展类
      */
     private function text_msg() {
         //获取文本消息内容
@@ -384,6 +390,7 @@ class IndexAction extends CommonAction {
     /**
      * 给微信接口返回单条文本信息
      * @param String $str 要回复的文本
+     * @uses class TextMsg 微信文本回复扩展类
      */
     public function return_text($str) {
         import("@.ORG.TextMsg");
