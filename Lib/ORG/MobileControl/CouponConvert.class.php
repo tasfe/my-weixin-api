@@ -26,7 +26,7 @@ class CouponConvert {
         $coupon_info = $this->get_coupon_info($matchs[1]);
         if (empty($coupon_info)) {
             $TextMsg->return_text("兑换码为:{$matchs[1]}的优惠券信息不存在或者已经兑换!");
-        } elseif ($coupon_info['award_stop_time'] < time()) {
+        } elseif ($coupon_info['award_stop_time'] < time() && $coupon_info['award_stop_time']!=0) {
             $TextMsg->return_text("兑换码为:{$matchs[1]}的优惠券已经过期,无法进行兑换!");
         } else {
             $this->write_convert_log($coupon_info['id']);
