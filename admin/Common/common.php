@@ -254,23 +254,6 @@ function get_status_img($data) {
     }
 }
 
-function get_choujiang_type_name($str) {
-    switch ($str) {
-        case 'guaguaka':
-            return '刮刮卡';
-            break;
-        case 'zajindan':
-            return '砸金蛋';
-            break;
-        case 'dazhuanpan':
-            return '大转盘';
-            break;
-        default:
-            return '无';
-            break;
-    }
-}
-
 /**
  * 获得消息回复类型的显示文字
  * @param integer $type 类型值
