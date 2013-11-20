@@ -65,6 +65,23 @@ function get_seckill_surplus($id) {
     
 }
 
+function get_choujiang_type_name($str) {
+    switch ($str) {
+        case 'guaguaka':
+            return '刮刮卡';
+            break;
+        case 'zajindan':
+            return '砸金蛋';
+            break;
+        case 'dazhuanpan':
+            return '大转盘';
+            break;
+        default:
+            return '无';
+            break;
+    }
+}
+
 /**
  * 根据奖项ID获取奖项名称
  */
