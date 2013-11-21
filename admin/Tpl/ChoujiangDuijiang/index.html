@@ -58,12 +58,13 @@
                                                 <th>奖品说明</th>
                                                 <th>兑换码</th>
                                                 <th>兑换时间</th>
+                                                <th>渠道&用户</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="7"><div class="row pagination page"><div class="span12">{$page}</div></div></td>
+                                                <td colspan="8"><div class="row pagination page"><div class="span12">{$page}</div></div></td>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -75,6 +76,7 @@
                                                 <td>{$vo.award_explain}</td>
                                                 <td>{$vo.award_code}</td>
                                                 <td>{:get_date_full($vo['duijiang_time'])}</td>
+                                                <td>{:get_channel_user($vo['convert_from'])}</td>
                                                 <td>
                                                     <!--                            <a href='{:U($module_name.'/view?id='.$vo['id'])}'>查看</a>&nbsp;&nbsp;
                                                                                 <a href="{:U($module_name.'/edit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;-->
