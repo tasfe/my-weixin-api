@@ -30,7 +30,7 @@ class ChoujiangDuijiangAction extends CommonAction {
         $Page->parameter = $parameter;
         $show = $Page->show();
         $prefix = C('DB_PREFIX');
-        $list = $M->field("t.id id,t.create_time duijiang_time,t1.award_code,t2.name award_name,t2.explain award_explain,t.weixin_id")
+        $list = $M->field("t.id id,t.convert_from,t.create_time duijiang_time,t1.award_code,t2.name award_name,t2.explain award_explain,t.weixin_id")
                 ->table("{$prefix}choujiang_duijiang t")
                 ->where("1 and 1 {$where}")
                 ->order('t.id desc')
