@@ -16,6 +16,24 @@ function get_user_group($uid) {
 }
 
 /**
+ * 根据weixin_id或者用户ID获取来源和用户名
+ * @param string $str weixin_id字符串或后台用户ID
+ * @return string "渠道&用户名/用户姓名"
+ */
+function get_channel_user($str){
+    if(is_numeric($str)){
+        $user_name=M('User')->where("id={$str}")->getField('title');
+        $user_name=  empty($user_name)?未知:$user_name;
+        $return_str.='PC&'.$user_name;
+    }  else {
+        $user_name=M('MobileBindList')->where("weixin_id='{$str}'")->getField('name');
+        $user_name=  empty($user_name)?未知:$user_name;
+        $return_str.='微信&'.$user_name;
+    }
+    return $return_str;
+}
+
+/**
  * 权限检查
  * @param String $auth_name 规则名称
  * @param Integer $uid 用户ID
