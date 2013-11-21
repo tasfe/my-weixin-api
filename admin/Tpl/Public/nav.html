@@ -9,9 +9,10 @@
     </ul>
     
     <a href="#Mobile-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i><strong>手机控制管理</strong></a>
-    <ul id="Mobile-menu" class="nav nav-list collapse<php>if($module_name=='mobile_config' || $module_name=='reply_database') echo ' in';</php>">
+    <ul id="Mobile-menu" class="nav nav-list collapse<php>if($module_name=='mobile_config' || $module_name=='mobile_bind_list') echo ' in';</php>">
         <php>
             if(check_auth('Mobile/mobile_con')) if($module_name=='mobile_config') echo '<li class="active"><a href="'.U('mobile_config/index').'">基础配置</a></li>'; else echo '<li><a href="'.U('mobile_config/index').'">基础配置</a></li>';
+            if(check_auth('Mobile/mobile_bind')) if($module_name=='mobile_bind_list') echo '<li class="active"><a href="'.U('mobile_bind_list/index').'">绑定管理</a></li>'; else echo '<li><a href="'.U('mobile_bind_list/index').'">绑定管理</a></li>';
         </php>
     </ul>
 
