@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50533
 File Encoding         : 65001
 
-Date: 2013-11-21 11:01:50
+Date: 2013-11-21 14:05:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -209,9 +209,6 @@ CREATE TABLE `lfy_choujiang_access` (
 -- ----------------------------
 -- Records of lfy_choujiang_access
 -- ----------------------------
-INSERT INTO `lfy_choujiang_access` VALUES ('3298', '123456', '1383636240', '2013-11-05', '3');
-INSERT INTO `lfy_choujiang_access` VALUES ('3299', '123456', '1383636251', '2013-11-05', '3');
-INSERT INTO `lfy_choujiang_access` VALUES ('3300', '123456', '1383636253', '2013-11-05', '3');
 
 -- ----------------------------
 -- Table structure for `lfy_choujiang_award`
@@ -233,17 +230,6 @@ CREATE TABLE `lfy_choujiang_award` (
 -- ----------------------------
 -- Records of lfy_choujiang_award
 -- ----------------------------
-INSERT INTO `lfy_choujiang_award` VALUES ('1', '2', '200元现金券', '200元现金券', '10', '2', '20', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('2', '2', '100元现金券', '100元现金券', '10', '5', '50', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('3', '2', '50元现金券', '50元现金券', '10', '10', '100', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('4', '2', '30元现金券', '30元现金券', '10', '50', '200', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('5', '2', '10元现金券', '10元现金券', '10', '40', '400', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('6', '2', '谢谢惠顾', '谢谢惠顾', '10', '0', '1330', '0');
-INSERT INTO `lfy_choujiang_award` VALUES ('7', '3', '音乐枕', '音乐枕', '1', '0', '100', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('8', '3', '电影票一张', '电影票一张', '2', '0', '200', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('9', '3', '笑脸餐具', '笑脸餐具', '3', '600', '300', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('10', '3', '啤酒', '啤酒', '4', '100', '400', '1');
-INSERT INTO `lfy_choujiang_award` VALUES ('12', '3', '谢谢惠顾', '谢谢惠顾', '5', '0', '5000', '0');
 
 -- ----------------------------
 -- Table structure for `lfy_choujiang_duijiang`
@@ -263,10 +249,6 @@ CREATE TABLE `lfy_choujiang_duijiang` (
 -- ----------------------------
 -- Records of lfy_choujiang_duijiang
 -- ----------------------------
-INSERT INTO `lfy_choujiang_duijiang` VALUES ('1', 'b4f1d031e032b1e3addc50745052923e', '2277', '1374656841', '2013-07-24', '');
-INSERT INTO `lfy_choujiang_duijiang` VALUES ('2', 'b4f1d031e032b1e3addc50745052923e', '2276', '1374657174', '2013-07-24', '');
-INSERT INTO `lfy_choujiang_duijiang` VALUES ('3', 'b4f1d031e032b1e3addc50745052923e', '2262', '1374657433', '2013-07-24', '');
-INSERT INTO `lfy_choujiang_duijiang` VALUES ('4', '', '13', '1380509468', '2013-09-30', '');
 
 -- ----------------------------
 -- Table structure for `lfy_choujiang_liushuihao`
@@ -286,14 +268,6 @@ CREATE TABLE `lfy_choujiang_liushuihao` (
 -- ----------------------------
 -- Records of lfy_choujiang_liushuihao
 -- ----------------------------
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('1', 'b4f1d031e032b1e3addc50745052923e', '12345', '1', '1374652779', '2013-07-24');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('2', 'b4f1d031e032b1e3addc50745052923e', '11111', '2', '1374652980', '2013-07-24');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('3', 'e99ebd2f7b0f6413603813f87595e0d9', '12345', '2', '1374724390', '2013-07-25');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('4', 'b4f1d031e032b1e3addc50745052923e', '12345', '2', '1374728997', '2013-07-25');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('5', 'b4f1d031e032b1e3addc50745052923e', '12346', '2', '1374747012', '2013-07-25');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('6', 'b4f1d031e032b1e3addc50745052923e', '12348', '1', '1375685032', '2013-08-05');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('7', 'b4f1d031e032b1e3addc50745052923e', '12343', '2', '1375685042', '2013-08-05');
-INSERT INTO `lfy_choujiang_liushuihao` VALUES ('8', '1010', '12589', '2', '1377156473', '2013-08-22');
 
 -- ----------------------------
 -- Table structure for `lfy_choujiang_record`
@@ -315,8 +289,6 @@ CREATE TABLE `lfy_choujiang_record` (
 -- ----------------------------
 -- Records of lfy_choujiang_record
 -- ----------------------------
-INSERT INTO `lfy_choujiang_record` VALUES ('2983', '123456', '1383636252', '2013-11-05', '3', '', '12', '0');
-INSERT INTO `lfy_choujiang_record` VALUES ('2984', '123456', '1383636253', '2013-11-05', '3', 'GMBAMYM2KNX3E959', '8', '0');
 
 -- ----------------------------
 -- Table structure for `lfy_config`
@@ -428,11 +400,6 @@ CREATE TABLE `lfy_coupon_record` (
 -- ----------------------------
 -- Records of lfy_coupon_record
 -- ----------------------------
-INSERT INTO `lfy_coupon_record` VALUES ('2', '123456', '1382668562', '2013-10-25', '1', 'MVBJ8G', '1', '127.0.0.1');
-INSERT INTO `lfy_coupon_record` VALUES ('3', '9bf27ad185dd05f8d6930f9395adc0c3', '1382671908', '2013-10-25', '1', 'YXLSUQ', '1', '0.0.0.0');
-INSERT INTO `lfy_coupon_record` VALUES ('4', '123456', '1382691061', '2013-10-25', '1', 'V8AEE4', '1', '127.0.0.1');
-INSERT INTO `lfy_coupon_record` VALUES ('5', '123456', '1382691088', '2013-10-25', '1', 'GMCLKT', '0', '127.0.0.1');
-INSERT INTO `lfy_coupon_record` VALUES ('6', '123456', '1382691141', '2013-10-25', '1', '9J6WB4', '0', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `lfy_member_card`
@@ -455,7 +422,6 @@ CREATE TABLE `lfy_member_card` (
 -- ----------------------------
 -- Records of lfy_member_card
 -- ----------------------------
-INSERT INTO `lfy_member_card` VALUES ('29', '123456', '1383631152', '2013-11-05', '', '', '0', '', '1000000029');
 
 -- ----------------------------
 -- Table structure for `lfy_member_sales`
@@ -500,7 +466,7 @@ CREATE TABLE `lfy_mobile_bind_list` (
 -- ----------------------------
 -- Records of lfy_mobile_bind_list
 -- ----------------------------
-INSERT INTO `lfy_mobile_bind_list` VALUES ('5', '54543543', '0', 'fff', '1', 'fff');
+INSERT INTO `lfy_mobile_bind_list` VALUES ('5', 'fdfgdgdfg5435', '0', 'fff', '1', 'fff');
 INSERT INTO `lfy_mobile_bind_list` VALUES ('3', '111111', '0', '', '1', '');
 
 -- ----------------------------
@@ -547,14 +513,6 @@ CREATE TABLE `lfy_seckill_access` (
 -- ----------------------------
 -- Records of lfy_seckill_access
 -- ----------------------------
-INSERT INTO `lfy_seckill_access` VALUES ('1709', 'a0220cd5b5cb5126f968382b766b6ee9', '1383206102', '2013-10-31', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1710', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286516', '2013-11-01', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1711', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286571', '2013-11-01', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1712', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286575', '2013-11-01', '1');
-INSERT INTO `lfy_seckill_access` VALUES ('1713', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383286586', '2013-11-01', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1714', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383287342', '2013-11-01', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1715', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383287375', '2013-11-01', '0');
-INSERT INTO `lfy_seckill_access` VALUES ('1716', 'd19a3cdc71334e6d147e7d21cbe25a86', '1383528888', '2013-11-04', '0');
 
 -- ----------------------------
 -- Table structure for `lfy_seckill_duihuan`
@@ -575,12 +533,6 @@ CREATE TABLE `lfy_seckill_duihuan` (
 -- ----------------------------
 -- Records of lfy_seckill_duihuan
 -- ----------------------------
-INSERT INTO `lfy_seckill_duihuan` VALUES ('1', 'dfdf', '0', '0', '2013-09-09', '', '');
-INSERT INTO `lfy_seckill_duihuan` VALUES ('5', '123456', '9', '1380509564', '2013-09-30', '', '');
-INSERT INTO `lfy_seckill_duihuan` VALUES ('6', '1acf3b3c931e50ea84153f5374c868d4', '15', '1380509587', '2013-09-30', '', '');
-INSERT INTO `lfy_seckill_duihuan` VALUES ('7', '123456', '12', '1380510859', '2013-09-30', '', '');
-INSERT INTO `lfy_seckill_duihuan` VALUES ('8', '123456', '11', '1380510941', '2013-09-30', '窦子滨', '15940442002');
-INSERT INTO `lfy_seckill_duihuan` VALUES ('9', '48b0c41d59750da652032c9c7652bde8', '16', '1382689014', '2013-10-25', '', '');
 
 -- ----------------------------
 -- Table structure for `lfy_seckill_goods`
@@ -636,15 +588,6 @@ CREATE TABLE `lfy_seckill_record` (
 -- ----------------------------
 -- Records of lfy_seckill_record
 -- ----------------------------
-INSERT INTO `lfy_seckill_record` VALUES ('8', '123456', '1380178870', '2013-09-26', 'WYPQ3AVB73', '1', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('9', '123456', '1380265188', '2013-09-27', 'BN9U7TXXBW', '1', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('10', 'a538ff4e48f85884e820df1296fc9d35', '1380267062', '2013-09-27', 'KTD4V7X32H', '0', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('11', '123456', '1380267125', '2013-09-27', 'RGKH4MSFW6', '1', '3');
-INSERT INTO `lfy_seckill_record` VALUES ('12', '123456', '1380267139', '2013-09-27', 'UEPSBYCUJH', '1', '3');
-INSERT INTO `lfy_seckill_record` VALUES ('13', '8c041571fecd0ac29a0e3757ffd6b1b3', '1380267393', '2013-09-27', 'R9MCCFCU3J', '0', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('14', '123456', '1380270129', '2013-09-27', 'H5LRQA7W2L', '0', '3');
-INSERT INTO `lfy_seckill_record` VALUES ('15', '1acf3b3c931e50ea84153f5374c868d4', '1380270621', '2013-09-27', '2XCAELYMAN', '1', '1');
-INSERT INTO `lfy_seckill_record` VALUES ('16', '48b0c41d59750da652032c9c7652bde8', '1380271099', '2013-09-27', '63YNG892VU', '1', '1');
 
 -- ----------------------------
 -- Table structure for `lfy_sign_in`
@@ -696,15 +639,6 @@ CREATE TABLE `lfy_sign_in_record` (
 -- ----------------------------
 -- Records of lfy_sign_in_record
 -- ----------------------------
-INSERT INTO `lfy_sign_in_record` VALUES ('1', '1010', '1378262006', '2013-09-04', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('2', '1010', '1378262303', '2013-09-04', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('3', '1010', '1378262306', '2013-09-04', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('4', '1010', '1378689448', '2013-09-09', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('17', '1010', '1378793253', '2013-09-10', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('18', '123456', '1378794762', '2013-09-10', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('19', '123456', '1379834090', '2013-09-22', '2', '127.0.0.1');
-INSERT INTO `lfy_sign_in_record` VALUES ('20', 'a538ff4e48f85884e820df1296fc9d35', '1379917885', '2013-09-23', '2', '192.168.0.189');
-INSERT INTO `lfy_sign_in_record` VALUES ('21', '123456', '1380101798', '2013-09-25', '2', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `lfy_sign_up`
@@ -794,7 +728,7 @@ CREATE TABLE `lfy_user` (
 -- ----------------------------
 -- Records of lfy_user
 -- ----------------------------
-INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1385000140', '1', '1', '管理员');
+INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1385012298', '1', '1', '管理员');
 INSERT INTO `lfy_user` VALUES ('10', '0101', '兑奖操作1', '3093ac5f0f832395bb4664d0625d747b', '1383203093', '', '0', '1', '1', '');
 
 -- ----------------------------
@@ -837,7 +771,6 @@ CREATE TABLE `lfy_weixin_user` (
 -- ----------------------------
 -- Records of lfy_weixin_user
 -- ----------------------------
-INSERT INTO `lfy_weixin_user` VALUES ('8600', '', '1384764919', '2013-11-18');
 
 -- ----------------------------
 -- Table structure for `lfy_zhiling`
