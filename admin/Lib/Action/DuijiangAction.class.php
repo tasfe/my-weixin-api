@@ -50,7 +50,8 @@ class DuijiangAction extends CommonAction {
             'weixin_id' => $info['weixin_id'],
             'record_id' => $id,
             'create_time' => time(),
-            'create_date' => get_date()
+            'create_date' => get_date(),
+            'convert_from'=>session('user_id')
         );
         M("ChoujiangDuijiang")->add($data);
 
