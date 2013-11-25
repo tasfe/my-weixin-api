@@ -88,7 +88,8 @@ class CouponDuihuanAction extends CommonAction {
             'create_time' => time(),
             'create_date' => get_date(),
             'user_name'=>$_POST['user_name'],
-            'user_telephone'=>$_POST['user_telephone']
+            'user_telephone'=>$_POST['user_telephone'],
+            'convert_from'=>session('user_id')
         );
         M("coupon_duihuan")->add($data);
         $this->display();
