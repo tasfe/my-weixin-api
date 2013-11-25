@@ -65,9 +65,10 @@ class CouponAction extends CommonAction {
         $info['begin_time'] = empty($info['begin_time']) ? $info['begin_time'] : get_date_full($info['begin_time']);
         $info['stop_time'] = empty($info['stop_time']) ? $info['stop_time'] : get_date_full($info['stop_time']);
         $info['award_stop_time'] = empty($info['award_stop_time']) ? $info['award_stop_time'] : get_date_full($info['award_stop_time']);
-
-        $info['explain'] = br2nl($info['explain']);
-        $info['prize'] = br2nl($info['prize']);
+        
+        $info['remark'] = br2nl($info['remark']);
+        $info['direction'] = br2nl($info['direction']);
+        $info['activity'] = br2nl($info['activity']);
 
         unset($M);
         if (empty($info)) {
