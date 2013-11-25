@@ -7,6 +7,7 @@
         <title>填写会员卡资料</title>
         <link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
         <link href="__PUBLIC__/css/font-face.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
     </head>
 
     <body class="member_bg">
@@ -36,27 +37,44 @@
                                             this.value = '';" name="user_telephone" value="电话">
                 </div>
                 <input type="hidden" value="{$weixin_id}" name='weixin_id' id='weixin_id'/>
-                <div class="member_btn" id='member_btn'><a href='javascript:;' onclick="submit_form();">保存我的会员卡信息</a></div>
+                <div class="member_btn" id='member_btn'><a style="cursor: pointer;">保存我的会员卡信息</a></div>
             </form>
         </div>
-    </div>
-</body>
+        <script>
+            $(function() {
+                $('#member_btn').click(function() {
+                    if (check_fields()) {
+                        $('form').submit();
+                    }
+                });
+
+                function check_fields() {
+                    var obj = $('#form_add');
+                    var user_name = obj.find("[name=user_name]");
+                    var user_birthday = obj.find("[name=user_birthday]");
+                    var user_telephone = obj.find("[name=user_telephone]");
+                    if (user_name.val() == "姓名" || user_name.val() == '') {
+                        user_name.val('');
+                        alert('请填写您的姓名!');
+                        user_name.focus();
+                        return false;
+                    }
+                    if (user_birthday.val() == "出生日期1980-10-10" || user_birthday.val() == '') {
+                        user_birthday.val('');
+                        alert('请填写您的出生日期!');
+                        user_birthday.focus();
+                        return false;
+                    }
+                    if (user_telephone.val() == "电话" || user_telephone.val() == '') {
+                        user_telephone.val('');
+                        alert('请填写您的电话号码!');
+                        user_telephone.focus();
+                        return false;
+                    }
+                    return true;
+                }
+            });
+
+        </script>
+    </body>
 </html>
-<script>
-    function submit_form() {
-        var obj = document.getElementById("form_add");
-        if (obj.user_name.value == "姓名") {
-            obj.user_name.value = "";
-        }
-        if (obj.user_sex.value == "性别") {
-            obj.user_sex.value = "";
-        }
-        if (obj.user_birthday.value == "出生日期1980-10-10") {
-            obj.user_birthday.value = "";
-        }
-        if (obj.user_telephone.value == "电话") {
-            obj.user_telephone.value = "";
-        }
-        document.form_add.submit();
-    }
-</script>
