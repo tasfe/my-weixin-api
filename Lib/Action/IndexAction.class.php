@@ -131,7 +131,7 @@ class IndexAction extends CommonAction {
             //判断回复的消息类型
             switch ($data['msg_type']) {
                 case 1:  //文本
-                    $content = empty($data['contents']) ? '欢迎您关注微信！' : $data['contents'];
+                    $content = empty($data['description']) ? '欢迎您关注微信！' : $data['description'];
                     $this->return_text($content);
                     break;
                 case 2:  //单条图文
@@ -265,7 +265,7 @@ class IndexAction extends CommonAction {
     private function text_msg_return($data, $type = 'Zhiling') {
         switch ($data['msg_type']) {
             case 1:  //文本
-                $content = empty($data['contents']) ? '欢迎您关注微信！' : $data['contents'];
+                $content = empty($data['description']) ? '欢迎您关注微信！' : $data['description'];
                 $this->return_text($content);
                 break;
             case 2:  //单条图文
