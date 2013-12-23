@@ -9,7 +9,7 @@ return array(
     /* 数据库设置 */
     'DB_TYPE' => 'mysql', // 数据库类型
     'DB_HOST' => '127.0.0.1', // 服务器地址
-    'DB_NAME' => 'weixin',
+    'DB_NAME' => 'weixin_api',
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => 'lanfengye',
     'DB_PORT' => 3306, // 端口 默认端口应为3306
@@ -34,7 +34,11 @@ return array(
         //优惠券访问规则
         '/^coupon-(\d+)$/'=>'Coupon/index?id=:1',
         //会员卡填写资料领取规则
-        '/^member_card-add_user$/'=>'MemberCard/add_user'
+        '/^member_card-add_user$/'=>'MemberCard/add_user',
+        //调查问卷访问规则
+        '/^vote-(\d+)$/'=>'Vote/index?id=:1',
+        //调查问卷结果访问规则
+        '/^vote-view-(\d+)$/'=>'Vote/view?id=:1'
     ),
 );
 ?>
