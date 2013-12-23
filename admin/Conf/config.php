@@ -10,7 +10,8 @@ $config=array(
         'AUTH_RULE' => 'lfy_auth_rule', //权限规则表
         'AUTH_USER' => 'lfy_admin',//用户信息表,
         'SuperAdmin'=>'admin'  //超级管理员
-    )
+    ),
+     'URL_ROUTER_ON' => false
 );
 return array_merge($base_config,$config);
 ?>
