@@ -140,7 +140,7 @@ class GroupAction extends CommonAction {
         $this->group_name=$group_info['title'];
         
         $AuthRule=M('AuthRule');
-        $auth_rule_array=$AuthRule->where("status=1")->select();
+        $auth_rule_array=$AuthRule->where("status=1")->order("sort")->select();
         load("extend");
         $tree=list_to_tree($auth_rule_array, 'id', 'main');
         $this->tree_list=$tree;
