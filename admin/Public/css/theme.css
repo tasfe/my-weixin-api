@@ -349,6 +349,26 @@ a.block-heading:hover,
 .sidebar-nav .nav-list.collapse.in {
   border-bottom: 1px solid #ccc;
 }
+
+.page a{
+    padding: 5px 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    /*border-left-width: 0;*/
+}
+
+.page span{
+    padding: 5px 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    color: red;
+    /*border-left-width: 0;*/
+}
+
 /*Buttons*/
 .btn {
   -webkit-border-radius: 0px;
