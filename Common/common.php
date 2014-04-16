@@ -133,8 +133,12 @@ function get_cache_version($cache_name = 'cache_config_version') {
  * @var Int $time 距离1970的秒数
  */
 function get_date_full($time) {
-    $time = empty($time) ? time() : $time;
-    return date('Y-m-d H:i:s', $time);
+    if($time!=0){
+        $time = empty($time) ? time() : $time;
+        return date('Y-m-d H:i:s', $time);
+    }else{
+        return '无';
+    }
 }
 
 /**
@@ -143,8 +147,12 @@ function get_date_full($time) {
  * @var Int $time 距离1970的秒数
  */
 function get_date($time) {
-    $time = empty($time) ? time() : $time;
-    return date('Y-m-d', $time);
+    if($time!=0){
+        $time = empty($time) ? time() : $time;
+        return date('Y-m-d', $time);
+    }else{
+        return '无';
+    }
 }
 
 /**
