@@ -1,10 +1,11 @@
 <div class="sidebar-nav">
     <a href="#config-menu" class="nav-header" data-toggle="collapse"><i class="icon-wrench"></i><strong>基础配置</strong></a>
-    <ul id="config-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('weixin_menu','subscribe','config','main'))) echo ' in';</php>">
+    <ul id="config-menu" class="nav nav-list collapse<php>if(in_array($module_name,array('weixin_menu','subscribe','config','main','weixin_user'))) echo ' in';</php>">
         <php>
             if(check_auth('Config/sys_con')) if($module_name=='config') echo '<li class="active"><a href="'.U('config/index').'">系统配置</a></li>'; else echo '<li><a href="'.U('config/index').'">系统配置</a></li>';
             if(check_auth('Config/Subscribe')) if($module_name=='subscribe') echo '<li class="active"><a href="'.U('subscribe/index').'">新订阅管理</a></li>'; else echo '<li><a href="'.U('subscribe/index').'">新订阅管理</a></li>';
             if(check_auth('Config/WeixinMenu')) if($module_name=='weixin_menu') echo '<li class="active"><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>'; else echo '<li><a href="'.U('/weixin_menu').'">微信菜单管理</a></li>';
+            if(check_auth('Config/WeixinUser')) if($module_name=='weixin_user') echo '<li class="active"><a href="'.U('/weixin_user').'">微信用户管理</a></li>'; else echo '<li><a href="'.U('/weixin_user').'">微信用户管理</a></li>';
         </php>
     </ul>
     
