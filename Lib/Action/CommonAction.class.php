@@ -46,7 +46,8 @@ class CommonAction extends Action {
                 $data = array(
                     'weixin_name' => $weixin_name,
                     'create_time' => time(),
-                    'create_date' => get_date()
+                    'create_date' => get_date(),
+                    'last_time'=>time()
                 );
                 $M->add($data);
                 return true;
