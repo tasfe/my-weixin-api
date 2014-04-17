@@ -37,6 +37,7 @@ class IndexAction extends CommonAction {
                 //对XML进行解析
                 $this->msg_info = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $this->insert_subscribe_user((string) $this->msg_info->FromUserName);
+                $this->set_user_active((string)  $this->msg_info->FromUserName);
                 $this->msg_type_action();
             } else {
                 echo $echoStr;

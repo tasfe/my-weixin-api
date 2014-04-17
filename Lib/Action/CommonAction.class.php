@@ -13,6 +13,13 @@ class CommonAction extends Action {
     function subscribe_count() {
         
     }
+    
+    public function set_user_active($weixin_id){
+        if(!empty($weixin_id)){
+            M('WeixinUser')->where("weixin_name='%s'",$weixin_id)->setField('last_time', time());
+        }
+        return true;
+    }
 
     /**
      * 信息展示
