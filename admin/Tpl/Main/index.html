@@ -72,6 +72,28 @@
                 </div>
                 <!--最近状态end-->
 
+
+                <!--用户走势start-->
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">用户走势</a>
+                    <div class="block-body collapse in">
+
+                        <div class="stat-widget-container">
+                            
+                            <div style="float:left;">
+                                <canvas id="canvas" height="480" width="800"></canvas>
+                            </div>
+                            <div style="float: left;padding: 10px 10px;width: 200px;">
+                                <p>图例</p>
+                                <div style="clear: both;padding: 5px 0;"><div style="background-color: #97BBCD;width: 50px;height: 20px;float: left;"></div><div style="float: left;margin-left: 10px;">新关注用户</div></div>
+                                <div style="clear: both;padding: 5px 0;"><div style="background-color: #DCDCDC;width: 50px;height: 20px;float: left;"></div><div style="float: left;margin-left: 10px;">取消关注用户</div></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--用户走势end-->
+
             </div>
             <footer>
                 <include file="Public:footer" />
@@ -79,6 +101,26 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="__PUBLIC__/js/Chart.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type: "POST",  //请求方式
+            url: app_url+"/main/get_user_data",
+            dataType:'json',  //返回数据类型
+            cache:false,  //是否缓存
+            timeout:10000, //超时时间
+            success: function(data) {
+                var lineData=eval(data);
+                var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineData,{scaleOverlay:true,scaleSteps:10,scaleStepWidth:1});
+            },
+            error:function(){
+                alert('用户走势数据获取错误！');
+            }
+        });
+    });
+    
+</script>
 </body>
 </html>
 
