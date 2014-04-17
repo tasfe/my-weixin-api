@@ -132,8 +132,8 @@ function get_cache_version($cache_name = 'cache_config_version') {
  * @author zibin.dou <zibin_5257@163.com>
  * @var Int $time 距离1970的秒数
  */
-function get_date_full($time) {
-    if ($time == 0) {
+function get_date_full($time='') {
+    if ($time == '0') {
         return '无';
     } else {
         $time = empty($time) ? time() : $time;
@@ -146,8 +146,8 @@ function get_date_full($time) {
  * @author zibin.dou <zibin_5257@163.com>
  * @var Int $time 距离1970的秒数
  */
-function get_date($time) {
-    if ($time == 0) {
+function get_date($time='') {
+    if ($time == '0') {
         return '无';
     } else {
         $time = empty($time) ? time() : $time;
