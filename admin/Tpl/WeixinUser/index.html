@@ -80,7 +80,7 @@
                                             <td>{$vo.remark}</td>
                                             <td>
                                             <php>
-                                                if(check_auth('User/Index/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
+                                                if(check_auth('Config/WeixinUser/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
                                             </php>
                                             </td>
                                             </tr>
