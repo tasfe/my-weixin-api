@@ -27,4 +27,14 @@ class WeixinUserAction extends CommonAction{
                 break;
         }
     }
+    
+    public function edit(){
+        $this->check_auth("Config/WeixinUser/edit");
+        parent::edit();
+    }
+    
+    public function update() {
+        $this->check_auth("Config/WeixinUser/edit");
+        parent::update();
+    }
 }
