@@ -1,0 +1,140 @@
+<tagLib name="lbase"/>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>微信公众平台管理系统</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <include file="Public:header" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="__PUBLIC__/js/html5.js"></script>
+    <![endif]-->
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<body class="">
+    <!--<![endif]-->
+
+    <!--顶部菜单-->
+<include file="Public:navbar" />
+
+<!--左侧导航条-->
+<include file="Public:nav" />
+
+<!--右侧整体区域-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row-fluid">
+                <!--右侧栏目区域start-->
+                <div class="block">
+                    <a class="block-heading" data-toggle="collapse">微信用户编辑</a>
+                    <div class="block-body collapse in">
+
+                        <div class="container-fluid" style="margin-top: 10px;">
+                            <!--右侧栏目内容区域start-->
+                            <div class="row">
+                                <div class="span12">
+                                    <div class="pull-left">
+                                        <a href="{:U('/'.$module_name)}" class="btn btn-primary">用户列表</a>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <!--右侧字段区域start-->
+                                <div class="span12" style="margin-top:10px;">
+                                    <form class="form-horizontal" method="post">
+                                        <fieldset>
+                                            <div id="legend" class="">
+                                                <legend class=""></legend>
+                                            </div>
+                                            <div class="control-group">
+
+                                                <!-- Text input-->
+                                                <label class="control-label" for="input01">微信ID</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" value="{$info.weixin_name}" class="input-xlarge" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <!-- Text input-->
+                                                <label class="control-label" for="input01">关注时间</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" value="{:get_date_full($info['create_time'])}" class="input-xlarge" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <!-- Text input-->
+                                                <label class="control-label" for="input01">最后活动时间</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" value="{:get_date_full($info['last_time'])}" class="input-xlarge" disabled="disabled">
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <!-- Text input-->
+                                                <label class="control-label" for="input01">姓名</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" name="user_name" value="{$info.user_name}" class="input-xlarge">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <!-- Text input-->
+                                                <label class="control-label" for="input01">手机号</label>
+                                                <div class="controls">
+                                                    <input type="text" placeholder="" value="{$info.user_mobile}" name="user_mobile" class="input-xlarge">
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">备注</label>
+                                                <div class="controls">
+                                                    <div class="textarea">
+                                                        <textarea style="width:300px;height: 80px;" name="remark"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id='pop'></div>
+                                            <div class="form-actions">
+                                                <input type="hidden" name="id" value="{$info.id}">
+                                                <button type="button" class="btn btn-primary" id='save'>保 存</button>&nbsp;&nbsp;
+                                                <a class="btn" href="{$pre_url}">返 回</a>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <!--右侧字段区域end-->
+                            </div>
+                            <!--右侧栏目内容区域end-->
+                        </div>
+
+                    </div>
+                </div>
+                <!--右侧栏目区域end-->
+            </div>
+            <footer>
+                <include file="Public:footer" />
+            </footer>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/js/edit_none_editor.js"></script>
+</body>
+</html>
+
+
