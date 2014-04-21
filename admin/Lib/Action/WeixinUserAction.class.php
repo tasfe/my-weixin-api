@@ -8,6 +8,7 @@
  */
 class WeixinUserAction extends CommonAction{
     public function index(){
+        $this->check_auth("Config/WeixinUser");
         switch ($_GET['sort']) {
             case 'active':
                 parent::index('',"last_time desc");
