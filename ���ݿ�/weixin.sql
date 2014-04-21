@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50534
 File Encoding         : 65001
 
-Date: 2014-04-16 15:24:31
+Date: 2014-04-21 10:16:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,7 +31,7 @@ CREATE TABLE `lfy_auth_group` (
 -- ----------------------------
 -- Records of lfy_auth_group
 -- ----------------------------
-INSERT INTO `lfy_auth_group` VALUES ('1', '默认用户组', '1', '11,17,23,22,21,20,19,18,13,16,15,14,12,87,82,84,86,85,83,24,25,27,26,28,29,30,32,31,60,61,62,63,64,65,66,67,68,72,71,70,69,81,73,78,77,76,75,74,49,57,56,59,58,52,55,54,53,50,51,2,1,42,48,47,43,46,45,44,33,79,80,38,41,40,39,34,37,36,35', '默认全部权限');
+INSERT INTO `lfy_auth_group` VALUES ('1', '默认用户组', '1', '11,17,23,22,21,20,19,18,13,16,15,14,12,87,88,82,84,86,85,83,24,25,28,27,26,29,30,31,32,60,61,62,63,64,65,66,67,68,69,72,71,70,81,73,78,77,76,75,74,49,57,56,59,58,52,55,54,53,50,51,2,1,42,48,47,43,46,45,44,33,79,80,38,41,40,39,34,35,36,37', '默认全部权限');
 INSERT INTO `lfy_auth_group` VALUES ('2', '兑奖管理', '1', '2,1,3', '');
 
 -- ----------------------------
@@ -66,7 +66,7 @@ CREATE TABLE `lfy_auth_rule` (
   `sort` int(10) unsigned NOT NULL DEFAULT '100' COMMENT '菜单排序',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`main`,`sort`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
 
 -- ----------------------------
 -- Records of lfy_auth_rule
@@ -150,6 +150,7 @@ INSERT INTO `lfy_auth_rule` VALUES ('84', 'Mobile/mobile_bind', '绑定管理', 
 INSERT INTO `lfy_auth_rule` VALUES ('85', 'Mobile/mobile_bind/delete', '删除', '1', '', '84', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('86', 'Mobile/mobile_bind/edit', '编辑', '1', '', '84', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('87', 'Config/WeixinUser', '微信用户管理', '1', '', '11', '101');
+INSERT INTO `lfy_auth_rule` VALUES ('88', 'Config/WeixinUser/edit', '编辑', '1', '', '87', '100');
 
 -- ----------------------------
 -- Table structure for lfy_cache_version
@@ -730,7 +731,7 @@ CREATE TABLE `lfy_user` (
 -- ----------------------------
 -- Records of lfy_user
 -- ----------------------------
-INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1397628458', '1', '1', '管理员');
+INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1398044775', '1', '1', '管理员');
 INSERT INTO `lfy_user` VALUES ('10', '0101', '兑奖操作1', '3093ac5f0f832395bb4664d0625d747b', '1383203093', '', '0', '1', '1', '');
 
 -- ----------------------------
@@ -777,7 +778,7 @@ CREATE TABLE `lfy_weixin_user` (
 -- ----------------------------
 -- Records of lfy_weixin_user
 -- ----------------------------
-INSERT INTO `lfy_weixin_user` VALUES ('8601', 'fdfffDFSDFSf', '1397630991', '2014-04-16', '1397630991', '', '张三', '15940442002');
+INSERT INTO `lfy_weixin_user` VALUES ('8601', 'fdfffDFSDFSf', '1397630991', '2014-04-16', '1397630991', 'yjhgjghj', '张三111', '15940442002y666');
 INSERT INTO `lfy_weixin_user` VALUES ('8602', '2222222222', '854565222', '2014-04-17', '23564', '', '', '');
 
 -- ----------------------------
