@@ -74,6 +74,7 @@ class IndexAction extends CommonAction {
                 }
                 break;
             case 'text':  //文本消息
+                $this->insert_user_message();  //写入用户的消息记录
                 $this->text_msg();
                 break;
             case 'image':  //图片消息
@@ -85,6 +86,22 @@ class IndexAction extends CommonAction {
                 break;
         }
     }
+    
+    /**
+     * 写入用户消息记录
+     */
+    private function insert_user_message(){
+        $data=array(
+            'wx_name'=>  (string)$this->msg_info->FromUserName,
+            'content'=>  (string)$this->msg_info->Content,
+            'create_time'=>time(),
+            'create_date'=>  get_date()
+        );
+        M("UserMessage")->add($data);
+        return true;
+    }
+
+
 
     /**
      * 微信自定义菜单点击消息事件处理 
