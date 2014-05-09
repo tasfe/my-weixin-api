@@ -71,11 +71,11 @@
                                                 <td>{$vo.wx_name}</td>
                                                 <td>{$vo.content}</td>
                                                 <td>{$vo.remark}</td>
-                                            <td>{:get_date_full($vo['create_time'])}</td>
+                                            <td>{:time_format(time()-$vo['create_time'])} 前</td>
                                             <td>
                                             <php>
-                                                if(check_auth('Activities/Choujiang/edit')) echo '<a href="'.U($module_name.'/edit?id='.$vo['id']).'">编辑</a>&nbsp;&nbsp;';
-                                                if(check_auth('Activities/Choujiang/delete')) echo '<a href="###" onclick="delete_tr('.$vo['id'].');">删除</a></td>';
+                                                if(check_auth('Message/index/view')) echo '<a href="'.U($module_name.'/view?id='.$vo['id']).'">查看</a>&nbsp;&nbsp;';
+                                                if(check_auth('Message/index/delete_all')) echo '<a href="###" onclick=delete_tr('.$vo['id'].',"delete_huihua")>删除全部</a></td>';
                                             </php>
                                             </td>
                                             </tr>
