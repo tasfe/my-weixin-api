@@ -1,9 +1,11 @@
-function delete_tr(id) {
+function delete_tr(id,action_name) {
     if (confirm('确实要删除该内容吗?')) {
         var data = {'id': id};
+        action_name = action_name != undefined ? action_name : 'delete';
+        alert(action_name);
         $.ajax({
             type: "POST",
-            url: app_url + "/" + module_name + "/delete",
+            url: app_url + "/" + module_name + "/"+action_name,
             data: data,
             timeout: 5000,
             dataType: 'json',
