@@ -306,4 +306,28 @@ function get_main_str($data,$type="Zhiling") {
     }
 }
 
+
+function time_format($time=0){
+    $return_str='';
+    if($time<60){
+        return $time.'秒';
+    }
+    if(floor($time/86400)>0){
+        $return_str=floor($time/86400).'天';
+        $time-=floor($time/86400)*86400;
+    }
+    if(floor($time/3600)>0){
+        $return_str.=floor($time/3600).'小时';
+        $time-=floor($time/3600)*3600;
+    }
+    if(floor($time/60)>0){
+        $return_str.=floor($time/60).'分';
+        $time-=floor($time/60)*60;
+    }
+    if($time<=60){
+        $return_str.=$time.'秒';
+    }
+    return $return_str;
+}
+
 ?>
