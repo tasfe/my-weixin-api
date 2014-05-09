@@ -9,6 +9,13 @@
         </php>
     </ul>
     
+    <a href="#Message-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i><strong>消息管理</strong></a>
+    <ul id="Message-menu" class="nav nav-list collapse<php>if($module_name=='user_message') echo ' in';</php>">
+        <php>
+            if(check_auth('Message/index')) if($module_name=='user_message') echo '<li class="active"><a href="'.U('user_message/index').'">用户消息管理</a></li>'; else echo '<li><a href="'.U('user_message/index').'">用户消息管理</a></li>';
+        </php>
+    </ul>
+    
     <a href="#Mobile-menu" class="nav-header" data-toggle="collapse"><i class="icon-envelope"></i><strong>手机控制管理</strong></a>
     <ul id="Mobile-menu" class="nav nav-list collapse<php>if($module_name=='mobile_config' || $module_name=='mobile_bind_list') echo ' in';</php>">
         <php>
