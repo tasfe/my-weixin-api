@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50534
 File Encoding         : 65001
 
-Date: 2014-04-21 10:16:45
+Date: 2014-05-09 15:59:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,7 +31,7 @@ CREATE TABLE `lfy_auth_group` (
 -- ----------------------------
 -- Records of lfy_auth_group
 -- ----------------------------
-INSERT INTO `lfy_auth_group` VALUES ('1', '默认用户组', '1', '11,17,23,22,21,20,19,18,13,16,15,14,12,87,88,82,84,86,85,83,24,25,28,27,26,29,30,31,32,60,61,62,63,64,65,66,67,68,69,72,71,70,81,73,78,77,76,75,74,49,57,56,59,58,52,55,54,53,50,51,2,1,42,48,47,43,46,45,44,33,79,80,38,41,40,39,34,35,36,37', '默认全部权限');
+INSERT INTO `lfy_auth_group` VALUES ('1', '默认用户组', '1', '11,12,13,14,15,16,17,21,22,23,20,19,18,87,88,89,90,91,92,24,25,26,27,28,29,30,31,32,82,84,86,85,83,67,68,69,70,71,72,81,73,78,76,75,74,77,60,65,66,61,64,63,62,2,1,49,52,53,54,55,56,58,59,57,50,51,42,43,44,45,46,47,48,33,79,80,34,35,36,37,38,41,40,39', '默认全部权限');
 INSERT INTO `lfy_auth_group` VALUES ('2', '兑奖管理', '1', '2,1,3', '');
 
 -- ----------------------------
@@ -66,7 +66,7 @@ CREATE TABLE `lfy_auth_rule` (
   `sort` int(10) unsigned NOT NULL DEFAULT '100' COMMENT '菜单排序',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`main`,`sort`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
 
 -- ----------------------------
 -- Records of lfy_auth_rule
@@ -144,13 +144,17 @@ INSERT INTO `lfy_auth_rule` VALUES ('78', 'User/Group/user_manage', '成员管�
 INSERT INTO `lfy_auth_rule` VALUES ('79', 'Activities/Choujiang/award/duihuan', '奖品兑换', '1', '', '33', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('80', 'Activities/Choujiang/award/duihuanjilu', '奖品兑换记录', '1', '', '79', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('81', 'User/change_password', '修改密码', '1', '', '67', '100');
-INSERT INTO `lfy_auth_rule` VALUES ('82', 'Mobile', '手机微信控制', '1', '', '0', '2');
+INSERT INTO `lfy_auth_rule` VALUES ('82', 'Mobile', '手机微信控制', '1', '', '0', '3');
 INSERT INTO `lfy_auth_rule` VALUES ('83', 'Mobile/mobile_con', '基础配置', '1', '', '82', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('84', 'Mobile/mobile_bind', '绑定管理', '1', '', '82', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('85', 'Mobile/mobile_bind/delete', '删除', '1', '', '84', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('86', 'Mobile/mobile_bind/edit', '编辑', '1', '', '84', '100');
 INSERT INTO `lfy_auth_rule` VALUES ('87', 'Config/WeixinUser', '微信用户管理', '1', '', '11', '101');
 INSERT INTO `lfy_auth_rule` VALUES ('88', 'Config/WeixinUser/edit', '编辑', '1', '', '87', '100');
+INSERT INTO `lfy_auth_rule` VALUES ('89', 'Message', '消息管理', '1', '', '0', '2');
+INSERT INTO `lfy_auth_rule` VALUES ('90', 'Message/index', '用户消息管理', '1', '', '89', '100');
+INSERT INTO `lfy_auth_rule` VALUES ('91', 'Message/index/view', '用户消息查看', '1', '', '90', '100');
+INSERT INTO `lfy_auth_rule` VALUES ('92', 'Message/index/delete_all', '用户消息全部删除', '1', '', '90', '100');
 
 -- ----------------------------
 -- Table structure for lfy_cache_version
@@ -731,8 +735,167 @@ CREATE TABLE `lfy_user` (
 -- ----------------------------
 -- Records of lfy_user
 -- ----------------------------
-INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1398044775', '1', '1', '管理员');
+INSERT INTO `lfy_user` VALUES ('1', 'admin', '管理员', 'db69fc039dcbd2962cb4d28f5891aae1', '0', '127.0.0.1', '1399597558', '1', '1', '管理员');
 INSERT INTO `lfy_user` VALUES ('10', '0101', '兑奖操作1', '3093ac5f0f832395bb4664d0625d747b', '1383203093', '', '0', '1', '1', '');
+
+-- ----------------------------
+-- Table structure for lfy_user_message
+-- ----------------------------
+DROP TABLE IF EXISTS `lfy_user_message`;
+CREATE TABLE `lfy_user_message` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `wx_name` varchar(50) NOT NULL DEFAULT '' COMMENT '微信用户识别码',
+  `content` varchar(200) NOT NULL DEFAULT '' COMMENT '内容',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `create_date` date NOT NULL COMMENT '创建日期',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `main` (`wx_name`,`create_time`,`create_date`)
+) ENGINE=MyISAM AUTO_INCREMENT=144 DEFAULT CHARSET=utf8 COMMENT='用户会话消息记录表';
+
+-- ----------------------------
+-- Records of lfy_user_message
+-- ----------------------------
+INSERT INTO `lfy_user_message` VALUES ('2', 'oDsx8jic7wYbkwBH-yRFDXO4vgGA', '谢谢小编 继续支持/:,@-D', '1399539238', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('3', 'oDsx8jqhj2dvmqpLPjrr89f8Lb5k', '曹丽，18640569097', '1399539677', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('4', 'oDsx8jhLT6b56mPbmMo3pS8YDU9o', '陈焕13654053660', '1399540810', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('5', 'oDsx8jk6OIdL_A-8H0luMto9twyg', '曹晨 18602447720', '1399541222', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('6', 'oDsx8jtZoZ9R4b9BqzsCSmQpk5Mo', '石蕾  13897957210', '1399541233', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('7', 'oDsx8jgcSDmT5D6kCwT-tqt27Hbc', '杨玥 13940440740', '1399541296', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('8', 'oDsx8jp_tFlvSBJr0I94xzPWI4wE', '马景旗，13644001566', '1399541350', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('9', 'oDsx8jjuDIZjrPKMAi_sFqIB9aQA', '朴馨  15998238705', '1399541356', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('10', 'oDsx8jvhfXN7w3fCYY5TQQk2JvQw', '15204033012       王永欣', '1399541363', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('11', 'oDsx8jiRRKqmWlybR1-rSBoto92s', '陈科如18624061167', '1399541423', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('12', 'oDsx8jv8cSVg7jIDS6B2z6fjkp34', '郭蕊15040225386', '1399541475', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('13', 'oDsx8js57o6UcD8FVM4TAVqqAtFQ', '梁晓光15942303269', '1399541550', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('14', 'oDsx8jrWI5_3RPJG-ZmL6voxVWh8', '刘丽，14704062887', '1399541581', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('15', 'oDsx8ju14oHdmS136hT-feaKiKWg', '吴丽梅13614011288', '1399541603', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('16', 'oDsx8juHVpzkUjVgnYSne8PMWuh8', '李佳佳+13194201824', '1399541701', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('17', 'oDsx8jg0bz3_hMnIeeoqR3qLg8Fs', '张鑫18940022511', '1399541830', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('18', 'oDsx8jnuJrSecWrhN6VAiXMWFRbU', '刘宏杰13909833925', '1399541838', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('19', 'oDsx8jmOyS5KgX0u6xQBeM3T-hLk', '刘洋15640067848', '1399541870', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('20', 'oDsx8jjPvY3IeMLiFUwH3NCGU53U', '曹善军15142803418', '1399541873', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('21', 'oDsx8js8oUot8ZLDNjXI7RULSWlU', '胡彩霞手机号13386877527', '1399541963', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('22', 'oDsx8joNYh_8zCZ_d48GbN9EPC1w', '田仲云13804026021', '1399542012', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('23', 'oDsx8jpjqDkMEBQnOFtTxj5z0ByM', '刘岩13644975560', '1399542022', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('24', 'oDsx8jiPdtOsL2y542FFGxCVxiBw', '王江15640576040', '1399542027', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('25', 'oDsx8jl0dUc-dwsCYUWm8FiCEK4I', '小熙 15041216675', '1399542057', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('26', 'oDsx8jg3jbK6vHnsZfpmDfaHSh40', '霍孝莲13478322127', '1399542090', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('27', 'oDsx8jhhvhjSp6ZMnzSqCKFUSccc', '蒋丹 13889349382', '1399542149', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('28', 'oDsx8jhpePyhVkdDFEMKjyHR7GNk', '宋丹15041224109', '1399542274', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('29', 'oDsx8jrhvP4rj7EUTkA_YUcmldOU', '张平13898837071', '1399542340', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('30', 'oDsx8ju90D_r6TS2JiM70xoL6RTs', '丁梅+15998105308', '1399542343', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('31', 'oDsx8jiZtxKc6qAhN2KzzD7uIF80', '王瑶13940062795', '1399542449', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('32', 'oDsx8jnaa1w8Fe2RzlLB85q1DwKs', '王丽     15840504271', '1399542611', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('33', 'oDsx8jl241htnVvGqF2s0NQWAG7w', '孟艳红 13609873700', '1399542665', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('34', 'oDsx8jhx_dkBl-ELRZCYMcd8pbLc', 'YAODONG13870524629', '1399542980', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('35', 'oDsx8jhx_dkBl-ELRZCYMcd8pbLc', '分享动漫展门票', '1399543067', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('36', 'oDsx8juJvsbh7M1g7_QBqGvT_WBk', '李美欣13840551334', '1399543078', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('37', 'oDsx8jo6xhPQleW14yfomiD5y9mc', '任丽娜18304017666', '1399543103', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('38', 'oDsx8jqAtq9fUTzl833lGSXN35s0', '周鹏  15504142168', '1399543240', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('39', 'oDsx8jqAtq9fUTzl833lGSXN35s0', '周鹏翥  15504142168', '1399543310', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('40', 'oDsx8jtdOJHUJ0M2Mifi1xsP1-YE', '陈韵燃13709884045', '1399543353', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('41', 'oDsx8jk3OLr5XTcASOlzPOw9KVyY', '谢谢，小编，好开心啊/:,@-D', '1399543386', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('42', 'oDsx8jrKOMI_2Xxu-jWVcp5eRRrY', '曲洋 15040195907', '1399543447', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('43', 'oDsx8jpfijjQYFh6mZo8GEV-QFQI', '林楠13940432666', '1399543465', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('44', 'oDsx8jllZIw7d1F22ntvfn2LKmX4', '刘葳 18602422223', '1399543510', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('45', 'oDsx8jkjIEhftZbjGsAAQZxVaMCw', '丁晓晔  15940594495', '1399543575', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('46', 'oDsx8jqnkcVfxnvBGzIC1JG2_DBg', '韩哲15104033393', '1399543613', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('47', 'oDsx8jtvSQmlVVomTd7cZgbX-oBY', '18640133324', '1399543645', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('48', 'oDsx8jtvSQmlVVomTd7cZgbX-oBY', '袁智', '1399543692', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('49', 'oDsx8joAspIQtiTTE_ZUbZk88EU8', '朱列垚13591475741', '1399543818', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('50', 'oDsx8jp28mZ7ZTsfzczzzvsGNCgw', ' 冯新 13236648369 ', '1399543964', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('51', 'oDsx8jt176DZCTrE749VNDt_7wLs', '刘明，15940140368', '1399544036', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('52', 'oDsx8jvnmuwpQ6Ycbo1pzCsi-TTI', '王守顺\n        13998312516', '1399544211', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('53', 'oDsx8juFmr7EvihYJRy7r0F95PKQ', '弓洛川15604050617', '1399544317', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('54', 'oDsx8jpZfB38txK15LuDbQF6ROQQ', '李树昌13664144522', '1399544586', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('55', 'oDsx8jusK100zmNFMv9T7oCfOyJo', '苏晓旭15382093987', '1399544621', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('56', 'oDsx8jrSKiNr4vbUua_BqWR72MDM', '邵洁15998130792', '1399544661', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('57', 'oDsx8jlVy8bpVFFgLRcm3JHlbzEI', '刘婧瑶15040125746', '1399544673', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('58', 'oDsx8jjtzjQK9CBNJwSve3pTxuZg', '于洋 15242460631', '1399544824', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('59', 'oDsx8ju0XyMST072EGTuUdDftDds', '白雪 15904051776', '1399544976', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('60', 'oDsx8jrCC64dqc0oDg9XQG11YUl4', '姓名：贾茹   电话：13940526305', '1399545034', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('61', 'oDsx8jrVRRHoKYKD8n_z8zJefzZ0', '中街', '1399545069', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('62', 'oDsx8jrVRRHoKYKD8n_z8zJefzZ0', '串', '1399545081', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('63', 'oDsx8juc8blCFoseh5Swymf4LHRI', '动漫门票，朱盛强，13889110608', '1399545282', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('64', 'oDsx8jgiYGicj4Bdl0sDSurZlzLk', '牛春皎，13332499051', '1399545841', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('65', 'oDsx8jijFPjWOvCKwZ1dzEnRsS9o', '赵月婷', '1399545973', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('66', 'oDsx8jijFPjWOvCKwZ1dzEnRsS9o', '18240328115', '1399545980', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('67', 'oDsx8jnOJVVlNCVzHnjQRQVUPm_o', '孔祥凤15604050630', '1399546070', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('68', 'oDsx8jgwBnhf-gZWJSMMZLcMHaNI', '张非非+13804905382', '1399546126', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('69', 'oDsx8jvX2IlyWeDlFZWcnf0-fxc4', '张广莹13066555630', '1399546930', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('70', 'oDsx8jlHmL2iq4BCscUVAR8__e3Q', '李彦 15940350829', '1399546958', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('71', 'oDsx8jrXuuvLmQ7h4alKsdR-on5s', '刘琳15840259780', '1399547120', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('72', 'oDsx8jjT0xWvT_rWlGEbB2Dls6uo', '孙故事15004072816', '1399547485', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('73', 'oDsx8jjm_nBw6Z48QxCA1Bbs7-bY', '佟家栋15204013720', '1399547517', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('74', 'oDsx8jg2iJfrQ83Ah-BIgUInl8FA', '赵鑫18740042552', '1399547572', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('75', 'oDsx8jh6L1RzdvRW5z8aZoduGy48', '董娜 13840194695', '1399547604', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('76', 'oDsx8jvmzFjeR62AOGsNlH2ngL5M', '鲁东邑 13604066119', '1399547741', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('77', 'oDsx8jnqVtsLOcyLnB-4xNMX_gdQ', '周宏，13998880263', '1399548244', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('78', 'oDsx8jv8mznRbXgEtS0WLAlPG2RQ', '大学生那个小龙虾的微信号是多少呀？', '1399548311', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('79', 'oDsx8jkcFKX417GgOFqyLy81l6_A', '李鹤 13940466753', '1399548440', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('80', 'oDsx8jv8mznRbXgEtS0WLAlPG2RQ', '小龙虾', '1399548534', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('81', 'oDsx8jjHYEDX-eUaxFaWkevkzauI', '王伟楠+13897914667', '1399548683', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('82', 'oDsx8jkEpcm1PqYxczy91GH3_XsM', '浩皓15841490423', '1399548809', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('83', 'oDsx8jmtkwv3diZlMJHT2xfcONJw', '13614992912', '1399549702', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('84', 'oDsx8jmtkwv3diZlMJHT2xfcONJw', '兰威', '1399549715', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('85', 'oDsx8jr_Sa9kefopybrN8BBMVfSA', '麻欢15998367693', '1399550213', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('86', 'oDsx8jrUWCJyg1w7ZcaDzSRoT4Ls', '李焱15640021309', '1399550502', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('87', 'oDsx8jl5wPE9Vzd2GL5rD8YqHS3c', '成怀强 13304056809', '1399550700', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('88', 'oDsx8joUNfJSjNwRGxxGSZ1aog1w', '饭店', '1399550867', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('89', 'oDsx8jkaeOly1Olj06qWkSNS8mE8', '李晨旭 18602407478', '1399551041', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('90', 'oDsx8jmpruL6ZEyJty5jYlz1KrmY', '冷雪莹 13238844745', '1399551159', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('91', 'oDsx8jhpy5eYGqc3CPPQ2DOzXl2U', ' 赵慧彬15140092077', '1399551186', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('92', 'oDsx8jsJ9OFuCL43WS_9N5HtKvsI', '杨旭15840172911', '1399551298', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('93', 'oDsx8jm58VBsvWwtasMUfb_1N3Wg', '李城佑\n15640507096', '1399552044', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('94', 'oDsx8ju3kgkZ69borgb6CpAywmh0', '郑阳 13998818026', '1399552250', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('95', 'oDsx8ju0dv5PotW2i4cXB7VnrpTA', '刘海波13386855955', '1399552461', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('96', 'oDsx8jlxOeQqA710GqRCDmUa9FDc', '张岩，15040045522', '1399552868', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('97', 'oDsx8juHWmQCp4EXtjOWPUfK7T1M', '李泓泠+15802461797', '1399553145', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('98', 'oDsx8juwe3fvZR7yVaDyPUMioqH4', '13082435737', '1399553270', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('99', 'oDsx8jkiliUdB9XiOjJa1qGDMmsA', '胡家浩13352413623', '1399553399', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('100', 'oDsx8jtdp5NKDWgZF3HSqxir10qw', '孙越 18940166896', '1399554170', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('101', 'oDsx8jml9ef1Go97Q8mc-3kFYQEc', '李晓婷，手机号13998179880', '1399554195', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('102', 'oDsx8jnjAirULeQrkeO2QSf-NSUA', '金娜 15104015745', '1399554205', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('103', 'oDsx8joxSg5vjvqRQJyTuFHe0Y6g', '胡传喜13889287516', '1399554280', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('104', 'oDsx8jsmyPA9UO5W95r2kjk2-7Xo', '牛晶淼13332425088', '1399554291', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('105', 'oDsx8jny7wZwzZuYm5q8cOI7O64Q', '王茜   1384090801', '1399554440', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('106', 'oDsx8jny7wZwzZuYm5q8cOI7O64Q', '王茜13840490801', '1399554460', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('107', 'oDsx8jvB-UygQKPpNqs8wSuE0pZw', '郑艺雯\n13940066260', '1399554628', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('108', 'oDsx8jrhvP4rj7EUTkA_YUcmldOU', '张平  13898837071 谢谢', '1399555096', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('109', 'oDsx8jlsYZS3hRHP2fVh_obiZkDU', '王宁，13840319278', '1399555629', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('110', 'oDsx8jpK8LSbPw3r_UAG8HRZs73E', '马晓明 15998148060', '1399556017', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('111', 'oDsx8jgpPLBiIsws-P2DNNIGYYDY', '毛祥国 18624025245', '1399556714', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('112', 'oDsx8jlt1v-QwzYFbVpfHxm6SiFQ', '袁士军 15009884781', '1399556771', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('113', 'oDsx8jqmev989Wd8z4HEJVoYaTEM', '林芳 13604210426', '1399557885', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('114', 'oDsx8jtprUJ2EfqkAsip4aj79tMA', '王蕾      18604042497', '1399558173', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('115', 'oDsx8jnCAcO9j-EHROxFtqgdw6Vo', '陈飞13909882973', '1399559685', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('116', 'oDsx8jrpCCFC2jZmKwHB0znPCuuw', '赵楠13940128193', '1399560088', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('117', 'oDsx8jmCrBOH0fbcBsz_JQYHEMfg', '报名17号活动，聪聪，男，2013.7.8，13082497572，，不坐大巴', '1399560510', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('118', 'oDsx8jpADxTEgn6Qy9tWh-j6Y4hA', '参加17号活动，鑫鑫，男孩，生日2013.6，电话13840298129，坐大巴2大一小', '1399560816', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('119', 'oDsx8jkx-zdiVgINmoVcVWA2oy2Q', '顾婉宁\n18202404155', '1399560876', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('120', 'oDsx8jk3OLr5XTcASOlzPOw9KVyY', '小编，问下，chinajoy的地点是在保工街南九路76号的工人文化宫吗？不是开发区里的吧？也不是太原街的那个？', '1399561502', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('121', 'oDsx8jk3OLr5XTcASOlzPOw9KVyY', '谢谢，小编，打扰了', '1399561517', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('122', 'oDsx8jnEcGezUBYGN5_r60JOvs_w', '王强18624021757', '1399562478', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('123', 'oDsx8jqSxTU1LAVC41ufNLkX5U78', '贾岩13591449995', '1399564366', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('124', 'oDsx8jqSxTU1LAVC41ufNLkX5U78', '贾岩13591449995', '1399564371', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('125', 'oDsx8juIhUqtOrRGiQV2JFxGUDec', '张立蕊18809883176', '1399564436', '2014-05-08', '');
+INSERT INTO `lfy_user_message` VALUES ('126', 'oDsx8jthFSlFX8GSYKTpc2I4KHgE', '陈曦13840124846', '1399565387', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('127', 'oDsx8jhE3ksyKZBTPPDuoAGXZIEk', '刘德新  15942007383', '1399565940', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('128', 'oDsx8jksdhBplxZjbhgx9_iIAQJ4', '喻子洋 13998841127', '1399573580', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('129', 'oDsx8jhMqnHqbkbwrz3dl8XpEnrE', '代强13998851714', '1399582764', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('130', 'oDsx8jrIJYVP5YGDCl2-G590gs-4', '王竹   13898807209', '1399589476', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('131', 'oDsx8jtF7sd5KuPcNwrIZYoA7s8E', '陈晓东：18604935911', '1399590122', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('132', 'oDsx8juRV7Vu8nNpOsBtLmZhpIEI', '程飞15304017357', '1399590710', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('133', 'oDsx8jnIkzLlKkETeinPQGAY2p1U', '南方   15998386855', '1399591222', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('134', 'oDsx8jsP1DT99SDVpmIDd3119qrI', '张晓薇     13940335250', '1399593829', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('135', 'oDsx8juUCZgqxHHDOv2Y_u8Ga4fM', '赵明阳 15542284989', '1399594186', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('137', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595470', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('138', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595476', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('139', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595486', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('140', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595489', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('141', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595493', '2014-05-09', '');
+INSERT INTO `lfy_user_message` VALUES ('142', 'oDsx8jnF8NnXQlzsWGGrTPyB3BPE', '韩惠宇+13940463909', '1399595497', '2014-05-09', '');
 
 -- ----------------------------
 -- Table structure for lfy_weixin_menu
