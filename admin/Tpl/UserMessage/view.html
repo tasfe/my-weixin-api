@@ -49,7 +49,15 @@
                                 </div>
                                 <!--右侧字段区域start-->
                                 <div class="span12" style="margin-top:10px;">
-                                    用户会话信息<p /><p />
+                                    <p>微信ID：{$list.0.wx_name}</p>
+                                    <p>最后活动时间：{:time_format(time()-$list[0]['create_time'])}</p>
+                                    <p>最后活动48小时内可回复消息给用户</p>
+                                    <b>用户会话信息</b><p /><p />
+                                    <p>
+                                        <textarea style="width:400px;height: 50px;" id="reply_content"></textarea>
+                                        <input type="hidden" name="wx_name" id="wx_name" value="{$list.0.wx_name}" />
+                                    </p>
+                                    <p><input type="button" value="回 复" name="reply_btn" id="reply_btn" /></p>
                                     <foreach name="list" item="vo">
                                         接收时间：{:get_date_full($vo['create_time'])}<p />
                                         接收内容：{$vo.content}
@@ -71,7 +79,41 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="__PUBLIC__/js/add_none_editor.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#reply_btn').click(function() {
+            var wx_name=$("#wx_name").val();
+            var content=$("#reply_content").val();
+            $.ajax({
+                type: "POST", //请求方式
+                url: app_url+"/user_message/reply_action",
+                data: {wx_name:wx_name,content:content},
+                dataType: 'json', //返回数据类型
+                cache: false, //是否缓存
+                timeout: 10000, //超时时间
+                success: function(data) {
+                    success_callback(data);
+                },
+                error: function() {
+                    //错误信息
+                }
+            });
+        });
+        
+        /**
+         * 成功返回处理
+         * @returns {undefined}
+         */
+        function success_callback(data){
+            if(data.errcode==0){
+                alert("消息发送成功！");
+                $("reply_content").val('');
+            }else{
+                alert("消息发送失败：错误代码："+data.errcode+"，错误信息："+data.errmsg);
+            }
+        }
+    });
+</script>
 </body>
 </html>
 
