@@ -125,7 +125,7 @@ class WeixinMenuAction extends CommonAction {
 
         //获取微信服务器访问授权密钥
         $weixin_access_token = get_weixin_access_token();
-        $return_code = $this->https_post_data($this->api_url . 'create?access_token=' . $weixin_access_token, $json_data);
+        $return_code = https_post_data($this->api_url . 'create?access_token=' . $weixin_access_token, $json_data);
         $json_decode_data = json_decode($return_code[1], true);
 //        dump($json_decode_data);
         //成功返回{"errcode":0,"errmsg":"ok"}
@@ -153,34 +153,6 @@ class WeixinMenuAction extends CommonAction {
         }
         return $data;
     }
-
-    /**
-     * 
-     * @param String $url 链接地址
-     * @param String $data_string 需要提交到远程的JSON字符串
-     * @return array list($return_code, $return_content) 返回码，返回内容
-     */
-    private function https_post_data($url, $data_string = '', $timeout = 10) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json; charset=utf-8',
-            'Content-Length: ' . strlen($data_string))
-        );
-        ob_start();
-        curl_exec($ch);
-        $return_content = ob_get_contents();
-        ob_end_clean();
-
-        $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        return array($return_code, $return_content);
-    }
-
 }
 
 ?>

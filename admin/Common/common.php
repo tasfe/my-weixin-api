@@ -306,4 +306,40 @@ function get_main_str($data,$type="Zhiling") {
     }
 }
 
+
+/**
+ * 
+ * @param String $url 链接地址
+ * @param String $data_string 需要提交到远程的JSON字符串
+ *         注意：提交到腾讯的数据需要
+ * $weixin_access_token = get_weixin_access_token();
+ * $json_data=urldecode(json_encode(array("button" => $menu_data)));
+ * https_post_data($this->api_url . 'create?access_token=' . $weixin_access_token, $json_data);
+ * $json_decode_data = json_decode($return_code[1], true);
+  //成功返回{"errcode":0,"errmsg":"ok"}
+  //失败返回{"errcode":40018,"errmsg":"invalid button name size"}
+  //具体错误码详见腾讯微信公众平台官方文档http://mp.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E6%8E%A5%E5%8F%A3
+ * @return array list($return_code, $return_content) 返回码，返回内容
+ */
+function https_post_data($url, $data_string = '', $timeout = 10) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json; charset=utf-8',
+            'Content-Length: ' . strlen($data_string))
+        );
+        ob_start();
+        curl_exec($ch);
+        $return_content = ob_get_contents();
+        ob_end_clean();
+
+        $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        return array($return_code, $return_content);
+    }
+
 ?>
