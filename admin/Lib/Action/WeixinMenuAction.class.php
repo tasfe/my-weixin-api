@@ -6,8 +6,6 @@
  * @author <zibin_5257@163.com>lanfengye
  */
 class WeixinMenuAction extends CommonAction {
-
-    private $api_url = 'https://api.weixin.qq.com/cgi-bin/menu/'; //微信服务器接口基础地址
     
     function _initialize() {
         parent::_initialize();
@@ -59,7 +57,7 @@ class WeixinMenuAction extends CommonAction {
         if ($this->isAjax()) {
             //获取微信服务器访问授权密钥
             $weixin_access_token = get_weixin_access_token();
-            $return = https_request($this->api_url . 'delete' . '?access_token=' . $weixin_access_token);
+            $return = https_request($this->api_url . 'menu/delete' . '?access_token=' . $weixin_access_token);
             $this->ajaxReturn(json_decode($return, true));
         } else {
             header("Content-Type: text/html; charset=UTF-8");
@@ -83,7 +81,7 @@ class WeixinMenuAction extends CommonAction {
     public function get_weixin_server_menu() {
         //获取微信服务器访问授权密钥
         $weixin_access_token = get_weixin_access_token();
-        $return = https_request($this->api_url . 'get' . '?access_token=' . $weixin_access_token);
+        $return = https_request($this->api_url . 'menu/get' . '?access_token=' . $weixin_access_token);
 
         $return_array = json_decode($return, true);
 
@@ -125,7 +123,7 @@ class WeixinMenuAction extends CommonAction {
 
         //获取微信服务器访问授权密钥
         $weixin_access_token = get_weixin_access_token();
-        $return_code = https_post_data($this->api_url . 'create?access_token=' . $weixin_access_token, $json_data);
+        $return_code = https_post_data($this->api_url . 'menu/create?access_token=' . $weixin_access_token, $json_data);
         $json_decode_data = json_decode($return_code[1], true);
 //        dump($json_decode_data);
         //成功返回{"errcode":0,"errmsg":"ok"}
