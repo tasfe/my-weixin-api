@@ -6,6 +6,8 @@
  * @author <zibin_5257@163.com>lanfengye
  */
 class CommonAction extends Action {
+    
+    protected $api_url = 'https://api.weixin.qq.com/cgi-bin/'; //微信服务器接口基础地址
 
     //控制器初始化
     function _initialize() {
