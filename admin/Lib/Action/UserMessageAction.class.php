@@ -40,5 +40,26 @@ class UserMessageAction extends CommonAction {
         $this->list=$list;
         $this->display();
     }
+    
+    /**
+     * 回复消息给用户
+     * 注意 必须产生交互48小时内
+     */
+    public function reply_action(){
+        $wx_name=$_POST['wx_name'];
+        $content=$_POST['content'];
+        $data=array(
+            "touser"=>$wx_name,
+            "msgtype"=>"text",
+            "text"=>array(
+                "content"=>"content"
+            )
+        );
+        $weixin_access_token = get_weixin_access_token();
+        $json_data=urldecode(json_encode($data));
+        $return_code=https_post_data($this->api_url . 'message/custom/send?access_token=' . $weixin_access_token, $json_data);
+        $json_decode_data = json_decode($return_code[1], true);
+        $this->ajaxReturn($json_decode_data);
+    }
 
 }
